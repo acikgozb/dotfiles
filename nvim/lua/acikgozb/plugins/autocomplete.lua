@@ -41,6 +41,18 @@ return {
 					{ name = "luasnip" },
 					{ name = "buffer" },
 				}),
+				formatting = {
+					format = function(entry, vim_item)
+						vim_item.menu = ({
+							buffer = "[Buffer]",
+							path = "[Path]",
+							nvim_lsp = "[nvim_lsp]",
+							luasnip = "[Snippet]",
+							["vim-dadbod-completion"] = "[DB]",
+						})[entry.source.name]
+						return vim_item
+					end,
+				},
 			})
 		end,
 	},
