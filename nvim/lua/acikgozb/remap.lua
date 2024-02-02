@@ -26,3 +26,12 @@ vim.keymap.set("n", "<leader>Y", '"+Y')
 
 -- do not use Q in normal mode
 vim.keymap.set("n", "Q", "<nop>")
+
+-- vim settings
+vim.opt.nu = true
+vim.opt.relativenumber = true
+
+vim.opt.hlsearch = false
+vim.opt.incsearch = true
+
+vim.opt.scrolloff = 10

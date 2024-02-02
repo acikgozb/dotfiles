@@ -32,6 +32,7 @@ return {
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 			lspconfig.lua_ls.setup({})
+
 			lspconfig.gopls.setup({
 				capabilities = capabilities,
 				cmd = { "gopls" },
@@ -45,6 +46,32 @@ return {
 							unusedparams = true,
 						},
 						staticcheck = true,
+					},
+				},
+			})
+
+			lspconfig.tsserver.setup({
+				settings = {
+					typescript = {
+						format = {
+							enable = true,
+							insertSpaceAfterConstructor = true,
+							semicolons = true,
+						},
+						inlayHints = {
+							enumMemberValues = true,
+							functionLikeReturnTypes = true,
+							parameterNames = {
+								enabled = "all",
+								suppressWhenArgumentMatchesName = false,
+							},
+							parameterTypes = {
+								enabled = true,
+							},
+						},
+						suggest = {
+							completeFunctionCalls = true,
+						},
 					},
 				},
 			})
