@@ -35,3 +35,12 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 vim.opt.scrolloff = 10
+
+-- default tab indentation settings
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
+vim.o.softtabstop = 4
+
+-- disable swap files completely
+vim.opt.swapfile = false
