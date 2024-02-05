@@ -5,8 +5,3 @@ disabled = true
 
 [golang]
 disabled = true
-
-[time]
-disabled = false
-format = '[\[ $time \]]($style) '
-utc_time_offset = 'local'
