@@ -18,7 +18,6 @@ return {
 					"html",
 					"dockerls",
 					"docker_compose_language_service",
-					"omnisharp",
 					"bashls",
 				},
 			})
@@ -26,15 +25,36 @@ return {
 	},
 	{
 		"neovim/nvim-lspconfig",
+		dependencies = "jmederosalvarado/roslyn.nvim",
 		config = function()
 			local lspconfig = require("lspconfig")
 			local util = require("lspconfig/util")
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local csharpLsp = require("roslyn")
 
-			lspconfig.lua_ls.setup({})
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local onAttach = function(ev)
+				-- Buffer local mappings.
+				-- See `:help vim.lsp.*` for documentation on any of the below functions
+				local opts = { buffer = ev.buf }
+				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+				vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+				vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+				vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+				vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
+				vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
+				vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
+				vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, opts)
+			end
+
+			lspconfig.lua_ls.setup({
+				capabilities = capabilities,
+				on_attach = onAttach,
+			})
 
 			lspconfig.gopls.setup({
 				capabilities = capabilities,
+				on_attach = onAttach,
 				cmd = { "gopls" },
 				filetypes = { "go", "gomod", "gowork", "gotmpl" },
 				root_dir = util.root_pattern("go.work", "go.mod", ".git"),
@@ -51,6 +71,8 @@ return {
 			})
 
 			lspconfig.tsserver.setup({
+				capabilities = capabilities,
+				on_attach = onAttach,
 				settings = {
 					typescript = {
 						format = {
@@ -76,26 +98,23 @@ return {
 				},
 			})
 
-			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-				callback = function(ev)
-					-- Enable completion triggered by <c-x><c-o>
-					vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-					-- Buffer local mappings.
-					-- See `:help vim.lsp.*` for documentation on any of the below functions
-					local opts = { buffer = ev.buf }
-					vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-					vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-					vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-					vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
-					vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
-					vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
-					vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, opts)
-				end,
+			csharpLsp.setup({
+				dotnet_cmd = "dotnet",
+				roslyn_version = "4.9.0-3.23604.10",
+				capabilities = capabilities,
+				on_attach = onAttach,
 			})
+
+			-- vim.api.nvim_create_autocmd("LspAttach", {
+			--     group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+			--     callback = function(event)
+			--         -- Enable completion triggered by <c-x><c-o>
+			--         vim.bo[event.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+			--
+			--         print("hello on attach")
+			--         onAttach(event)
+			--     end,
+			-- })
 		end,
 	},
 }

@@ -7,6 +7,7 @@ return {
 		configs.setup({
 			ensure_installed = {
 				"c",
+				"c_sharp",
 				"lua",
 				"vim",
 				"javascript",
