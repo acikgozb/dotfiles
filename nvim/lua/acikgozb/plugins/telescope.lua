@@ -11,7 +11,14 @@ return {
 			vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 			vim.keymap.set("n", "<leader>fsg", builtin.grep_string, {})
 
+			telescope.setup({
+				diff_plugin = "fugitive",
+				show_builtin_git_pickers = false,
+				entry_default_author_or_date = "author",
+			})
+
 			telescope.load_extension("fzf")
+			telescope.load_extension("advanced_git_search")
 		end,
 	},
 	{
