@@ -9,7 +9,6 @@ return {
 			lsp = {
 				override = {
 					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-					["vim.lsp.util.stylize"] = true,
 					["cmp.entry.get_documentation"] = true,
 				},
 			},
@@ -21,6 +20,9 @@ return {
 				enabled = false,
 			},
 			popupmenu = {
+				enabled = false,
+			},
+			notify = {
 				enabled = false,
 			},
 		})
