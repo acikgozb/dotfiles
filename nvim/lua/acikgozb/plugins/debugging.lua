@@ -41,10 +41,17 @@ end
 
 return {
 	"mfussenegger/nvim-dap",
-	dependencies = { "rcarriga/nvim-dap-ui", "leoluz/nvim-dap-go" },
+	dependencies = {
+		-- "rcarriga/nvim-dap-ui",
+		"leoluz/nvim-dap-go",
+		"theHamsta/nvim-dap-virtual-text",
+	},
 	config = function()
 		local dap = require("dap")
-		local dap_ui = require("dapui")
+		local dap_virtual_text = require("nvim-dap-virtual-text")
+
+		-- local dap_ui = require("dapui")
+		local dap_go = require("dap-go")
 
 		-- Create a debugging adapter for C#
 		local home_path = os.getenv("HOME")
@@ -69,30 +76,47 @@ return {
 			},
 		}
 
-		dap_ui.setup()
-		require("dap-go").setup()
+		-- dap_ui.setup()
+		dap_virtual_text.setup({
+			virt_text_pos = "eol",
+		})
+		dap_go.setup()
 
-		dap.listeners.before.attach.dapui_config = function()
-			dap_ui.open()
-		end
-
-		dap.listeners.before.launch.dapui_config = function()
-			dap_ui.open()
-		end
-
-		dap.listeners.before.event_terminated.dapui_config = function()
-			dap_ui.close()
-		end
-
-		dap.listeners.before.event_exited.dapui_config = function()
-			dap_ui.close()
-		end
+		-- dap.listeners.before.attach.dapui_config = function()
+		-- 	dap_ui.open()
+		-- end
+		--
+		-- dap.listeners.before.launch.dapui_config = function()
+		-- 	dap_ui.open()
+		-- end
+		--
+		-- dap.listeners.before.event_terminated.dapui_config = function()
+		-- 	dap_ui.close()
+		-- end
+		--
+		-- dap.listeners.before.event_exited.dapui_config = function()
+		-- 	dap_ui.close()
+		-- end
 
 		vim.keymap.set("n", "<Leader>dt", dap.toggle_breakpoint, {})
+		vim.keymap.set("n", "<Leader>dta", dap.clear_breakpoints, {})
 		vim.keymap.set("n", "<Leader>dc", dap.continue, {})
 		vim.keymap.set("n", "<Leader>de", dap.terminate, {})
 		vim.keymap.set("n", "<Leader>dsi", dap.step_into, {})
 		vim.keymap.set("n", "<Leader>dso", dap.step_over, {})
 		vim.keymap.set("n", "<Leader>dse", dap.step_out, {})
+		vim.keymap.set("n", "<Leader>dgl", dap.goto_, {}) -- Let the debugger jump to the line under the cursor.
+		vim.keymap.set("n", "<Leader>drt", dap.repl.toggle, {})
+		vim.keymap.set("n", "<Leader>dgt", dap_go.debug_test, {})
+		vim.keymap.set("n", "<Leader>duw", function()
+			local widgets = require("dap.ui.widgets")
+			widgets.centered_float(widgets.scopes)
+		end, {})
+		vim.keymap.set("n", "<Leader>duh", require("dap.ui.widgets").hover, {})
+		vim.keymap.set("n", "<Leader>dgt", dap_go.debug_test, {})
+
+		-- dap ui keymaps, might delete these if UI is not necessary
+		-- vim.keymap.set("n", "<Leader>duo", dap_ui.open, {})
+		-- vim.keymap.set("n", "<Leader>duc", dap_ui.close, {})
 	end,
 }
