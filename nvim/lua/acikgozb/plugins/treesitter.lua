@@ -21,6 +21,7 @@ return {
 				"proto",
 				"sql",
 				"vimdoc",
+				"yaml",
 			},
 			sync_install = false,
 			highlight = { enable = true },
