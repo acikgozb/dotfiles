@@ -22,6 +22,8 @@ return {
 				"sql",
 				"vimdoc",
 				"yaml",
+				"html",
+				"json",
 			},
 			sync_install = false,
 			highlight = { enable = true },
