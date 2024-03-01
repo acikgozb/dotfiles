@@ -161,6 +161,7 @@ return {
 					keywords = "bold",
 					types = "italic, bold",
 				},
+				transparent = true,
 			},
 		})
 
