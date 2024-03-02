@@ -11,7 +11,7 @@ return {
 				json = { { "eslint_d", "prettierd", "prettier" } },
 				html = { { "eslint_d", "prettierd", "prettier" } },
 				markdown = { { "prettierd", "prettier" } },
-				go = { "golines", "gofumpt", "goimports" },
+				go = { "gofumpt", "goimports" },
 				csharp = { "csharpier" },
 				sh = { "beautysh" },
 			},
