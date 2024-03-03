@@ -1,0 +1,30 @@
+# Disclaimer: The VRC plugin is intended to be used instead of Postman only.
+# I only use Postman as a basic curl tool, I do not use its collections or any other advanced features.
+# If Swagger is configured for your project, better keep that one as up-to-date as possible instead of relying to VRC locally.
+
+# The block between host and body can be repeat as many times as you want.
+
+# host
+# http[s]://domain:port
+
+# curl options
+# --silent
+# include response headers
+--include
+# to ignore SSL when working with localhost
+# --insecure
+
+# headers: key-value
+# Accept: application/json
+# Connection: keep-alive
+# Content-Type: application/json; charset=utf-8
+# User-Agent: VRC
+
+# query
+# GET /anything
+
+# body - not used for GET requests
+# {
+#     "key": "value"
+# }
+
