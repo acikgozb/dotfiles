@@ -16,9 +16,12 @@ return {
 			vim.keymap.set("n", "<leader>fsg", builtin.grep_string, {})
 
 			telescope.setup({
-				diff_plugin = "fugitive",
-				show_builtin_git_pickers = false,
-				entry_default_author_or_date = "author",
+				extensions = {
+					advanced_git_search = {
+						diff_plugin = "fugitive",
+						git_flags = { "-c", "delta.side-by-side=false" },
+					},
+				},
 			})
 
 			telescope.load_extension("fzf")
