@@ -19,6 +19,9 @@ return {
 					"dockerls",
 					"docker_compose_language_service",
 					"bashls",
+					"jq",
+					"beautysh",
+					"yamlls",
 				},
 			})
 		end,
@@ -119,6 +122,38 @@ return {
 				},
 			})
 
+			lspconfig.bashls.setup({
+				capabilities = capabilities,
+				on_attach = onAttach,
+			})
+
+			lspconfig.docker_compose_language_service.setup({
+				capabilities = capabilities,
+				on_attach = onAttach,
+			})
+
+			lspconfig.dockerls.setup({
+				capabilities = capabilities,
+				on_attach = onAttach,
+			})
+
+			lspconfig.yamlls.setup({
+				on_attach = onAttach,
+				capabilities = capabilities,
+				settings = {
+					yaml = {
+						schemas = {
+							["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+						},
+					},
+				},
+			})
+
+			lspconfig.jsonls.setup({
+				on_attach = onAttach,
+				capabilities = capabilities,
+			})
+
 			csharpLsp.setup({
 				dotnet_cmd = "dotnet",
 				roslyn_version = "4.9.0-3.23604.10",
@@ -127,4 +162,10 @@ return {
 			})
 		end,
 	},
+	-- {
+	-- 	dir = "~/personal-projects/nvim-plugins/csharp.nvim",
+	-- 	config = function()
+	-- 		require("csharp").setup()
+	-- 	end,
+	-- },
 }
