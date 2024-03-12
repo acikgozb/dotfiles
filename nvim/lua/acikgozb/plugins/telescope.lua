@@ -15,6 +15,8 @@ return {
 			end, {})
 			vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
 			vim.keymap.set("n", "<leader>fsg", builtin.grep_string, {})
+			vim.keymap.set("n", "<leader>fo", builtin.oldfiles, {})
+			vim.keymap.set("n", "<leader>fbs", builtin.current_buffer_fuzzy_find, {})
 
 			telescope.setup({
 				extensions = {
