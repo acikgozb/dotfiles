@@ -44,3 +44,6 @@ vim.o.softtabstop = 4
 
 -- disable swap files completely
 vim.opt.swapfile = false
+
+-- sync nvim shell with system shell
+vim.opt.shell = os.getenv("SHELL")
