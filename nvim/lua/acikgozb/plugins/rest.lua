@@ -1,3 +1,12 @@
+local gen_rest_template = function(buffer_path)
+	local cmd_path = os.getenv("ZSH_PLUGIN_PATH") .. "/placeholder/placeholder.sh"
+
+	vim.system({ cmd_path, "prest", buffer_path }):wait()
+	vim.cmd("e!")
+
+	print("the placeholder is generated for the file: " .. buffer_path)
+end
+
 return {
 	"diepm/vim-rest-console",
 	config = function()
@@ -14,5 +23,18 @@ return {
 
 		-- Custom keymap to run REST query under the cursor
 		vim.keymap.set("n", "<leader>xr", ":call VrcQuery()<CR>")
+
+		-- Add template generation via filetype .rest
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = { "rest" },
+			callback = function()
+				vim.schedule(function()
+					vim.keymap.set("n", "<leader>gp", function()
+						local buffer_path = vim.api.nvim_buf_get_name(0)
+						gen_rest_template(buffer_path)
+					end, { buffer = true })
+				end)
+			end,
+		})
 	end,
 }
