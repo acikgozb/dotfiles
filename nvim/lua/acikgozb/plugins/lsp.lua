@@ -19,8 +19,6 @@ return {
 					"dockerls",
 					"docker_compose_language_service",
 					"bashls",
-					"jq",
-					"beautysh",
 					"yamlls",
 				},
 			})
@@ -150,6 +148,11 @@ return {
 			})
 
 			lspconfig.jsonls.setup({
+				on_attach = onAttach,
+				capabilities = capabilities,
+			})
+
+			lspconfig.marksman.setup({
 				on_attach = onAttach,
 				capabilities = capabilities,
 			})
