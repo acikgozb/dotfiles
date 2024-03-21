@@ -16,6 +16,9 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
+-- always keep the cursor in middle while scrolling all the way down the text
+vim.keymap.set("n", "G", "Gzzzv")
+
 -- when putting a copied text into a highlighted text, do not replace copy buffer with highlighted
 vim.keymap.set("x", "<leader>p", '"_dP')
 
