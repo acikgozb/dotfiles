@@ -61,6 +61,7 @@ return {
 				root_dir = util.root_pattern("go.work", "go.mod", ".git"),
 				settings = {
 					gopls = {
+						format = true,
 						completeUnimported = true,
 						usePlaceholders = true,
 						analyses = {

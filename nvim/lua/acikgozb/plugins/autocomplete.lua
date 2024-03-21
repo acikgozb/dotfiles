@@ -48,7 +48,6 @@ return {
 							path = "[Path]",
 							nvim_lsp = "[nvim_lsp]",
 							luasnip = "[Snippet]",
-							["vim-dadbod-completion"] = "[DB]",
 						})[entry.source.name]
 						return vim_item
 					end,
