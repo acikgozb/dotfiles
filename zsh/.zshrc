@@ -25,3 +25,4 @@ source $XDG_CONFIG_HOME/zsh/secrets/env.sh
 source $XDG_CONFIG_HOME/zsh/plugins/placeholder/placeholder.sh
 
 alias fzfw="$XDG_CONFIG_HOME/zsh/plugins/fzf/tmux-window.sh"
+alias ls="ls -l"
