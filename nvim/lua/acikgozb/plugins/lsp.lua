@@ -164,6 +164,21 @@ return {
 				capabilities = capabilities,
 				on_attach = onAttach,
 			})
+
+			lspconfig.ansiblels.setup({
+				on_attach = onAttach,
+				capabilities = capabilities,
+				settings = {
+					ansible = {
+						ansible = {
+							useFullyQualifiedCollectionNames = true,
+						},
+						ansibleLint = {
+							enabled = true,
+						},
+					},
+				},
+			})
 		end,
 	},
 }
