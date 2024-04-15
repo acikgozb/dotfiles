@@ -24,6 +24,8 @@ return {
 				"yaml",
 				"html",
 				"json",
+				"markdown",
+				"bash",
 			},
 			sync_install = false,
 			highlight = { enable = true },
