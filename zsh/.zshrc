@@ -18,11 +18,6 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 # Enable secret variables, normally used for org specific needs or things like DB connections for nvim plugins and such.
 source $XDG_CONFIG_HOME/zsh/secrets/env.sh
-# Enable placeholder helper.
-# TODO: Find a way to either source or autoload all plugins under ZSH_PLUGIN_PATH.
-# TODO: Each plugin should have exec permissions, find a way to enable them automatically.
-# TODO: Use another file for aliases and functions.
-source $XDG_CONFIG_HOME/zsh/plugins/placeholder/placeholder.sh
-
+# Add aliases.
 alias fzfw="$XDG_CONFIG_HOME/zsh/plugins/fzf/tmux-window.sh"
 alias ls="ls -l"
