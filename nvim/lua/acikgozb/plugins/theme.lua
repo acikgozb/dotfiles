@@ -150,21 +150,38 @@ return {
 	-- 	vim.opt.background = "dark"
 	-- 	vim.cmd("colorscheme caret")
 	-- end,
-	"projekt0n/github-nvim-theme",
+	-- "projekt0n/github-nvim-theme",
+	-- lazy = false,
+	-- priority = 1000, --load this plugin in a higher priority
+	-- config = function()
+	-- 	local themePalette = require("github-theme.palette").load("github_dark_tritanopia")
+	-- 	require("github-theme").setup({
+	-- 		options = {
+	-- 			styles = {
+	-- 				comments = "italic",
+	-- 				keywords = "bold",
+	-- 				types = "italic, bold",
+	-- 			},
+	-- 			transparent = true,
+	-- 		},
+	-- 		groups = {
+	-- 			github_dark_tritanopia = {},
+	-- 		},
+	-- 	})
+	--
+	-- 	vim.cmd("colorscheme github_dark_tritanopia")
+	-- end,
+	-- "thallada/farout.nvim",
+	-- lazy = false,
+	-- priority = 1000,
+	-- config = function()
+	-- 	vim.cmd("colorscheme farout")
+	-- end,
+	-- opts = {},
+	"water-sucks/darkrose.nvim",
 	lazy = false,
-	priority = 1000, --load this plugin in a higher priority
+	priority = 1000,
 	config = function()
-		require("github-theme").setup({
-			options = {
-				styles = {
-					comments = "italic",
-					keywords = "bold",
-					types = "italic, bold",
-				},
-				transparent = true,
-			},
-		})
-
-		vim.cmd("colorscheme github_dark_tritanopia")
+		vim.cmd("colorscheme darkrose")
 	end,
 }
