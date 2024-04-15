@@ -166,10 +166,4 @@ return {
 			})
 		end,
 	},
-	-- {
-	-- 	dir = "~/personal-projects/nvim-plugins/csharp.nvim",
-	-- 	config = function()
-	-- 		require("csharp").setup()
-	-- 	end,
-	-- },
 }
