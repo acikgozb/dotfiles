@@ -26,6 +26,7 @@ return {
 				"json",
 				"markdown",
 				"bash",
+				"ruby",
 			},
 			sync_install = false,
 			highlight = { enable = true },
