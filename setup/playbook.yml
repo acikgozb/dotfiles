@@ -1,0 +1,24 @@
+- name: Setup dotfiles
+  hosts: all
+  become: true
+  gather_facts: true
+  # vars_files:
+  #   - path/to/your/vars/file
+  pre_tasks:
+    - name: Update the package manager cache.
+      import_tasks: ./pre-tasks/main.yml
+  # roles:
+  #   - add.your.imported.roles.here
+  tasks:
+    - name: Check the time
+      ansible.builtin.shell: date
+      register: result
+      changed_when: result.stdout is defined
+    - name: Debug time result
+      debug:
+        var: result
+  # handlers:
+  #   - name: Restart service
+  #     ansible.builtin.service:
+  #       name: your-service-name
+  #       state: restarted

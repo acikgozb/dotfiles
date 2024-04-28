@@ -1,0 +1,12 @@
+- name: Update cache before installation (for MacOS)
+  community.general.homebrew:
+    update_homebrew: true
+    upgrade_all: true
+  become: false
+  when: ansible_os_family == "Darwin"
+- name: Update cache before installation (for Ubuntu)
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+  when: ansible_os_family == "Debian"
