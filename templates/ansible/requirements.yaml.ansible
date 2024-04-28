@@ -1,0 +1,4 @@
+roles:
+  - name: your-role-name
+collections:
+  - name: your-collection
