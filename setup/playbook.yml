@@ -5,10 +5,10 @@
   # vars_files:
   #   - path/to/your/vars/file
   pre_tasks:
-    - name: Update the package manager cache.
+    - name: Prepare the package managers before the installation.
       import_tasks: ./pre-tasks/main.yml
-  # roles:
-  #   - add.your.imported.roles.here
+  roles:
+    - acikgozb.kitty
   tasks:
     - name: Check the time
       ansible.builtin.shell: date

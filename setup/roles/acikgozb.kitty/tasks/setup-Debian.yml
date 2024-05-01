@@ -1,0 +1,63 @@
+- name: Install the font used by Kitty.
+  block:
+    - name: Prepare the font folder.
+      ansible.builtin.file:
+        path: /usr/share/fonts/ubuntu-mono-nerd-font
+        state: directory
+        mode: "0755"
+    - name: Download the UbuntuMono Nerd Font.
+      ansible.builtin.get_url:
+        url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/UbuntuMono.tar.xz
+        dest: /tmp
+    - name: Prepare the folder to extract the fonts.
+      ansible.builtin.file:
+        path: /tmp/UbuntuMono
+        state: directory
+        mode: "0755"
+    - name: Unarchive the download.
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: /tmp/UbuntuMono.tar.xz
+        dest: /tmp/UbuntuMono
+    - name: Move the font to the font folder.
+      ansible.builtin.command: >
+        bash -c 'mv /tmp/UbuntuMono/UbuntuMonoNerdFont*.ttf /usr/share/fonts/ubuntu-mono-nerd-font/'
+
+    - name: Cleanup the download and the old archive.
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /tmp/UbuntuMono
+        - /tmp/UbuntuMono.tar.xz
+    - name: Ensure fc-cache exists in the system.
+      ansible.builtin.apt:
+        name: fontconfig
+        state: present
+    - name: Reload the system fonts, to enable the installed font.
+      ansible.builtin.command: >
+        fc-cache -f -v
+
+      changed_when: false
+- name: Ensure the current user has a .local folder under $HOME.
+  ansible.builtin.file:
+    path: /home/{{ lookup('env', 'USER') }}/.local
+    state: directory
+    owner: "{{ lookup('env', 'USER') }}"
+    group: "{{ lookup('env', 'USER') }}"
+    mode: "0755"
+- name: Install Kitty
+  ansible.builtin.shell: >
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+
+  become_user: "{{ lookup('env', 'USER') }}"
+- name: Verify the Kitty installation.
+  block:
+    - name: Get info about Kitty binary.
+      ansible.builtin.stat:
+        path: /home/{{ lookup('env', 'USER') }}/.local/kitty.app
+      register: kitty_binary
+    - name: Ensure that Kitty binary exists
+      debug:
+        msg: Kitty has been installed successfully.
+      when: kitty_binary.stat.exists
