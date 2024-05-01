@@ -1,4 +1,9 @@
-- name: Install Homebrew (for MacOS)
-  shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  register: brew_install_result
-  changed_when: brew_install_result.stdout is defined
+- name: Get Homebrew stat.
+  ansible.builtin.stat:
+    path: /opt/homebrew
+  register: homebrew
+- name: Install Homebrew if it is not installed.
+  ansible.builtin.command: >
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  when: not homebrew.stat.exists
