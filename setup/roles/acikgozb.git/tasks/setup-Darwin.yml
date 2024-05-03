@@ -1,0 +1,8 @@
+- name: Install Lazygit, GH, and git-delta.
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - lazygit
+    - gh
+    - git-delta

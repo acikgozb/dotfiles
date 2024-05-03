@@ -9,6 +9,7 @@
       import_tasks: ./pre-tasks/main.yml
   roles:
     - acikgozb.kitty
+    - acikgozb.git
   tasks:
     - name: Check the time
       ansible.builtin.shell: date
