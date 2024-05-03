@@ -10,6 +10,7 @@
   roles:
     - acikgozb.kitty
     - acikgozb.git
+    - acikgozb.tmux
   tasks:
     - name: Check the time
       ansible.builtin.shell: date
