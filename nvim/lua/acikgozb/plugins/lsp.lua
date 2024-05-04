@@ -141,9 +141,20 @@ return {
 				capabilities = capabilities,
 				settings = {
 					yaml = {
-						schemas = {
-							["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+						completion = true,
+						validate = true,
+						hover = true,
+						format = {
+							enable = true,
+							bracketSpacing = true,
 						},
+						schemaStore = {
+							enable = true,
+							url = "https://www.schemastore.org/api/json/catalog.json",
+						},
+						-- schemas = {
+						-- 	["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+						-- },
 					},
 				},
 			})
@@ -177,6 +188,19 @@ return {
 							enabled = true,
 						},
 					},
+				},
+			})
+
+			vim.filetype.add({
+				pattern = {
+					-- Ansible file patterns, additional file patterns may be needed, based on the usage.
+					["requirements.ya?ml"] = "yaml.ansible",
+					["inventory.ya?ml"] = "yaml.ansible",
+					[".*/playbook.ya?ml"] = "yaml.ansible",
+					[".*/defaults/*.ya?ml"] = "yaml.ansible",
+					[".*/vars/*.ya?ml"] = "yaml.ansible",
+					[".*/tasks/*.ya?ml"] = "yaml.ansible",
+					[".*/local.ya?ml"] = "yaml.ansible",
 				},
 			})
 		end,
