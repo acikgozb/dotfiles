@@ -1,0 +1,5 @@
+# Installation
+neovim_linux_binary_name: "nvim-linux64"
+neovim_linux_x64_url: https://github.com/neovim/neovim/releases/download/nightly/{{ neovim_linux_binary_name }}.tar.gz
+neovim_macos_binary_name: "nvim-macos-arm64"
+neovim_macos_arm64_url: https://github.com/neovim/neovim/releases/download/nightly/{{ neovim_macos_binary_name }}.tar.gz

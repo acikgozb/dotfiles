@@ -1,0 +1,2 @@
+- name: Install based on host OS.
+  ansible.builtin.include_tasks: ./{{ ansible_os_family }}-install.yml

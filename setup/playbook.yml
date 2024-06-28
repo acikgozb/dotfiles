@@ -11,6 +11,7 @@
     - acikgozb.kitty
     - acikgozb.git
     - acikgozb.tmux
+    - acikgozb.nvim
   tasks:
     - name: Check the time
       ansible.builtin.shell: date
