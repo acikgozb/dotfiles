@@ -1,0 +1,5 @@
+- name: Install Golang.
+  # Unfortunately, on Darwin the recommended way to install Golang is through an installation wizard.
+  # Therefore, the language installation is only automated for non-Darwin distros for now.
+  ansible.builtin.include_tasks: ./golang/{{ ansible_os_family }}-install.yml
+  when: ansible_os_family != "Darwin"
