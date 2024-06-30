@@ -23,7 +23,6 @@ return {
 				"vimdoc",
 				"yaml",
 				"html",
-				"json",
 				"markdown",
 				"bash",
 				"ruby",
