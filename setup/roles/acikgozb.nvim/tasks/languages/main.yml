@@ -3,5 +3,9 @@
   # Therefore, the language installation is only automated for non-Darwin distros for now.
   ansible.builtin.include_tasks: ./golang/{{ ansible_os_family }}-install.yml
   when: ansible_os_family != "Darwin"
+
 - name: Install .NET.
   ansible.builtin.include_tasks: ./dotnet/{{ ansible_os_family }}-install.yml
+
+- name: Install JavaScript.
+  ansible.builtin.include_tasks: ./javascript/{{ ansible_os_family }}-install.yml

@@ -29,8 +29,8 @@
   block:
     - name: Get info about Golang version.
       ansible.builtin.shell:
-        cmd: go --version
-      result: go_version_out
+        cmd: /usr/local/go/bin/go version
+      register: go_version_out
 
     - name: Ensure that the version output exists.
       ansible.builtin.debug:
