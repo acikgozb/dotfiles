@@ -1,3 +1,4 @@
+# TODO: acikgozb: Add amd64 counterparts for the binaries.
 # Lazygit
 lazygit_version: 0.41.0
 lazygit_linux_arm64_binary_url: https://github.com/jesseduffield/lazygit/releases/download/v{{ lazygit_version }}/lazygit_{{ lazygit_version }}_Linux_arm64.tar.gz

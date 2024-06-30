@@ -1,19 +1,23 @@
 - name: Install Lazygit for Git workflow management.
+  # TODO: acikgozb: create a role to determine the architecture for future uses (amd64 or arm64)
   block:
     - name: Download Lazygit binary (arm64).
       ansible.builtin.get_url:
         url: "{{ lazygit_linux_arm64_binary_url }}"
         dest: /tmp
         mode: "0644"
+
     - name: Extract the binary from the download.
       ansible.builtin.unarchive:
         remote_src: true
         src: /tmp/lazygit_{{ lazygit_version }}_Linux_arm64.tar.gz
         dest: /tmp
+
     - name: Move Lazygit binary under /usr/local/bin.
       ansible.builtin.command: "mv /tmp/lazygit /usr/local/bin"
       register: lazygit_mv_out
       changed_when: not lazygit_mv_out.stderr is defined
+
 - name: Install gh (Github CLI).
   block:
     - name: Create necessary directory for gh GPG key.
@@ -21,22 +25,27 @@
         path: /etc/apt/keyrings
         state: directory
         mode: "0755"
+
     - name: Download gh GPG key.
       ansible.builtin.get_url:
         url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
         dest: /etc/apt/keyrings/githubcli-archive-keyring.gpg
         mode: "0644"
+
     - name: Set read permission on GPG key for group and other users.
       ansible.builtin.file:
         path: /etc/apt/keyrings/githubcli-archive-keyring.gpg
         mode: "go+r"
+
     - name: Update the package manager.
       ansible.builtin.apt:
         update_cache: true
+
     - name: Install gh.
       ansible.builtin.apt:
         name: gh
         state: present
+
 - name: Install git-delta as a custom pager for Git.
   block:
     - name: Download git-delta binary (arm64).
@@ -44,12 +53,14 @@
         url: "{{ delta_linux_arm64_binary_url }}"
         dest: /tmp/delta.deb
         mode: "0644"
+
     - name: Install the binary using the .deb file.
-      ansible.builtin.command: >
-        dpkg -i /tmp/delta.deb
+      ansible.builtin.shell:
+        cmd: dpkg -i /tmp/delta.deb
       register: delta_install_out
       changed_when: not delta_install_out.stderr is defined
-- name: Cleanup the temp files created for installation.
+
+- name: Remove the temporary files.
   ansible.builtin.file:
     path: "{{ item }}"
     state: absent
