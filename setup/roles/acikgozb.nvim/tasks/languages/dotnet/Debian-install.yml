@@ -1,0 +1,5 @@
+- name: Install .NET via apt.
+  ansible.builtin.apt:
+    name: "{{ dotnet_pkg_name }}"
+    state: present
+
