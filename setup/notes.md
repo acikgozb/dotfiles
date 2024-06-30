@@ -28,17 +28,13 @@ Completed steps:
 
 - Roles are added for tmux and Git flow as well.
 
-- A role is added for neovim. Currently, Golang is installed, and formatters are still in pending status.
+- A role is added for Neovim. Currently, Golang and .NET are installed, and formatters are still in pending status.
 
 TODO:
 
-- Add roles for:
+- Add zsh configuration before moving on with the languages and the formatters. Because sourcing the .zshrc file is needed in some language installations. So by skipping zsh it becomes harder to configure the rest of the stuff.
 
-  - zsh
-
-- For nvim, there may be a need to install formatters and linters globally for the user instead of being them nvim specific. This would help when there is a need to use the tools outside of Neovim.
-
-- Install the tools below globally:
+- Install the tools below for user (not just nvim):
 
   - yamlfmt
   - jq
@@ -47,9 +43,8 @@ TODO:
   - beautysh
   - dlv
 
-- Install the languages below globally:
+- Install the languages below for user (not just nvim):
 
-  - .net
   - js
   - ts
 
@@ -57,4 +52,4 @@ TODO:
 
 - After everything is finished, add an uninstall script to remove all changes. This is important to rollback to the pre-config state if there is a faulty installation.
 
-- (not MVP) In the future, make the playbook idempotent, aka if Neovim is already installed, skip it.
+- (not MVP) In the future, make the playbook more idempotent. There might be some cases where idempotency is not achieved. By default, Ansible does this really well, but unfortunately I had to use ansible.builtin.shell in some places, which those cases the idempotency of the operation depends on the user.
