@@ -23,11 +23,38 @@ Completed steps:
 - A pre-task stage is written for updating package managers for both MacOS and Ubuntu. For macOS, additional scripts might be needed to install Homebrew first.
 
 - A new role is added for configuring Kitty for both Debian and Darwin. Both OS implementations are completed.
+
 - Vagrantfile is updated with Ubuntu 24.04 box, from 20.04.
+
+- Roles are added for tmux and Git flow as well.
+
+- A role is added for neovim. Currently, Golang is installed, and formatters are still in pending status.
 
 TODO:
 
-- Configure your gitflow with the packages below. I assume that git is already installed.
-  - lazygit
-  - gh
-  - delta (for paging)
+- Add roles for:
+
+  - zsh
+
+- For nvim, there may be a need to install formatters and linters globally for the user instead of being them nvim specific. This would help when there is a need to use the tools outside of Neovim.
+
+- Install the tools below globally:
+
+  - yamlfmt
+  - jq
+  - prettier
+  - eslint_d
+  - beautysh
+  - dlv
+
+- Install the languages below globally:
+
+  - .net
+  - js
+  - ts
+
+- Add RedHat to the supported list of distrubitions to install the dotfiles.
+
+- After everything is finished, add an uninstall script to remove all changes. This is important to rollback to the pre-config state if there is a faulty installation.
+
+- (not MVP) In the future, make the playbook idempotent, aka if Neovim is already installed, skip it.
