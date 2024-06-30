@@ -24,3 +24,15 @@
   ansible.builtin.file:
     path: /tmp/{{ lookup('vars', 'go_linux_' + arch + '_binary_name') }}.tar.gz
     state: absent
+
+- name: Verify Golang installation.
+  block:
+    - name: Get info about Golang version.
+      ansible.builtin.shell:
+        cmd: go --version
+      result: go_version_out
+
+    - name: Ensure that the version output exists.
+      ansible.builtin.debug:
+        msg: "Golang is installed successfully."
+      when: go_version_out.stdout is defined
