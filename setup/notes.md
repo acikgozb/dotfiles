@@ -30,9 +30,9 @@ Completed steps:
 
 - A role is added for Neovim. Currently, Golang and .NET are installed, and formatters are still in pending status.
 
-TODO:
+- A role is added for zsh before moving on with nvim configuration.
 
-- Add zsh configuration before moving on with the languages and the formatters. Because sourcing the .zshrc file is needed in some language installations. So by skipping zsh it becomes harder to configure the rest of the stuff.
+TODO:
 
 - Install the tools below for user (not just nvim):
 

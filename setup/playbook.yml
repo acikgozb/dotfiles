@@ -8,11 +8,11 @@
     - name: Prepare the package managers before the installation.
       ansible.builtin.import_tasks: ./pre-tasks/main.yml
   roles:
+    - acikgozb.zsh
     - acikgozb.kitty
     - acikgozb.git
     - acikgozb.tmux
     - acikgozb.nvim
-    - acikgozb.zsh
   tasks:
     - name: Check the time
       ansible.builtin.shell: date
