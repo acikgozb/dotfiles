@@ -12,6 +12,7 @@
     - acikgozb.git
     - acikgozb.tmux
     - acikgozb.nvim
+    - acikgozb.zsh
   tasks:
     - name: Check the time
       ansible.builtin.shell: date
@@ -20,8 +21,3 @@
     - name: Debug time result
       ansible.builtin.debug:
         var: result
-  # handlers:
-  #   - name: Restart service
-  #     ansible.builtin.service:
-  #       name: your-service-name
-  #       state: restarted
