@@ -2,8 +2,6 @@
   ansible.builtin.file:
     path: /usr/local/go
     state: absent
-    # Ansible_architecture possible values: "aarch64" or "x64" or "arm64" or "amd64"
-    # TODO: acikgozb: Create a map of arch to determine whether the target host is amd64 or arm64. 
 
 - name: Set arch fact as arm64 (for test purposes).
   ansible.builtin.set_fact:
