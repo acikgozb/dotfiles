@@ -1,0 +1,73 @@
+- name: Install and configure NVM.
+  become_user: "{{ lookup('env', 'USER') }}"
+  block:
+    - name: Download NVM installation script.
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/nvm-sh/nvm/v{{ nvm_version }}/install.sh
+        dest: /tmp
+        mode: "0755"
+
+    - name: Install NVM (without modifying .zshrc).
+      ansible.builtin.shell:
+        cmd: PROFILE=/dev/null /tmp/install.sh
+        executable: /usr/bin/zsh
+      changed_when: true
+
+    - name: Modify .zshrc to include NVM_DIR and nvm.sh.
+      ansible.builtin.lineinfile:
+        path: ~/.config/zsh/.zshrc
+        line: "{{ item }}"
+        state: present
+      with_items:
+        - "# Enable nvm."
+        - export NVM_DIR=$HOME/.nvm
+        - '[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"'
+
+- name: Verify NVM installation.
+  become_user: "{{ lookup('env', 'USER') }}"
+  block:
+    - name: Get info about NVM version.
+      ansible.builtin.shell:
+        cmd: source ~/.config/zsh/.zshrc && nvm --version
+        executable: /usr/bin/zsh
+      register: nvm_version_out
+      changed_when: true
+
+    - name: Ensure that NVM is installed successfully.
+      ansible.builtin.debug:
+        msg: "nvm is installed successfully. Version: {{ nvm_version_out.stdout }}"
+      when: nvm_version_out.stdout is defined
+
+- name: Install Node and NPM.
+  become_user: "{{ lookup('env', 'USER') }}"
+  ansible.builtin.shell:
+    cmd: source ~/.config/zsh/.zshrc && nvm install {{ node_version }}
+    executable: /usr/bin/zsh
+  changed_when: true
+
+- name: Verify Node and NPM installation.
+  become_user: "{{ lookup('env', 'USER') }}"
+  block:
+    - name: Get info about NPM version.
+      ansible.builtin.shell:
+        cmd: source ~/.config/zsh/.zshrc && npm -v
+        executable: /usr/bin/zsh
+      register: npm_version_out
+      changed_when: true
+
+    - name: Ensure that NPM is installed successfully.
+      ansible.builtin.debug:
+        msg: "npm is installed successfully. Version: {{ npm_version_out.stdout }}"
+      when: npm_version_out.stdout is defined
+
+    - name: Get info about Node version.
+      ansible.builtin.shell:
+        cmd: source ~/.config/zsh/.zshrc && node -v
+        executable: /usr/bin/zsh
+      register: node_version_out
+      changed_when: true
+
+    - name: Ensure that Node is installed successfully.
+      ansible.builtin.debug:
+        msg: "Node is installed successfully. Version: {{ node_version_out.stdout }}"
+      when: node_version_out.stdout is defined
