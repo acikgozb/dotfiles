@@ -71,11 +71,4 @@
     clone: true
   with_items:
     - {repo: 'https://github.com/zsh-users/zsh-autosuggestions.git', dest: "zsh-autosuggestions"}
-    - {repo: 'https://github.com/jeffreytse/zsh-vi-mode.git', dest: "zsh-vi-mode",}
-
-- name: Source .zshrc to enable zsh configuration.
-  become_user: "{{ lookup('env', 'USER') }}"
-  ansible.builtin.shell:
-    cmd: source ~/.config/zsh/.zshrc
-    executable: /bin/bash
-  changed_when: true
+    - {repo: 'https://github.com/jeffreytse/zsh-vi-mode.git', dest: "zsh-vi-mode"}
