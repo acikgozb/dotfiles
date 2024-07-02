@@ -17,7 +17,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "app" do |app|
     app.vm.network :private_network, ip: "192.168.56.5"
-    app.vm.provision "ansible" do |ansible|
+
+    config.vm.provision "repo-setup", type: "ansible" do |ansible|
+      ansible.playbook = "../provision.yml"
+    end
+
+    config.vm.provision "test", run: "never", type: "ansible" do |ansible|
       ansible.playbook = "../playbook.yml"
     end
   end
