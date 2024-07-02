@@ -4,6 +4,7 @@
       ansible.builtin.get_url:
         url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/UbuntuMono.tar.xz
         dest: /tmp
+        mode: "0755"
 
     - name: Prepare the folder to extract the fonts.
       ansible.builtin.file:
@@ -20,6 +21,7 @@
     - name: Move the font to the font folder.
       ansible.builtin.shell:
         cmd: bash -c 'mv /tmp/UbuntuMono/UbuntuMonoNerdFont*.ttf /Users/{{ lookup('env', 'USER') }}/Library/Fonts'
+      changed_when: true
 
     - name: Remove the temporary files.
       ansible.builtin.file:
@@ -41,6 +43,6 @@
         path: /Applications/kitty.app
       register: kitty_binary
     - name: Ensure that Kitty binary exists
-      debug:
+      ansible.builtin.debug:
         msg: Kitty has been installed successfully.
       when: kitty_binary.stat.exists

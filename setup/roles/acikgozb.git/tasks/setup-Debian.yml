@@ -97,5 +97,5 @@
 
     - name: Ensure that git-delta is installed.
       ansible.builtin.debug:
-        msg: "Lazygit is installed successfully. Version: {{ delta_version_out.stdout }}"
+        msg: "Delta is installed successfully. Version: {{ delta_version_out.stdout }}"
       when: delta_version_out.stdout is defined

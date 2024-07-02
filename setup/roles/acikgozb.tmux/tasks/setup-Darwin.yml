@@ -2,3 +2,15 @@
   community.general.homebrew:
     name: tmux
     state: present
+
+- name: Verify tmux installation.
+  block:
+    - name: Get info about tmux version.
+      ansible.builtin.shell:
+        cmd: tmux -V
+      register: tmux_version_out
+
+    - name: Ensure that tmux is installed successfully.
+      ansible.builtin.debug:
+        msg: "tmux is installed successfully. Version: {{ tmux_version_out.stdout }}"
+      when: tmux_version_out.stdout is defined
