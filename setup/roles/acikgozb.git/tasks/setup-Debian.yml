@@ -67,3 +67,35 @@
   with_items:
     - /tmp/lazygit_{{ lazygit_version }}_Linux_arm64.tar.gz
     - /tmp/delta.deb
+
+- name: Verify installation.
+  block:
+    - name: Get information about Lazygit version.
+      ansible.builtin.shell:
+        cmd: lazygit --version
+      register: lazygit_version_out
+
+    - name: Ensure that Lazygit is installed.
+      ansible.builtin.debug:
+        msg: "Lazygit is installed successfully. Version: {{ lazygit_version_out.stdout }}"
+      when: lazygit_version_out.stdout is defined
+
+    - name: Get information about GH version.
+      ansible.builtin.shell:
+        cmd: gh --version
+      register: gh_version_out
+
+    - name: Ensure that GH is installed.
+      ansible.builtin.debug:
+        msg: "GH is installed successfully. Version: {{ gh_version_out.stdout }}"
+      when: gh_version_out.stdout is defined
+
+    - name: Get information about git-delta version.
+      ansible.builtin.shell:
+        cmd: delta --version
+      register: delta_version_out
+
+    - name: Ensure that git-delta is installed.
+      ansible.builtin.debug:
+        msg: "Lazygit is installed successfully. Version: {{ delta_version_out.stdout }}"
+      when: delta_version_out.stdout is defined
