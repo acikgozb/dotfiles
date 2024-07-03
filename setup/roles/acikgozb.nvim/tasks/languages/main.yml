@@ -8,4 +8,4 @@
   ansible.builtin.include_tasks: ./dotnet/setup-{{ ansible_os_family }}.yml
 
 - name: Install JavaScript.
-  ansible.builtin.include_tasks: ./javascript/setup-{{ ansible_os_family }}.yml
+  ansible.builtin.include_tasks: ./javascript/setup.yml

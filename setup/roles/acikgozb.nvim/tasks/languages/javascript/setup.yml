@@ -38,6 +38,11 @@
         msg: "nvm is installed successfully. Version: {{ nvm_version_out.stdout }}"
       when: nvm_version_out.stdout is defined
 
+- name: Remove the temporary files.
+  ansible.builtin.file:
+    path: /tmp/install.sh
+    state: absent
+
 - name: Install Node and NPM.
   become_user: "{{ lookup('env', 'USER') }}"
   ansible.builtin.shell:
