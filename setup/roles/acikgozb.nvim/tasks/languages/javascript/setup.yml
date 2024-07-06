@@ -9,19 +9,20 @@
 
     - name: Install NVM (without modifying .zshrc).
       ansible.builtin.shell:
-        cmd: PROFILE=/dev/null /tmp/install.sh
+        cmd: PROFILE=/dev/null NVM_DIR=~/bin /tmp/install.sh
         executable: /usr/bin/zsh
       changed_when: true
 
     - name: Modify .zshrc to include NVM_DIR and nvm.sh.
-      ansible.builtin.lineinfile:
+      ansible.builtin.blockinfile:
         path: ~/.config/zsh/.zshrc
-        line: "{{ item }}"
-        state: present
-      with_items:
-        - "# Enable nvm."
-        - export NVM_DIR=$HOME/.nvm
-        - '[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"'
+        marker_begin: NVM binary lookup -
+        insertafter: "# END ANSIBLE MANAGED BLOCK"
+        block: |
+          export NVM_DIR=$"HOME"/bin
+          [ -s "$NVM_DIR"/nvm.sh ] && source "$NVM_DIR"/nvm.sh
+
+        prepend_newline: true
 
 - name: Verify NVM installation.
   become_user: "{{ lookup('env', 'USER') }}"
