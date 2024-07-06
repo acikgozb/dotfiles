@@ -1,0 +1,7 @@
+- name: Install via 'go install'.
+  become_user: "{{ lookup('env', 'USER') }}"
+  ansible.builtin.shell:
+    cmd: source ~/.config/zsh/.zshrc && go install {{ item }}
+    executable: /usr/bin/zsh
+  with_items: "{{ tools.go_install }}"
+

@@ -4,12 +4,20 @@ neovim_linux_x64_url: https://github.com/neovim/neovim/releases/download/nightly
 neovim_macos_binary_name: "nvim-macos-arm64"
 neovim_macos_arm64_url: https://github.com/neovim/neovim/releases/download/nightly/{{ neovim_macos_binary_name }}.tar.gz
 # Languages
+# Go
 go_version: 1.22.4
 go_linux_arm64_binary_name: go{{ go_version }}.linux-arm64
 go_linux_arm64_binary_url: https://go.dev/dl/{{ go_linux_arm64_binary_name }}.tar.gz
 go_linux_amd64_binary_name: go{{ go_version }}.linux-amd64
 go_linux_amd64_binary_url: https://go.dev/dl/{{ go_linux_amd64_binary_name }}.tar.gz
+# .NET
 dotnet_sdk_version: 8.0
 dotnet_pkg_name: dotnet-sdk-{{ dotnet_sdk_version }}
+# Javascript
 nvm_version: 0.39.7
 node_version: 20
+# Tools
+tools:
+  go_install:
+    - "github.com/google/yamlfmt/cmd/yamlfmt@latest"
+    - "github.com/go-delve/delve/cmd/dlv@latest"

@@ -36,7 +36,7 @@
         insertafter: "PATH="
         block: |
           export GOPATH=$HOME/bin/go-packages
-          export PATH=$HOME/bin/go/bin:$PATH
+          export PATH=$HOME/bin/go/bin:$HOME/bin/go-packages/bin:$PATH
         prepend_newline: true
 
 - name: Remove the temporary files.
