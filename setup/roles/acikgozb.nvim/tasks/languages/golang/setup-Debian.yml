@@ -1,4 +1,4 @@
-- name: Remove old Go binary.
+- name: Ensure that Go binary is not installed globally.
   ansible.builtin.file:
     path: /usr/local/go
     state: absent
@@ -7,16 +7,33 @@
   ansible.builtin.set_fact:
     arch: arm64
 
-- name: Download Go binary based on given arch.
+- name: Download Golang binary based on given arch.
   ansible.builtin.get_url:
     url: "{{ lookup('vars', 'go_linux_' + arch + '_binary_url') }}"
     dest: /tmp
 
-- name: Unarchive the binary from download.
-  ansible.builtin.unarchive:
-    remote_src: true
-    src: /tmp/{{ lookup('vars', 'go_linux_' + arch + '_binary_name') }}.tar.gz
-    dest: /usr/local
+- name: Install Golang.
+  become_user: "{{ lookup('env', 'USER') }}"
+  block:
+    - name: Ensure that binary location exists for $USER.
+      ansible.builtin.file:
+        path: ~/bin
+        state: directory
+
+    - name: Unarchive the binary from download.
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: /tmp/{{ lookup('vars', 'go_linux_' + arch + '_binary_name') }}.tar.gz
+        dest: ~/bin
+
+    - name: Ensure that Go binary is added to $PATH.
+      ansible.builtin.blockinfile:
+        path: ~/.config/zsh/.zshrc
+        marker_begin: Go binary lookup -
+        insertafter: "PATH="
+        block: |
+          export PATH=$HOME/bin/go/bin:$PATH
+        prepend_newline: true
 
 - name: Remove the temporary files.
   ansible.builtin.file:
@@ -26,8 +43,9 @@
 - name: Verify Golang installation.
   block:
     - name: Get info about Golang version.
+      become_user: "{{ lookup('env', 'USER') }}"
       ansible.builtin.shell:
-        cmd: /usr/local/go/bin/go version
+        cmd: ~/bin/go/bin/go version
       register: go_version_out
 
     - name: Ensure that the version output exists.
