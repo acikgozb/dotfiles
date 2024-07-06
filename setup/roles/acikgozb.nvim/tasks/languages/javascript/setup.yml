@@ -7,9 +7,14 @@
         dest: /tmp
         mode: "0755"
 
+    - name: Ensure that NVM directory exists for installation.
+      ansible.builtin.file:
+        path: ~/bin/nvm
+        state: directory
+
     - name: Install NVM (without modifying .zshrc).
       ansible.builtin.shell:
-        cmd: PROFILE=/dev/null NVM_DIR=~/bin /tmp/install.sh
+        cmd: PROFILE=/dev/null NVM_DIR=~/bin/nvm /tmp/install.sh
         executable: /usr/bin/zsh
       changed_when: true
 
@@ -19,7 +24,7 @@
         marker_begin: NVM binary lookup -
         insertafter: "# END ANSIBLE MANAGED BLOCK"
         block: |
-          export NVM_DIR=$"HOME"/bin
+          export NVM_DIR="$HOME"/bin/nvm
           [ -s "$NVM_DIR"/nvm.sh ] && source "$NVM_DIR"/nvm.sh
 
         prepend_newline: true

@@ -15,10 +15,13 @@
 - name: Install Golang.
   become_user: "{{ lookup('env', 'USER') }}"
   block:
-    - name: Ensure that binary location exists for $USER.
+    - name: Ensure that binary and 3rd party package locations exist for $USER.
       ansible.builtin.file:
-        path: ~/bin
+        path: "{{ item }}"
         state: directory
+      with_items:
+        - ~/bin
+        - ~/bin/go-packages
 
     - name: Unarchive the binary from download.
       ansible.builtin.unarchive:
@@ -26,12 +29,13 @@
         src: /tmp/{{ lookup('vars', 'go_linux_' + arch + '_binary_name') }}.tar.gz
         dest: ~/bin
 
-    - name: Ensure that Go binary is added to $PATH.
+    - name: Ensure that Go binary is added to $PATH, along with $GOPATH.
       ansible.builtin.blockinfile:
         path: ~/.config/zsh/.zshrc
         marker_begin: Go binary lookup -
         insertafter: "PATH="
         block: |
+          export GOPATH=$HOME/bin/go-packages
           export PATH=$HOME/bin/go/bin:$PATH
         prepend_newline: true
 
