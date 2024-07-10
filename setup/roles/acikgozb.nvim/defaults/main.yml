@@ -22,6 +22,31 @@ tools:
     - "github.com/google/yamlfmt/cmd/yamlfmt@latest"
     - "github.com/go-delve/delve/cmd/dlv@latest"
   npm_install:
-    - {name: prettier, versionCmd: 'prettier -v'}
-    - {name: eslint_d, versionCmd: 'eslint -v'}
-    - {name: typescript, versionCmd: 'tsc -v'}
+    - name: prettier
+      versionCmd: "prettier -v"
+    - name: eslint_d
+      versionCmd: "eslint -v"
+    - name: typescript
+      versionCmd: "tsc -v"
+  prebuilt:
+    - name: jq
+      url:
+        arm64: 'https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-macos-arm64'
+        amd64: 'https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64'
+      binaryPath: ""
+      versionCmd: "jq -v"
+      extract: "false"
+    - name: shellcheck
+      url:
+        arm64: 'https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.darwin.aarch64.tar.xz'
+        amd64: 'https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz'
+      binaryPath: ""
+      versionCmd: "shellcheck -v"
+      extract: "true"
+    - name: golangci-lint
+      url:
+        arm64: 'https://github.com/golangci/golangci-lint/releases/download/v1.59.1/golangci-lint-1.59.1-darwin-arm64.tar.gz'
+        amd64: 'https://github.com/golangci/golangci-lint/releases/download/v1.59.1/golangci-lint-1.59.1-linux-amd64.tar.gz'
+      binaryPath: ""
+      versionCmd: "golangci-lint -v"
+      extract: "true"

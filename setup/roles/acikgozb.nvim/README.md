@@ -1,38 +1,30 @@
-Role Name
-=========
+# acikgozb.nvim
 
-A brief description of the role goes here.
+This role is mainly responsible from installing Neovim to the host. Along with it, it also installs the languages used within Neovim and the tools which are actively used outside of Neovim during development.
 
-Requirements
-------------
+## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Since this role is designed to work for my purposes, there are 2 main requirements for it to work:
 
-Role Variables
---------------
+1 - For Linux, this role can only work for hosts which have amd64 architecture. Unfortunately, Neovim does not have an arm64 Linux binary, so it is not supported.
+2 - Any host that uses this role must have ZSH configured under $HOME/.config/zsh.
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+## Role Variables
 
-Dependencies
-------------
+<!--TODO: Add variables here -->
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+## Dependencies
 
-Example Playbook
-----------------
+Ideally, if you are using this role, it is recommended to use `acikgozb.zsh` role as well.
+If not, you should install and configure ZSH manually under $HOME/.config.
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+## Example Playbook
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - acikgozb.zsh
+         - acikgozb.nvim
 
-License
--------
+## License
 
 BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
