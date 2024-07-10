@@ -4,19 +4,9 @@ Ideally, the users should be able to clone the repo, and with a simple command, 
 
 TODO:
 
-- Install the tools below for user (not just nvim):
+- Create a role to set architecture of the host correctly. To make things easier for now, set arch to amd64 for Linux, and arm64 for Darwin distributions.
 
-  - yamlfmt
-  - jq
-  - prettier
-  - eslint_d
-  - beautysh
-  - dlv
-
-- Install the languages below for user (not just nvim):
-
-  - js (for Darwin)
-  - ts (both)
+- Revisit the old roles to make them in sync with the new ones, particularly with acikgozb.nvim.
 
 - Add RedHat to the supported list of distrubitions, along with Debian and Darwin.
 
