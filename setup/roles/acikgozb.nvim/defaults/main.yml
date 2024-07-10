@@ -21,3 +21,7 @@ tools:
   go_install:
     - "github.com/google/yamlfmt/cmd/yamlfmt@latest"
     - "github.com/go-delve/delve/cmd/dlv@latest"
+  npm_install:
+    - {name: prettier, versionCmd: 'prettier -v'}
+    - {name: eslint_d, versionCmd: 'eslint -v'}
+    - {name: typescript, versionCmd: 'tsc -v'}

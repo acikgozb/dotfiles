@@ -1,3 +1,5 @@
 - name: Install tools built with Go.
   include_tasks: ./golang/setup.yml
+- name: Install tools built with Javascript.
+  include_tasks: ./npm/setup.yml
 
