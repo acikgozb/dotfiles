@@ -7,3 +7,6 @@ init-test:
 
 run-test:
 	cd ./test;USER=vagrant vagrant provision --provision-with test; cd -
+
+ssh-test:
+	cd ./test; vagrant ssh; cd -
