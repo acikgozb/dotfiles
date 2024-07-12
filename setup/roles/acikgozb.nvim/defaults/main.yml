@@ -1,15 +1,16 @@
 # Installation
-neovim_linux_binary_name: "nvim-linux64"
-neovim_linux_x64_url: https://github.com/neovim/neovim/releases/download/nightly/{{ neovim_linux_binary_name }}.tar.gz
-neovim_macos_binary_name: "nvim-macos-arm64"
-neovim_macos_arm64_url: https://github.com/neovim/neovim/releases/download/nightly/{{ neovim_macos_binary_name }}.tar.gz
+neovim:
+  linux:
+    url: https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+  darwin:
+    url: https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz
 # Languages
 # Go
 go_version: 1.22.4
-go_linux_arm64_binary_name: go{{ go_version }}.linux-arm64
-go_linux_arm64_binary_url: https://go.dev/dl/{{ go_linux_arm64_binary_name }}.tar.gz
-go_linux_amd64_binary_name: go{{ go_version }}.linux-amd64
-go_linux_amd64_binary_url: https://go.dev/dl/{{ go_linux_amd64_binary_name }}.tar.gz
+go:
+  linux:
+    arm64: https://go.dev/dl/go{{ go_version }}.linux-arm64.tar.gz
+    amd64: https://go.dev/dl/go{{ go_version }}.linux-amd64.tar.gz
 # .NET
 dotnet_sdk_version: 8.0
 dotnet_pkg_name: dotnet-sdk-{{ dotnet_sdk_version }}

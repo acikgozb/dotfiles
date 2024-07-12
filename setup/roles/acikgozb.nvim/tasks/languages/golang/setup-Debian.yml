@@ -3,14 +3,11 @@
     path: /usr/local/go
     state: absent
 
-- name: Set arch fact as arm64 (for test purposes).
-  ansible.builtin.set_fact:
-    arch: arm64
-
 - name: Download Golang binary based on given arch.
   ansible.builtin.get_url:
-    url: "{{ lookup('vars', 'go_linux_' + arch + '_binary_url') }}"
-    dest: /tmp
+    url: "{{ go.linux[arch] }}"
+    dest: /tmp/go-linux.tar.gz
+    mode: "0755"
 
 - name: Install Golang.
   become_user: "{{ lookup('env', 'USER') }}"
@@ -26,7 +23,7 @@
     - name: Unarchive the binary from download.
       ansible.builtin.unarchive:
         remote_src: true
-        src: /tmp/{{ lookup('vars', 'go_linux_' + arch + '_binary_name') }}.tar.gz
+        src: /tmp/go-linux.tar.gz
         dest: ~/bin
 
     - name: Ensure that Go binary is added to $PATH, along with $GOPATH.
@@ -41,7 +38,7 @@
 
 - name: Remove the temporary files.
   ansible.builtin.file:
-    path: /tmp/{{ lookup('vars', 'go_linux_' + arch + '_binary_name') }}.tar.gz
+    path: /tmp/go-linux.tar.gz
     state: absent
 
 - name: Verify Golang installation.

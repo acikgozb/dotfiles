@@ -1,20 +1,20 @@
 - name: Download Nightly binary.
   ansible.builtin.get_url:
-    url: "{{ neovim_macos_arm64_binary }}"
+    url: "{{ neovim.darwin.url }}"
     dest: "/tmp"
     mode: "0644"
 - name: Disable 'Unknown Developer' warning.
   community.general.xattr:
-    path: "/tmp/{{ neovim_macos_binary_name }}"
+    path: "/tmp/nvim-macos-arm64"
     state: absent
 - name: Unarchive the binary from download.
   ansible.builtin.unarchive:
     remote_src: true
-    src: "/tmp/{{ neovim_macos_binary_name }}"
+    src: "/tmp/{{ neovim.darwin.url | split('/') | last }}"
     dest: "/tmp"
 - name: Run the binary to install.
   ansible.builtin.shell: >
-    /tmp/{{ neovim_macos_binary_name }}/bin/nvim
+    /tmp/nvim-macos-arm64/bin/nvim
   register: result
   changed_when: result.stdout is defined
 - name: Remove the temporary files.
@@ -22,5 +22,5 @@
     path: "{{ item }}"
     state: absent
   with_items:
-    - "{{ neovim_macos_binary_name }}.tar.gz"
-    - "{{ neovim_macos_binary_name }}"
+    - /tmp/{{ neovim.darwin.url | split('/') | last }}
+    - /tmp/nvim-macos-arm64
