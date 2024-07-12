@@ -63,17 +63,7 @@
   ansible.builtin.file:
     path: /home/{{ lookup('env', 'USER') }}/bin/prebuilt
     state: directory
-    recurse: yes
+    recurse: true
     owner: "{{ lookup('env', 'USER') }}"
     group: "{{ lookup('env', 'USER') }}"
     mode: "0755"
-
-- name: Ensure that binaries are added to $PATH.
-  become_user: "{{ lookup('env', 'USER') }}"
-  ansible.builtin.blockinfile:
-    path: ~/.config/zsh/.zshrc
-    marker_begin: Prebuilt binary lookup -
-    insertafter: "# END ANSIBLE MANAGED BLOCK"
-    block: |
-      export PATH=$HOME/bin/prebuilt:$PATH
-    prepend_newline: true

@@ -30,7 +30,7 @@
       ansible.builtin.blockinfile:
         path: ~/.config/zsh/.zshrc
         marker_begin: Go binary lookup -
-        insertafter: "PATH="
+        insertafter: "# END ANSIBLE MANAGED BLOCK"
         block: |
           export GOPATH=$HOME/bin/go-packages
           export PATH=$HOME/bin/go/bin:$HOME/bin/go-packages/bin:$PATH
@@ -40,16 +40,3 @@
   ansible.builtin.file:
     path: /tmp/go-linux.tar.gz
     state: absent
-
-- name: Verify Golang installation.
-  block:
-    - name: Get info about Golang version.
-      become_user: "{{ lookup('env', 'USER') }}"
-      ansible.builtin.shell:
-        cmd: ~/bin/go/bin/go version
-      register: go_version_out
-
-    - name: Ensure that the version output exists.
-      ansible.builtin.debug:
-        msg: "Golang is installed successfully."
-      when: go_version_out.stdout is defined

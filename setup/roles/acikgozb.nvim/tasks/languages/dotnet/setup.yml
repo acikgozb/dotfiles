@@ -1,4 +1,4 @@
-- name: Install .NET
+- name: Install .NET.
   become_user: "{{ lookup('env', 'USER') }}"
   block:
     - name: Download dotnet-tools.
@@ -27,16 +27,3 @@
   ansible.builtin.file:
     path: /tmp/dotnet-install.sh
     state: absent
-
-- name: Verify that .NET is installed.
-  become_user: "{{ lookup('env', 'USER') }}"
-  block:
-    - name: Get info about .NET version.
-      ansible.builtin.shell:
-        cmd: ~/bin/.net/dotnet --version
-      register: dotnet_version_out
-
-    - name: Ensure that the version output exists.
-      ansible.builtin.debug:
-        msg: ".NET is installed successfully. Version: v{{ dotnet_version_out.stdout }}"
-      when: dotnet_version_out.stdout is defined

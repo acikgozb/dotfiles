@@ -53,18 +53,7 @@
     group: "{{ lookup('env', 'USER') }}"
     mode: "0755"
 
-- name: Install Kitty
+- name: Install Kitty.
   ansible.builtin.shell:
     cmd: curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
   become_user: "{{ lookup('env', 'USER') }}"
-
-- name: Verify the Kitty installation.
-  block:
-    - name: Get info about Kitty binary.
-      ansible.builtin.stat:
-        path: /home/{{ lookup('env', 'USER') }}/.local/kitty.app
-      register: kitty_binary
-    - name: Ensure that Kitty binary exists
-      debug:
-        msg: Kitty has been installed successfully.
-      when: kitty_binary.stat.exists

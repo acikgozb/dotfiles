@@ -1,2 +1,2 @@
-- name: Install Kitty.
-  include_tasks: ./setup-{{ansible_os_family}}.yml
+- name: "[OS Specific] Install Kitty."
+  ansible.builtin.include_tasks: ./setup-{{ ansible_os_family }}.yml

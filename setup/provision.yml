@@ -1,9 +1,9 @@
-- name: Provision the VM
+- name: Provision the VM.
   hosts: all
   become: true
   gather_facts: true
   tasks:
-    - name: Clone the dotfiles repo
+    - name: Clone the dotfiles repo.
       become_user: "{{ lookup('env', 'USER') }}"
       ansible.builtin.git:
         clone: true

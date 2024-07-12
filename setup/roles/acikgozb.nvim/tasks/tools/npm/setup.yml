@@ -53,17 +53,3 @@
   ansible.builtin.file:
     path: /usr/bin/node
     state: absent
-
-- name: Get version information for each installed tool.
-  become_user: "{{ lookup('env', 'USER') }}"
-  ansible.builtin.shell:
-    cmd: source ~/.config/zsh/.zshrc && {{ item.versionCmd }}
-    executable: /usr/bin/zsh
-  register: npm_tools_version_out
-  loop: "{{ tools.npm_install }}"
-
-- name: Ensure that all tools are installed correctly.
-  ansible.builtin.debug:
-    msg: "{{ item.item.name }} has been installed successfully. Version: {{ item.stdout }}"
-  with_items: "{{ npm_tools_version_out.results }}"
-

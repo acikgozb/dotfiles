@@ -4,4 +4,3 @@
     cmd: source ~/.config/zsh/.zshrc && go install {{ item }}
     executable: /usr/bin/zsh
   with_items: "{{ tools.go_install }}"
-

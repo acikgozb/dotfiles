@@ -1,23 +1,14 @@
-- name: Setup dotfiles
+- name: Configure hosts to enable dotfiles.
   hosts: all
   become: true
   gather_facts: true
-  # vars_files:
-  #   - path/to/your/vars/file
   pre_tasks:
     - name: Prepare the package managers before the installation.
       ansible.builtin.import_tasks: ./pre-tasks/main.yml
   roles:
+    - acikgozb.arch
     - acikgozb.zsh
     - acikgozb.kitty
     - acikgozb.git
     - acikgozb.tmux
     - acikgozb.nvim
-  tasks:
-    - name: Check the time
-      ansible.builtin.shell: date
-      register: result
-      changed_when: result.stdout is defined
-    - name: Debug time result
-      ansible.builtin.debug:
-        var: result

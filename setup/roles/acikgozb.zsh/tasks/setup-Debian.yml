@@ -3,92 +3,9 @@
     name: zsh
     state: present
 
-- name: Verify that zsh is installed successfully.
-  block:
-    - name: Get info about the version.
-      ansible.builtin.shell:
-        cmd: zsh --version
-      register: zsh_version_out
-      changed_when: true
-
-    - name: Ensure that version is outputted successfully.
-      ansible.builtin.debug:
-        msg: "zsh is installed successfully. Version: {{ zsh_version_out.stdout }}"
-      when: zsh_version_out is defined
-
-- name: Create a symlink for .zshenv.
+- name: Remove Darwin PATH lookup from .zshrc.
   become_user: "{{ lookup('env', 'USER') }}"
-  ansible.builtin.file:
-    src: ~/.config/zsh/.zshenv
-    dest: ~/.zshenv
-    force: true
-    state: link
-
-- name: Download Starship installation.
-  ansible.builtin.get_url:
-    url: https://starship.rs/install.sh
-    dest: /tmp
-    mode: "0755"
-
-- name: Install Starship
-  become_user: "{{ lookup('env', 'USER') }}"
-  ansible.builtin.shell:
-    cmd: /tmp/install.sh --yes
-    executable: /bin/sh
-  changed_when: true
-
-- name: Verify that Starship is installed successfully.
-  block:
-    - name: Get info about the version.
-      ansible.builtin.shell:
-        cmd: starship --version
-      register: starship_version_out
-      changed_when: true
-
-    - name: Ensure that version is outputted successfully.
-      ansible.builtin.debug:
-        msg: "Starship is installed successfully. Version: {{ starship_version_out.stdout }}"
-      when: starship_version_out is defined
-
-- name: Remove the temporary files
-  ansible.builtin.file:
-    path: /tmp/install.sh
-    state: absent
-
-- name: Remove old bash files.
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: absent
-  with_items:
-    - .profile
-    - .bashrc
-    - .bash_history
-    - .bash_logout
-
-- name: Remove Darwin PATH lookup from .zshrc
-  become_user: "{{ lookup('env', 'USER') }}"
-  ansible.builtin.lineinfile:
+  ansible.builtin.blockinfile:
     path: "~/.config/zsh/.zshrc"
-    regexp: "Darwin$"
-    state: absent
-
-- name: Change $USER shell to zsh.
-  ansible.builtin.user:
-    name: "{{ lookup('env', 'USER') }}"
-    shell: /bin/zsh
-
-- name: Create .zsh under $HOME to house 3rd party zsh plugins.
-  become_user: "{{ lookup('env', 'USER') }}"
-  ansible.builtin.file:
-    path: "~/.zsh"
-    state: directory
-
-- name: Clone 3rd party zsh plugins under .zsh.
-  become_user: "{{ lookup('env', 'USER') }}"
-  ansible.builtin.git:
-    repo: "{{ item.repo }}"
-    dest: "~/.zsh/{{ item.dest }}"
-    clone: true
-  with_items:
-    - {repo: 'https://github.com/zsh-users/zsh-autosuggestions.git', dest: "zsh-autosuggestions"}
-    - {repo: 'https://github.com/jeffreytse/zsh-vi-mode.git', dest: "zsh-vi-mode"}
+    marker: "# Homebrew lookup for Darwin - ANSIBLE MANAGED BLOCK"
+    block: ""

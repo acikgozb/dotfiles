@@ -16,14 +16,6 @@
         src: /tmp/{{ lazygit_url[arch] | split('/') | last }}
         dest: /tmp/lazygit
 
-    # TODO: acikgozb: Since this is done from acikgozb.zsh, we might not need it.
-    - name: Ensure that $HOME/bin/prebuilt exists for $USER.
-      become_user: "{{ lookup('env', 'USER') }}"
-      ansible.builtin.file:
-        path: ~/bin/prebuilt
-        state: directory
-        recurse: true
-
     - name: Move Lazygit binary under $HOME/bin/prebuilt.
       ansible.builtin.command:
         cmd: "mv /tmp/lazygit/lazygit /home/{{ lookup('env', 'USER') }}/bin/prebuilt"

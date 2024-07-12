@@ -31,18 +31,7 @@
         - /tmp/UbuntuMono
         - /tmp/UbuntuMono.tar.xz
 
-- name: Install Kitty
+- name: Install Kitty.
   become_user: "{{ lookup('env', 'USER') }}"
   ansible.builtin.shell:
     cmd: curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-
-- name: Verify the Kitty installation.
-  block:
-    - name: Get info about Kitty binary.
-      ansible.builtin.stat:
-        path: /Applications/kitty.app
-      register: kitty_binary
-    - name: Ensure that Kitty binary exists
-      ansible.builtin.debug:
-        msg: Kitty has been installed successfully.
-      when: kitty_binary.stat.exists

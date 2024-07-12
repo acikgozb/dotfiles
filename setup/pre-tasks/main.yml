@@ -1,2 +1,2 @@
-- name: Select the appropriate package manager and configure it.
-  include_tasks: ./setup-{{ ansible_os_family }}.yml
+- name: "[OS Specific] Select the appropriate package manager and configure it."
+  ansible.builtin.include_tasks: ./setup-{{ ansible_os_family }}.yml
