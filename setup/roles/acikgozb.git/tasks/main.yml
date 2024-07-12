@@ -1,2 +1,69 @@
 - name: Configure Gitflow.
+  block:
+    - name: Download Lazygit binary.
+      ansible.builtin.get_url:
+        url: "{{  lazygit_url[arch] }}"
+        dest: /tmp
+
+    - name: Ensure a temporary folder exists to house the archived files.
+      ansible.builtin.file:
+        path: /tmp/lazygit
+        state: directory
+
+    - name: Extract the binary from the download.
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: /tmp/{{ lazygit_url[arch] | split('/') | last }}
+        dest: /tmp/lazygit
+
+    # TODO: acikgozb: Since this is done from acikgozb.zsh, we might not need it.
+    - name: Ensure that $HOME/bin/prebuilt exists for $USER.
+      become_user: "{{ lookup('env', 'USER') }}"
+      ansible.builtin.file:
+        path: ~/bin/prebuilt
+        state: directory
+        recurse: true
+
+    - name: Move Lazygit binary under $HOME/bin/prebuilt.
+      ansible.builtin.command:
+        cmd: "mv /tmp/lazygit/lazygit /home/{{ lookup('env', 'USER') }}/bin/prebuilt"
+        removes: /tmp/lazygit/lazygit
+        creates: /home/{{ lookup('env', 'USER') }}/bin/prebuilt/lazygit
+
+    - name: Remove temporary files.
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /tmp/lazygit
+        - /tmp/{{ lazygit_url[arch] | split('/') | last }}
+
+- name: Install gh (Github CLI).
+  block:
+    - name: Download prebuilt GH binary.
+      ansible.builtin.get_url:
+        url: "{{ gh_url[arch] }}"
+        dest: /tmp/gh
+        mode: "0755"
+
+    - name: Unarchive GH binary from download.
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: /tmp/gh
+        dest: /tmp
+
+    - name: Ensure that GH binary is moved under $HOME/bin/prebuilt.
+      ansible.builtin.command:
+        cmd: "mv /tmp/{{ gh_url[arch] | split('/') | last | split('.tar.gz') | first }}/bin/gh /home/{{ lookup('env', 'USER') }}/bin/prebuilt"
+        removes: /tmp/{{ gh_url[arch] | split('/') | last | split('.tar.gz') | first }}/bin/gh
+
+    - name: Remove temporary files.
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /tmp/gh
+        - /tmp/{{ gh_url[arch] | split('/') | last | split('.tar.gz') | first }}
+
+- name: "[OS Specific] Install and configure git-delta."
   ansible.builtin.include_tasks: ./setup-{{ ansible_os_family }}.yml

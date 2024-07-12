@@ -1,40 +1,36 @@
-- name: Install Lazygit, GH, and git-delta.
-  community.general.homebrew:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - lazygit
-    - gh
-    - git-delta
-
-- name: Verify installation.
+- name: Install git-delta as a custom pager for Git.
   block:
-    - name: Get information about Lazygit version.
-      ansible.builtin.shell:
-        cmd: lazygit --version
-      register: lazygit_version_out
+    - name: Download git-delta binary.
+      ansible.builtin.get_url:
+        url: "{{ delta_url[arch][ansible_os_family] }}"
+        dest: /tmp/delta.zip
 
-    - name: Ensure that Lazygit is installed.
-      ansible.builtin.debug:
-        msg: "Lazygit is installed successfully. Version: {{ lazygit_version_out.stdout }}"
-      when: lazygit_version_out.stdout is defined
+    - name: Disable 'Unknown Developer' warning.
+      community.general.xattr:
+        path: "/tmp/delta.zip"
+        state: absent
 
-    - name: Get information about GH version.
-      ansible.builtin.shell:
-        cmd: gh --version
-      register: gh_version_out
+    - name: Ensure that temporary directory exists for installation.
+      ansible.builtin.file:
+        path: /tmp/delta
+        state: directory
 
-    - name: Ensure that GH is installed.
-      ansible.builtin.debug:
-        msg: "GH is installed successfully. Version: {{ gh_version_out.stdout }}"
-      when: gh_version_out.stdout is defined
+    - name: Extract git-delta download.
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: /tmp/delta.zip
+        dest: /tmp/delta
 
-    - name: Get information about git-delta version.
-      ansible.builtin.shell:
-        cmd: delta --version
-      register: delta_version_out
+    - name: Ensure that git-delta binary is moved under $HOME/bin/prebuilt.
+      ansible.builtin.command:
+        cmd: "mv /tmp/delta/usr/bin/delta /home/{{ lookup('env', 'USER') }}/bin/prebuilt"
+        removes: /tmp/delta/usr/bin/delta
+        creates: /home/{{ lookup('env', 'USER') }}/bin/prebuilt/delta
 
-    - name: Ensure that git-delta is installed.
-      ansible.builtin.debug:
-        msg: "Delta is installed successfully. Version: {{ delta_version_out.stdout }}"
-      when: delta_version_out.stdout is defined
+    - name: Remove temporary files.
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /tmp/delta
+        - /tmp/delta.zip
