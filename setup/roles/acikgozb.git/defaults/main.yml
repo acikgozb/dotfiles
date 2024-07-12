@@ -1,7 +1,16 @@
-# TODO: acikgozb: Add amd64 counterparts for the binaries.
 # Lazygit
 lazygit_version: 0.41.0
-lazygit_linux_arm64_binary_url: https://github.com/jesseduffield/lazygit/releases/download/v{{ lazygit_version }}/lazygit_{{ lazygit_version }}_Linux_arm64.tar.gz
+lazygit_url:
+  arm64: https://github.com/jesseduffield/lazygit/releases/download/v{{ lazygit_version }}/lazygit_{{ lazygit_version }}_Darwin_arm64.tar.gz
+  amd64: https://github.com/jesseduffield/lazygit/releases/download/v{{ lazygit_version }}/lazygit_{{ lazygit_version }}_Linux_x86_64.tar.gz
 # git-delta
 delta_version: 0.17.0
-delta_linux_arm64_binary_url: https://github.com/dandavison/delta/releases/download/{{ delta_version }}/git-delta_{{ delta_version }}_arm64.deb
+delta_url:
+  arm64: https://github.com/dandavison/delta/releases/download/{{ delta_version }}/git-delta_{{ delta_version }}_arm64.deb
+  amd64:
+    Debian: https://github.com/dandavison/delta/releases/download/{{ delta_version }}/git-delta_{{ delta_version }}_amd64.deb
+# gh
+gh_version: 2.52.0
+gh_url:
+  arm64: https://github.com/cli/cli/releases/download/v{{ gh_version }}/gh_{{ gh_version }}_macOS_arm64.zip
+  amd64: https://github.com/cli/cli/releases/download/v{{ gh_version }}/gh_{{ gh_version }}_linux_amd64.tar.gz
