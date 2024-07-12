@@ -32,9 +32,9 @@
         - /tmp/UbuntuMono.tar.xz
 
 - name: Install Kitty
+  become_user: "{{ lookup('env', 'USER') }}"
   ansible.builtin.shell:
     cmd: curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
-  become_user: "{{ lookup('env', 'USER') }}"
 
 - name: Verify the Kitty installation.
   block:
