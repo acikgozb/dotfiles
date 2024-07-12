@@ -6,9 +6,10 @@
 - name: Verify tmux installation.
   block:
     - name: Get info about tmux version.
-      ansible.builtin.shell:
+      ansible.builtin.command:
         cmd: tmux -V
       register: tmux_version_out
+      changed_when: true
 
     - name: Ensure that tmux is installed successfully.
       ansible.builtin.debug:
