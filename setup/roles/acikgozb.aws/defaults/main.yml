@@ -1,0 +1,7 @@
+# Directory arguments for AWS installer, used specificly to install AWS under $HOME, not globally.
+aws_install_dir: "/home/{{ lookup('env', 'USER') }}/lib/aws-cli"
+aws_bin_dir: "/home/{{ lookup('env', 'USER') }}/bin"
+# Archive url's, arm64 corresponds to Darwin, amd64 corresponds to Linux hosts.
+aws_archive_url:
+  amd64: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+  arm64: "https://awscli.amazonaws.com/AWSCLIV2.pkg"
