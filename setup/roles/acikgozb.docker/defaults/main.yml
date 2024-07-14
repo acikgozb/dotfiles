@@ -15,4 +15,6 @@ docker_packages:
     - name: docker-compose-plugin
       url: https://download.docker.com/linux/ubuntu/dists/noble/pool/stable/amd64/docker-compose-plugin_2.28.1-1~ubuntu.24.04~noble_amd64.deb
       bin_path: /tmp/docker-compose-plugin/usr/libexec/docker/cli-plugins
-
+  Darwin:
+    - name: docker-desktop
+      url: https://desktop.docker.com/mac/main/arm64/157355/Docker.dmg
