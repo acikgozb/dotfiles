@@ -7,9 +7,9 @@ TODO:
 - Install the tools below:
 
   - Vagrant (.dmg install on Darwin, prebuilt binary install on Linux)
-  - Docker (.dmg install on Darwin, prebuilt binary install on Linux)
-  - AWS CLI (install script for both platforms)
   - Terraform (.dmg install on Darwin, prebuilt binary install on Linux)
+
+Install them by creating new roles (acikgozb.hashicorp). Because these tools are not used inside neovim, therefore it is not logical to put them along with `go_install, npm_install, prebuilt`. That would make things way more complicated then they should be.
 
 - Add RedHat to the supported list of distrubitions, along with Debian and Darwin.
 

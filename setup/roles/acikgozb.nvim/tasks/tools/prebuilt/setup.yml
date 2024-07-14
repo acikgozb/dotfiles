@@ -1,4 +1,4 @@
-- name: Download arm64 binaries (Darwin).
+- name: "[OS Specific] Download arm64 binaries (Darwin)."
   ansible.builtin.get_url:
     url: "{{ prebuilt_binary.url.amd64 }}"
     dest: /tmp/{{ prebuilt_binary.name }}-binary
@@ -7,7 +7,7 @@
     loop_var: prebuilt_binary
   when: ansible_os_family == "Darwin"
 
-- name: Download amd64 binaries (Linux).
+- name: "[OS Specific] Download amd64 binaries (Linux)."
   ansible.builtin.get_url:
     url: "{{ prebuilt_binary.url.amd64 }}"
     dest: /tmp/{{ prebuilt_binary.name }}-binary

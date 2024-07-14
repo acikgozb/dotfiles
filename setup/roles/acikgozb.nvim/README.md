@@ -20,10 +20,12 @@ If not, you should install and configure ZSH manually under $HOME/.config.
 
 ## Example Playbook
 
-    - hosts: servers
-      roles:
-         - acikgozb.zsh
-         - acikgozb.nvim
+```yml
+- hosts: servers
+  roles:
+    - acikgozb.zsh
+    - acikgozb.nvim
+```
 
 ## License
 
