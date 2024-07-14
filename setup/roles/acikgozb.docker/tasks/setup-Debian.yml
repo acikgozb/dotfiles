@@ -1,0 +1,31 @@
+- name: Install Docker manually via .deb files.
+  become_user: "{{ lookup('env', 'USER') }}"
+  block:
+    - name: Download required .deb files.
+      ansible.builtin.get_url:
+        url: "{{ item.url }}"
+        dest: /tmp/{{ item.name }}.deb
+      with_items: "{{ docker_packages.Debian }}"
+
+    - name: Extract .deb files.
+      ansible.builtin.command:
+        cmd: dpkg -x /tmp/{{ item.name }}.deb /tmp/{{ item.name }}
+      with_items: "{{ docker_packages.Debian }}"
+
+    - name: Move the unarchived binaries under $HOME/bin.
+      ansible.builtin.command:
+        cmd: bash -c 'mv {{ item.bin_path }}/* /home/{{ lookup('env', 'USER') }}/bin'
+      with_items: "{{ docker_packages.Debian }}"
+      changed_when: true
+
+- name: Remove .deb files after installation.
+  ansible.builtin.file:
+    path: /tmp/{{ item.name }}.deb
+    state: absent
+  with_items: "{{ docker_packages.Debian }}"
+
+- name: Remove extracted directories after installation.
+  ansible.builtin.file:
+    path: /tmp/{{ item.name }}
+    state: absent
+  with_items: "{{ docker_packages.Debian }}"
