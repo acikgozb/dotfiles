@@ -15,14 +15,19 @@ There are a couple of variables used mainly for configuring the Git workflow on 
 
 The rest of the variables depend on `arch` variable, which can be either `arm64` or `amd64` for now:
 
-- `lazygit.arm64.url`: The prebuilt binary url for arm64 hosts.
-- `lazygit.amd64.url`: The prebuilt binary url for amd64 hosts.
+- `lazygit_url.arm64`: Lazygit prebuilt binary url for arm64 hosts.
+- `lazygit_url.amd64`: Lazygit prebuilt binary url for amd64 hosts.
+- `gh_url.arm64`: GH prebuilt binary url for arm64 hosts.
+- `gh_url.amd64`: GH prebuilt binary url for amd64 hosts.
+- `delta_url.arm64.Darwin`: Delta prebuilt binary url for arm64 Darwin hosts.
+- `delta_url.amd64.Debian`: Delta prebuilt binary url for amd64 Debian hosts.
 
 ## Dependencies
 
-This role depends on host architecture, mainly `arm64` and `amd64`. If you can provide a variable called `arch` which resolves to those values, you can skip having any dependencies.
+This role is designed to go along with `acikgozb.arch` and `acikgozb.zsh`. It did not designed in a "generic" way simply because there is no need for now.
 
-But for convenience, using this role with `acikgozb.arch` is highly recommended.
+- `acikgozb.arch` is needed simply because this role depends on `arch` fact that is set by `acikgozb.arch`. If this variable is provided via rest of the roles (`arm64` for Darwin, `amd64` for Linux), then using `acikgozb.arch` becomes optional.
+- `acikgozb.zsh` is needed because the binaries are installed specific to the `$USER` of the host. The binaries are located in `$HOME/bin/prebuilt`, which is registered to `$PATH` by `acikgozb.zsh`. If `$PATH` is prefilled by another role, then using `acikgozb.zsh` becomes optional as well.
 
 ## Example Playbook
 
@@ -31,6 +36,7 @@ Here's how to call this role:
 ```yml
 roles:
   - acikgozb.arch
+  - acikgozb.zsh
   - acikgozb.git
 ```
 
