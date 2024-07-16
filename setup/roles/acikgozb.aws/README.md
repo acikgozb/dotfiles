@@ -1,38 +1,52 @@
-Role Name
-=========
+# acikgozb.aws
 
-A brief description of the role goes here.
+This role is responsible from installing `AWS CLI` to the host.
 
-Requirements
-------------
+The main difference between a normal installation and this role is the fact that this role installs the CLI **locally** by default.
+The binaries are located under `$HOME/bin`, and the main files are located under `$HOME/lib`.
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This decision is by design.
+Therefore if you do not wish to have the CLI under your `$HOME`, please check out the **Role Variables** section to customize your installation paths.
 
-Role Variables
---------------
+## Role Variables
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+The variables and their brief explanations can be seen under `./defaults/main.yml`. Here is a detailed explanation:
 
-Dependencies
-------------
+- `aws_install_dir` : This variable points to a path that will contain the main files which come with the installation. It is recommended to set this `/usr/lib` or `/usr/local/lib` if you want to install the CLI globally. By default, this path points to `$HOME/lib/aws-cli`.
+- `aws_bin_dir`: This variable points to the path which will contain the main symlink for the CLI binary itself. By default, it points to `$HOME/bin`. If you want to change it, ensure that the path is added to $PATH variable to reference the binary everywhere within the shell.
+- `aws_archive_url`: This variable holds the download links for the CLI. The url's are grouped under `arch`, which comes from `acikgozb.arch` by default and can be either `arm64` or `amd64`.
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Please refer to `acikgozb.arch` documentation to see how the architecture is set up.
 
-Example Playbook
-----------------
+## Dependencies
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+As explained before, `acikgozb.arch` is the main dependency of this role. If you wish to not use `acikgozb.arch`, ensure that you are passing correct architecture values to this role.
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+This role also indirectly depends on `acikgozb.zsh` since the default lib and bin paths are set up based on that role. `acikgozb.zsh` correctly sets the `$PATH` variable, so that in here there is no need to do additional configuration to enable the binaries inside the shell.
 
-License
--------
+## Example Playbook
+
+The bare-minimum example can be seen below:
+
+```yml
+- hosts: servers
+  roles:
+    - acikgozb.arch
+    - acikgozb.aws
+```
+
+If you wish to install it locally like intended, the example below is more complete:
+
+```yml
+- hosts: servers
+  roles:
+    - acikgozb.arch
+    - acikgozb.zsh
+    - acikgozb.aws
+```
+
+If you are comfortable with setting up `$PATH` and navigating your shell configuration files, `acikgozb.zsh` becomes optional.
+
+## License
 
 BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
