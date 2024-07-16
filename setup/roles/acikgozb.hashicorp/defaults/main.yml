@@ -6,7 +6,6 @@ hashicorp_tools:
   Darwin:
     - name: vagrant
       url: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_darwin_arm64.dmg
-      out: vagrant.dmg
       type: package
       pkg: /Volume/Vagrant/vagrant.pkg
       lib: /opt/vagrant
@@ -15,5 +14,10 @@ hashicorp_tools:
 
     - name: terraform
       url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_darwin_arm64.zip
-      out: terraform.zip
       type: archive
+  Linux:
+    - name: vagrant
+      url: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_linux_amd64.zip
+    - name: terraform
+      url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip
+
