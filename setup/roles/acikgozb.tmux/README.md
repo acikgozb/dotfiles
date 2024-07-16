@@ -1,6 +1,6 @@
 # acikgozb.tmux
 
-This role is basically responsible from instaliing tmux on the host instance.
+This role is responsible from instaliing tmux on the host instance.
 
 ## Requirements
 
@@ -16,11 +16,12 @@ None.
 
 ## Example Playbook
 
-Here's how to call this role:
+Here's the basic usage of this role:
 
 ```yml
-roles:
-  - acikgozb.tmux
+- hosts: servers
+  roles:
+    - acikgozb.tmux
 ```
 
 ## License
