@@ -1,38 +1,49 @@
-Role Name
-=========
+# acikgozb.docker
 
-A brief description of the role goes here.
+This role is responsible from setting up Docker for the given host.
 
-Requirements
-------------
+## Requirements
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Currently, this role only supports Ubuntu 24.04 (Noble) and any MacOS with ARM64 architecture. Other Linux distributions will be supported in the future, based on the needs.
 
-Role Variables
---------------
+## Role Variables
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Here is an explanation of the main structure of the main variable `docker_packages`.
 
-Dependencies
-------------
+```yml
+docker_packages:
+  [Linux Distros]:
+    name: # The name of the binary.
+    url: # The url of the binary.
+    bin_path: # The path to binary after unarchiving the download.
+  [Darwin]:
+    name: # The name of the binary.
+    url: # The url of the binary.
+```
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+When it comes to Linux distributions, there are many different tools that needs to be installed alongside the actual Docker CLI.
+For Darwin distributions, installing Docker Desktop is enough. That is why there is only one url under `Darwin`, but a lot more under `Ubuntu`.
 
-Example Playbook
-----------------
+There is another variable called `docker_linux_bin_path`, which is the path that will contain the binaries installed with this role.
+By default, this path is defined under `$HOME/bin`.
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+## Dependencies
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+This role can be used without any dependencies.
+However, as explained above, this role installs Docker and it's dependencies under `$HOME/bin`. If you wish to install it elsewhere, you can do so by overwriting the variable `docker_linux_bin_path`.
 
-License
--------
+If you wish to keep it as is, ensure that `$HOME/bin` exists on your host.
+
+## Example Playbook
+
+Here is a basic example of how to add this role:
+
+```yml
+- hosts: servers
+  roles:
+    - acikgozb.docker
+```
+
+## License
 
 BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
