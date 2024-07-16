@@ -1,8 +1,6 @@
 # acikgozb.kitty
 
-=========
-
-This role adds the font used in `kitty.conf` and then installs Kitty to the target machine, for both Debian and Darwin based instances.
+This role installs and configures Kitty for both Debian and Darwin based instances.
 
 ## Requirements
 
@@ -12,17 +10,20 @@ The target instance must be either Debian based, or Darwin based. For now, the o
 
 Currently there are no variables defined, but this may lead to a corrupted installation in the future, mainly due to GLIBC version differences between the host instance and the latest Kitty binary.
 
+This techincal debt will be addressed in the future.
+
 ## Dependencies
 
 None.
 
 ## Example Playbook
 
-Here's how to call this role:
+Here's the basic usage of this role:
 
 ```yml
-roles:
-  - acikgozb.kitty
+- hosts: servers
+  roles:
+    - acikgozb.kitty
 ```
 
 ## License
