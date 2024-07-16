@@ -1,0 +1,19 @@
+# Versions
+vagrant_version: 2.4.1
+terraform_version: 1.9.2
+# Metadata
+hashicorp_tools:
+  Darwin:
+    - name: vagrant
+      url: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_darwin_arm64.dmg
+      out: vagrant.dmg
+      type: package
+      pkg: /Volume/Vagrant/vagrant.pkg
+      lib: /opt/vagrant
+      bin: /opt/vagrant/bin/vagrant
+      link: /usr/local/bin/vagrant
+
+    - name: terraform
+      url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_darwin_arm64.zip
+      out: terraform.zip
+      type: archive

@@ -1,0 +1,14 @@
+# TODO: acikgozb: Install Hashicorp tools.
+# To test Darwin installations, download the .dmg file for one tool and try to mount it locally via CLI
+# With CLI, it should be possible to see where the installation script resides, and what binaries, libs it outputs.
+# After understanding what it does, try to automate it here under Darwin setup task.
+# For Linux, the manual binary installation is more or less the same with other tools.
+
+# Only Vagrant has .dmg installation, rest are just prebuilt binaries. For Vagrant, the .pkg path is under /Volumes/Vagrant/vagrant.pkg.
+- name: "[OS Specific] Install Hashicorp tools for Linux."
+  ansible.builtin.include_tasks: ./setup-Linux.yml
+  when: ansible_os_family != "Darwin"
+
+- name: "[OS Specific] Install Hashicorp tools for Darwin."
+  ansible.builtin.include_tasks: ./setup-Darwin.yml
+  when: ansible_os_family == "Darwin"
