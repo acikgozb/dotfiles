@@ -1,6 +1,6 @@
 # acikgozb.git
 
-This role is mainly responsible from configuring the Git workflow of the host instance by installing lazygit, gh, and git-delta.
+This role is mainly responsible from configuring the Git workflow of the host instance by installing `lazygit`, `gh`, and `git-delta`.
 
 ## Requirements
 
@@ -31,13 +31,14 @@ This role is designed to go along with `acikgozb.arch` and `acikgozb.zsh`. It di
 
 ## Example Playbook
 
-Here's how to call this role:
+Here's the recommended way to call this role:
 
 ```yml
-roles:
-  - acikgozb.arch
-  - acikgozb.zsh
-  - acikgozb.git
+- hosts: servers
+  roles:
+    - acikgozb.arch
+    - acikgozb.zsh
+    - acikgozb.git
 ```
 
 ## License
