@@ -62,11 +62,11 @@ When it comes to tools, I think it's safe to group them based on their functiona
 - Cloud provider: [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 - Infrastructure as Code: [AWS CDK](https://aws.amazon.com/cdk/), [Terraform](https://www.terraform.io/)
 
-There are also tools which are used solely during development. These tools are installed with `Neovim`. Please refer to Neovim section to see the details of those tools.
+There are also tools which are used solely during development. These tools are installed with `Neovim`. The detailed explanation for Neovim configuration will be added later on with all it's details.
 
 ## Installation
 
-The installation is done through an `Ansible` playbook. Please refer [here](<setup readme link>) to see the details of the installation.
+The installation is done through an `Ansible` playbook. Please refer [here](https://github.com/acikgozb/dotfiles/blob/main/setup/README.md) to see the details of the installation.
 
 ## Usage
 
