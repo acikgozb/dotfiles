@@ -8,19 +8,17 @@ Currently, this role only supports Debian based distributions and Darwin (MacOS)
 
 ## Role Variables
 
-There are a couple of variables used mainly for configuring the Git workflow on Linux machines:
+Here's a list of variables that are used by this role:
 
-- `lazygit_version`: The version of lazygit that will be installed.
-- `delta_version`: The version of git-delta that will be installed.
-
-The rest of the variables depend on `arch` variable, which can be either `arm64` or `amd64` for now:
-
-- `lazygit_url.arm64`: Lazygit prebuilt binary url for arm64 hosts.
-- `lazygit_url.amd64`: Lazygit prebuilt binary url for amd64 hosts.
-- `gh_url.arm64`: GH prebuilt binary url for arm64 hosts.
-- `gh_url.amd64`: GH prebuilt binary url for amd64 hosts.
-- `delta_url.arm64.Darwin`: Delta prebuilt binary url for arm64 Darwin hosts.
-- `delta_url.amd64.Debian`: Delta prebuilt binary url for amd64 Debian hosts.
+| Variable                    | Example (if possible, default value)                   | Details                                                                                                   |
+| --------------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
+| `lazygit_version`           | `0.41.0`                                               | The version of Lazygit that will be installed.                                                            |
+| `delta_version`             | `0.17.0`                                               | The version of git-delta that will be installed.                                                          |
+| `gh_version`                | `2.52.0`                                               | The version of Github CLI that will be installed.                                                         |
+| `lazygit_url[arm64, amd64]` | The binary url's for AMD64 Linux or ARM64 Darwin hosts | The binary url of Lazygit that is used to download the binary archive, based on the host architecture.    |
+| `gh_url[arm64, amd64]`      | The binary url's for AMD64 Linux or ARM64 Darwin hosts | The binary url of Github CLI that is used to download the binary archive, based on the host architecture. |
+| `delta_url.arm64.Darwin`    | The binary url for ARM64 Darwin hosts                  | The url which contains git-delta prebuilt binary url for ARM64 Darwin hosts.                              |
+| `delta_url.amd64.Debian`    | The binary url for AMD64 Debian hosts                  | The url which contains git-delta prebuilt binary url for AMD64 Debian hosts.                              |
 
 ## Dependencies
 

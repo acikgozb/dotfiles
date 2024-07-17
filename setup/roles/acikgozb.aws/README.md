@@ -10,11 +10,14 @@ Therefore if you do not wish to have the CLI under your `$HOME`, please check ou
 
 ## Role Variables
 
-The variables and their brief explanations can be seen under `./defaults/main.yml`. Here is a detailed explanation:
+Here is a list of variables that are used by this role:
 
-- `aws_install_dir` : This variable points to a path that will contain the main files which come with the installation. It is recommended to set this `/usr/lib` or `/usr/local/lib` if you want to install the CLI globally. By default, this path points to `$HOME/lib/aws-cli`.
-- `aws_bin_dir`: This variable points to the path which will contain the main symlink for the CLI binary itself. By default, it points to `$HOME/bin`. If you want to change it, ensure that the path is added to $PATH variable to reference the binary everywhere within the shell.
-- `aws_archive_url`: This variable holds the download links for the CLI. The url's are grouped under `arch`, which comes from `acikgozb.arch` by default and can be either `arm64` or `amd64`.
+| Variable                | Example (if possible, default value) | Details                                                                                                                                                                                                                                                   |
+| ----------------------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `aws_install_dir`       | `/path/to/install/aws-cli`           | The path which holds the main files of the CLI (aka `lib`).                                                                                                                                                                                               |
+| `aws_bin_dir`           | `/path/to/symlink`                   | The path which contains the symlink for the CLI binary itself. By default, it points to `$HOME/bin`. If you want to change it, ensure that the path is added to `$PATH` variable to reference the binary within the shell without the full path provided. |
+| `aws_archive_url.amd64` | AWS CLI binary url for AMD64         | The binary download url for AMD64 Linux hosts.                                                                                                                                                                                                            |
+| `aws_archive_url.arm64` | AWS CLI binary url for ARM64         | The binary download url for ARM64 Darwin hosts.                                                                                                                                                                                                           |
 
 Please refer to `acikgozb.arch` documentation to see how the architecture is set up.
 

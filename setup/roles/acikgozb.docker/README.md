@@ -8,24 +8,15 @@ Currently, this role only supports Ubuntu 24.04 (Noble) and any MacOS with ARM64
 
 ## Role Variables
 
-Here is an explanation of the main structure of the main variable `docker_packages`.
+Here's a list of variables that are used by this role:
 
-```yml
-docker_packages:
-  [Linux Distros]:
-    name: # The name of the binary.
-    url: # The url of the binary.
-    bin_path: # The path to binary after unarchiving the download.
-  [Darwin]:
-    name: # The name of the binary.
-    url: # The url of the binary.
-```
-
-When it comes to Linux distributions, there are many different tools that needs to be installed alongside the actual Docker CLI.
-For Darwin distributions, installing Docker Desktop is enough. That is why there is only one url under `Darwin`, but a lot more under `Ubuntu`.
-
-There is another variable called `docker_linux_bin_path`, which is the path that will contain the binaries installed with this role.
-By default, this path is defined under `$HOME/bin`.
+| Variable                                | Example (if possible, default value)                      | Details                                                                                                                                                   |
+| --------------------------------------- | --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `docker_packages.Ubuntu`                | A list of `{name: string, url: string, bin_path: string}` | The metadata for Ubuntu installation.                                                                                                                     |
+| `docker_packages.[Ubuntu, Darwin].name` | e.g `docker-compose`                                      | The name of the package that is being installed. For Linux distributions, multiple packages are required to install in order for Docker to work properly. |
+| `docker_packages.[Ubuntu, Darwin].url`  | Binary url for Ubuntu AMD64 or Darwin ARM64               | Binary url for hosts. Check the Requirements section above to see the supported versions of operating systems.                                            |
+| `docker_packages.Ubuntu.bin_path`       | `/path/to/bin/in/archive`                                 | The path that points to the actual binary after unarchiving the download. This does not have any effect on Darwin hosts.                                  |
+| `docker_linux_bin_path`                 | `$HOME/bin`                                               | The user specific path that will contain the binaries installed with this role.                                                                           |
 
 ## Dependencies
 

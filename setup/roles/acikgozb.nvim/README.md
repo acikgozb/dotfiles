@@ -32,7 +32,7 @@ As mentioned with the other roles, either `arm64` or `arm64` is set by `acikgozb
 
 Here is a list of variables and their explanations:
 
-| Variable                         | Default                                                                             | Details                                                                                                                                                     |
+| Variable                         | Example (if possible, default value)                                                | Details                                                                                                                                                     |
 | -------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `neovim.linux.url`               | `amd64` Neovim Linux binary url                                                     | Points to Neovim binary location for Linux distributions.                                                                                                   |
 | `neovim.darwin.url`              | `arm64` Neovim Darwin binary url                                                    | Points to Neovim binary location for Darwin distributions.                                                                                                  |
