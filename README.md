@@ -75,3 +75,4 @@ The usage of the tools are the same, regardless of the installation method. Plea
 ## TODO
 
 - When the main limitations with the installation are resolved, I will explain the Neovim configuration in detail since it is the most complex and unique configuration in this repository.
+- Add Fedora to the supported list of distrubitions.
