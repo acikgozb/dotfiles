@@ -9,24 +9,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", "/vagrant", disabled: true
   config.ssh.insert_key = false
 
-  # Setup hostmanager plugin to enable DNS for VM.
-  config.hostmanager.enabled = true
-  config.hostmanager.manage_host = true
-  config.hostmanager.manage_guest = true
-  config.hostmanager.include_offline = true
-  config.hostmanager.ignore_private_ip = false
-
   # A basic provisioning for 1 VM.
   config.vm.provider :vmware_desktop do |vmware|
     vmware.memory = 512
     vmware.cpus = 1
   end
 
-  # A basic VM config - including the host and the priv network.
-  # Config manager is not added here.
   config.vm.define "app" do |app|
-    web.vm.hostname = "app.test"
-    web.vm.network :private_network, ip: "192.168.56.2"
+    app.vm.network :private_network, ip: "192.168.56.5"
+
+    config.vm.provision "repo-setup", type: "ansible" do |ansible|
+      ansible.playbook = "../provision.yml"
+    end
+
+    config.vm.provision "test", run: "never", type: "ansible" do |ansible|
+      ansible.playbook = "../playbook.yml"
+    end
   end
 end
 

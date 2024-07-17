@@ -1,0 +1,55 @@
+- name: Create a symlink for Node under /usr/bin.
+  ansible.builtin.file:
+    src: /home/{{ lookup('env', 'USER') }}/bin/nvm/versions/node/{{ node_version_out.stdout }}/bin/node
+    path: /usr/bin/node
+    state: link
+
+- name: Install tools under $HOME/bin.
+  become_user: "{{ lookup('env', 'USER') }}"
+  block:
+    - name: Ensure that NPM package directory exists.
+      ansible.builtin.file:
+        path: ~/bin/npm-packages
+        state: directory
+
+    - name: Install packages via 'npm install'.
+      community.general.npm:
+        name: "{{ item.name }}"
+        state: present
+        executable: ~/bin/nvm/versions/node/{{ node_version_out.stdout }}/bin/npm
+        path: ~/bin/npm-packages
+      with_items: "{{ tools.npm_install }}"
+
+    - name: Find binaries that comes with packages.
+      ansible.builtin.find:
+        path: ~/bin/npm-packages/node_modules/{{ item.name }}/bin/
+        depth: 1
+      register: "find_out"
+      loop: "{{ tools.npm_install }}"
+
+    - name: Ensure that $HOME/bin/npm-packages/bin exists for tools installed with 'npm install'.
+      ansible.builtin.file:
+        path: ~/bin/npm-packages/bin
+        state: directory
+
+    - name: Ensure that the installed tools have symlinks under $HOME/bin/npm-packages/bin.
+      ansible.builtin.file:
+        src: "{{ item.path }}"
+        dest: ~/bin/npm-packages/bin/{{ item.path | split('/') | last | split('.') | first }}
+        state: link
+      with_items: "{{ find_out.results | map(attribute='files') | flatten }}"
+
+    - name: Ensure that binaries installed with NPM exists on $PATH.
+      ansible.builtin.blockinfile:
+        path: ~/.config/zsh/.zshrc
+        marker_begin: JS binary lookup -
+        insertafter: "# END ANSIBLE MANAGED BLOCK"
+        block: |
+          export PATH=$HOME/bin/npm-packages/bin:$PATH
+
+        prepend_newline: true
+
+- name: Remove Node symlink after installation.
+  ansible.builtin.file:
+    path: /usr/bin/node
+    state: absent

@@ -1,0 +1,14 @@
+- name: Install zsh via brew.
+  community.general.homebrew:
+    name: zsh
+    state: present
+
+- name: Ensure that Homebrew path lookup exists in $PATH.
+  become_user: "{{ lookup('env', 'USER') }}"
+  ansible.builtin.blockinfile:
+    path: "~/.config/zsh/.zshrc"
+    insert_after: "export PATH="
+    marker_begin: "Homebrew lookup for Darwin -"
+    block: |
+      export PATH=/opt/homebrew/bin:$PATH
+    prepend_newline: true

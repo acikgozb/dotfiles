@@ -1,0 +1,9 @@
+- name: Get Homebrew stat.
+  ansible.builtin.stat:
+    path: /opt/homebrew
+  register: homebrew
+- name: Install Homebrew if it is not installed.
+  ansible.builtin.command: >
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  when: not homebrew.stat.exists

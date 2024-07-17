@@ -1,0 +1,69 @@
+- name: "[OS Specific] Download arm64 binaries (Darwin)."
+  ansible.builtin.get_url:
+    url: "{{ prebuilt_binary.url.amd64 }}"
+    dest: /tmp/{{ prebuilt_binary.name }}-binary
+  with_items: "{{ tools.prebuilt }}"
+  loop_control:
+    loop_var: prebuilt_binary
+  when: ansible_os_family == "Darwin"
+
+- name: "[OS Specific] Download amd64 binaries (Linux)."
+  ansible.builtin.get_url:
+    url: "{{ prebuilt_binary.url.amd64 }}"
+    dest: /tmp/{{ prebuilt_binary.name }}-binary
+  with_items: "{{ tools.prebuilt }}"
+  loop_control:
+    loop_var: prebuilt_binary
+  when: ansible_os_family != "Darwin"
+
+- name: Ensure that directories exist to unarchive the downloaded files.
+  ansible.builtin.file:
+    path: /tmp/{{ prebuilt_binary.name }}
+    state: directory
+  loop_control:
+    loop_var: prebuilt_binary
+  with_items: "{{ tools.prebuilt }}"
+
+- name: Unarchive the downloads if needed.
+  ansible.builtin.unarchive:
+    remote_src: true
+    src: /tmp/{{ prebuilt_binary.name }}-binary
+    dest: /tmp/{{ prebuilt_binary.name }}
+    extra_opts: [--strip-components=1]
+  with_items: "{{ tools.prebuilt }}"
+  loop_control:
+    loop_var: prebuilt_binary
+  when: prebuilt_binary.extract == "true"
+
+- name: For binaries that does not need unarchiving, put them under their respective folder as well.
+  ansible.builtin.command:
+    cmd: mv /tmp/{{ prebuilt_binary.name }}-binary /tmp/{{ prebuilt_binary.name }}/{{ prebuilt_binary.name }}
+    creates: /tmp/{{ prebuilt_binary.name }}/{{ prebuilt_binary.name }}
+    removes: /tmp/{{ prebuilt_binary.name }}-binary
+  with_items: "{{ tools.prebuilt }}"
+  loop_control:
+    loop_var: prebuilt_binary
+  when: prebuilt_binary.extract == "false"
+
+- name: Ensure that the directory exists under $HOME/bin for prebuilt binaries.
+  become_user: "{{ lookup('env', 'USER') }}"
+  ansible.builtin.file:
+    path: ~/bin/prebuilt
+    state: directory
+
+- name: Move binaries under $HOME/bin/prebuilt.
+  ansible.builtin.command:
+    cmd: mv /tmp/{{ binary.name }}/{{ binary.name }} /home/{{ lookup('env', 'USER') }}/bin/prebuilt/
+    removes: /tmp/{{ binary.name }}/{{ binary.name }}
+  with_items: "{{ tools.prebuilt }}"
+  loop_control:
+    loop_var: binary
+
+- name: Ensure that all binaries have correct permissions.
+  ansible.builtin.file:
+    path: /home/{{ lookup('env', 'USER') }}/bin/prebuilt
+    state: directory
+    recurse: true
+    owner: "{{ lookup('env', 'USER') }}"
+    group: "{{ lookup('env', 'USER') }}"
+    mode: "0755"

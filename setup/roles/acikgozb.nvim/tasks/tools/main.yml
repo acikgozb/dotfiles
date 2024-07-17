@@ -1,0 +1,7 @@
+- name: Install tools.
+  include_tasks: ./{{ item }}/setup.yml
+  with_items:
+    - golang
+    - npm
+    - prebuilt
+

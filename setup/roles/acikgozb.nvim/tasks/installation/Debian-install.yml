@@ -1,0 +1,22 @@
+- name: Download Nightly binary.
+  ansible.builtin.get_url:
+    url: "{{ neovim.linux.url }}"
+    dest: "/tmp/nvim-linux"
+    mode: "0644"
+- name: Unarchive the binary from download.
+  ansible.builtin.unarchive:
+    remote_src: true
+    src: "/tmp/nvim-linux"
+    dest: "/tmp"
+- name: Run the binary to install.
+  ansible.builtin.shell: >
+    /tmp/nvim-linux64/bin/nvim
+  register: result
+  changed_when: result.stdin is defined
+- name: Remove the temporary files.
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "/tmp/nvim-linux"
+    - "/tmp/nvim-linux64"

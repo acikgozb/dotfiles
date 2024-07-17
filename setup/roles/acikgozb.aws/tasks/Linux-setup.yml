@@ -1,0 +1,28 @@
+- name: Download AWS CLI archive.
+  ansible.builtin.get_url:
+    url: "{{ aws_archive_url[arch] }}"
+    dest: /tmp
+    mode: "0755"
+
+- name: Install unzip.
+  ansible.builtin.apt:
+    name: unzip
+    state: present
+
+- name: Create the temporary folder to store the unarchived files.
+  ansible.builtin.file:
+    path: /tmp/awscli
+    state: directory
+    mode: "0755"
+
+- name: Unarchive AWS CLI download.
+  ansible.builtin.unarchive:
+    remote_src: true
+    src: /tmp/{{ aws_archive_url[arch] | split('/') | last }}
+    dest: /tmp/awscli
+
+- name: Run the installer.
+  become_user: "{{ lookup('env', 'USER') }}"
+  ansible.builtin.command:
+    cmd: /tmp/awscli/aws/install --bin-dir {{ aws_bin_dir }} --install-dir {{ aws_install_dir }}
+  changed_when: true

@@ -1,0 +1,42 @@
+- name: Ensure that Go binary is not installed globally.
+  ansible.builtin.file:
+    path: /usr/local/go
+    state: absent
+
+- name: Download Golang binary based on given arch.
+  ansible.builtin.get_url:
+    url: "{{ go.linux[arch] }}"
+    dest: /tmp/go-linux.tar.gz
+    mode: "0755"
+
+- name: Install Golang.
+  become_user: "{{ lookup('env', 'USER') }}"
+  block:
+    - name: Ensure that binary and 3rd party package locations exist for $USER.
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - ~/bin
+        - ~/bin/go-packages
+
+    - name: Unarchive the binary from download.
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: /tmp/go-linux.tar.gz
+        dest: ~/bin
+
+    - name: Ensure that Go binary is added to $PATH, along with $GOPATH.
+      ansible.builtin.blockinfile:
+        path: ~/.config/zsh/.zshrc
+        marker_begin: Go binary lookup -
+        insertafter: "# END ANSIBLE MANAGED BLOCK"
+        block: |
+          export GOPATH=$HOME/bin/go-packages
+          export PATH=$HOME/bin/go/bin:$HOME/bin/go-packages/bin:$PATH
+        prepend_newline: true
+
+- name: Remove the temporary files.
+  ansible.builtin.file:
+    path: /tmp/go-linux.tar.gz
+    state: absent

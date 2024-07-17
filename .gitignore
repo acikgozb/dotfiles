@@ -7,4 +7,4 @@ lazygit/state.yml
 zsh/secrets
 zsh/.zsh_history
 zsh/.zsh_sessions
-setup/test/.vagrant
+.vagrant
