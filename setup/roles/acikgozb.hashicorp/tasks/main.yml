@@ -4,7 +4,6 @@
 # After understanding what it does, try to automate it here under Darwin setup task.
 # For Linux, the manual binary installation is more or less the same with other tools.
 
-# Only Vagrant has .dmg installation, rest are just prebuilt binaries. For Vagrant, the .pkg path is under /Volumes/Vagrant/vagrant.pkg.
 - name: "[OS Specific] Install Hashicorp tools for Linux."
   ansible.builtin.include_tasks: ./setup-Linux.yml
   when: ansible_os_family != "Darwin"

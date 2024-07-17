@@ -13,7 +13,6 @@ go:
     amd64: https://go.dev/dl/go{{ go_version }}.linux-amd64.tar.gz
 # .NET
 dotnet_sdk_version: 8.0
-dotnet_pkg_name: dotnet-sdk-{{ dotnet_sdk_version }}
 # Javascript
 nvm_version: 0.39.7
 node_version: 20
