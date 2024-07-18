@@ -2,7 +2,19 @@
 
 In order to use the configurations in this repository, there are couple steps that needs to be done.
 
-## Disclaimer
+## Table of Contents
+
+<!--toc:start-->
+
+- [Disclaimer](#disclaimer)
+- [Limitations](#limitations)
+- [Required Tools](#required-tools)
+- [Clone the Repository](#clone-the-repository)
+- [`setup` Directory](#setup-directory)
+- [Post Installation](#post-installation)
+<!--toc:end-->
+
+## <a id="disclaimer"></a> Disclaimer
 
 The configuration for my dotfiles is written in a way that most of the tools are installed locally under `$HOME`. While the setup of this approach is more complex compared to dumping everything to `/usr/local/bin`, it makes the host configuration a lot more maintainable and easier to understand.
 
