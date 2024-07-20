@@ -7,9 +7,7 @@
 <!--toc:start-->
 
 - [Installation](#installation)
-- [Configuration](#configuration)
-- [`.zshrc`](#zshrc)
-- [`.zshenv`](#zshenv)
+- [Configuration](#configuration) - [`.zshrc`](#zshrc) - [`.zshenv`](#zshenv) - [`Plugins`](#plugins)
 <!--toc:end-->
 
 ## <a id='installation'></a> Installation
@@ -59,3 +57,14 @@ So, in order to successfully move the files from `$HOME` to `~/.config/zsh`, I s
 
 Unfortunately, with the current solution, I have to have `.zshenv` under `$HOME`, which is an acceptable compromise.
 So in order to version control my `.zshenv`, I created a symlink under `$HOME`.
+
+### <a id='plugins'></a> Plugins
+
+The final piece of my `zsh` configuration is the `plugins` directory, a place where I put my personal shell scripts.
+
+Right now I only have one script, which allows me to fuzzy find my personal or work projects based on my `tmux` session, and after the selection opens up a new `tmux` window with the working directory set to the selected project.
+
+As a nice improvement, I will update `.zshrc` file to automatically source anything under `plugins` directory, which will allow for more flexible directory structure.
+
+I intentionally did not put the 3rd party plugins under `plugins` directory, simply because they are already version controlled in their own repositories.
+That is why I added them under `~/.zsh`, which is done automatically via installation.
