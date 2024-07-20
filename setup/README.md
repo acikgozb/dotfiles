@@ -25,7 +25,7 @@ And since a local development environment varies from person to person, I would 
 
 If you still want to try it out, do not forget to create a backup of your old configuration in case of conflicts.
 
-## Limitations
+## <a id="limitations"></a> Limitations
 
 Unfortunately, there are some limitations regarding the supported operating systems and architectures.
 
@@ -41,13 +41,13 @@ The closest support will be for Fedora, but the rest have to wait due to the cur
 
 If you pass all these limitations, feel free to continue reading.
 
-## Required Tools
+## <a id="required-tools"></a> Required Tools
 
 The setup of this dotfiles are written in `Ansible`, and tested on a `Ubuntu 24.04 Vagrant VM`. Therefore, you absolutely need to [install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) before starting.
 
 If you want to dive deep in to the main playbook and test it, you need to [install Vagrant](https://developer.hashicorp.com/vagrant/tutorials/getting-started/getting-started-install?product_intent=vagrant) as well.
 
-## Clone the Repository
+## <a id="clone-the-repository"></a> Clone the Repository
 
 With the tools installed and ready to go, it's time to clone the repository.
 
@@ -60,7 +60,7 @@ git clone git@github.com:acikgozb/dotfiles.git ~/.config
 
 The clone part is pretty standard, if the directory is empty it should work without any issues.
 
-## `setup` Directory
+## <a id="setup-directory"></a> `setup` Directory
 
 The main installation and configuration of your host happens under `~/.config/setup` directory. This is the main place where our Ansible playbook lives, along with anything it needs.
 
@@ -75,7 +75,7 @@ make setup
 
 Some tasks need to be run via elevated privileges, therefore Ansible will ask the password of the `$USER`. Enter your password and then the installation starts.
 
-## Post Installation
+## <a id="post-installation"></a> Post Installation
 
 Once the installation has completed (no errors from Ansible playbook), simply restart your Terminal session and you are good to go.
 

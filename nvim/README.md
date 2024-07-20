@@ -4,7 +4,7 @@ As commonly known, Neovim is a highly customizable text editor, based on Vim.
 
 It is flexible in a way that allows each individual to have their unique editor, tailored to their needs. This results in an increase in productivity and perspective regarding how everything comes together.
 
-## Table Of Contents
+## Table of Contents
 
 <!--toc:start-->
 

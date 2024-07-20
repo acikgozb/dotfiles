@@ -2,6 +2,8 @@
 
 Kitty is a GPU based, highly customizable terminal emulator.
 
+## Table of Contents
+
 <!--toc:start-->
 
 - [Installation](#installation)
