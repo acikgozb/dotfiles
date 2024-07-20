@@ -12,6 +12,7 @@ By storing my local environment configuration in a version control system, it al
 - [What Does This Repository Have?](#what-does-this-repository-have)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Neovim](#neovim)
 - [TODO](#todo)
 <!--toc:end-->
 
@@ -84,7 +85,10 @@ The installation is done through an `Ansible` playbook. Please refer [here](http
 
 The usage of the tools are the same, regardless of the installation method. Please refer to each tool's documentation to see their usage.
 
+## <a id="neovim"></a> Neovim
+
+The most complex configuration in this repository belongs to Neovim. For detailed information about my Neovim plugins and how everything is set up, please refer to [here](neovim-readme-link).
+
 ## <a id="todo"></a> TODO
 
-- When the main limitations with the installation are resolved, I will explain the Neovim configuration in detail since it is the most complex and unique configuration in this repository.
 - Add Fedora to the supported list of distrubitions.
