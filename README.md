@@ -3,7 +3,20 @@
 Dotfiles is a collection of configuration files that allows me to create my own local environment.
 By storing my local environment configuration in a version control system, it allows me to track and maintain my configuration via code.
 
-## Motivation
+## Table of Contents
+
+<!--toc:start-->
+
+- [Motivation](#motivation)
+- [For Whom Is This Repository For?](#for-whom-is-this-repository-for)
+- [What Does This Repository Have?](#what-does-this-repository-have)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Neovim](#neovim)
+- [TODO](#todo)
+<!--toc:end-->
+
+## <a id="motivation"></a> Motivation
 
 In all of my projects, my initial thought process is more or less the same:
 
@@ -19,7 +32,7 @@ In this context, `dotfiles` ticks all steps beautifully:
 
 As a result of the analysis above, this project was born.
 
-## For Whom Is This Repository For?
+## <a id="for-whom-is-this-repository-for"></a> For Whom Is This Repository For?
 
 I'll be blunt in here, I would highly encourage anyone reading this to just jump right in and create their own dotfiles.
 These configurations are what work for me and my own taste. You need to find your unique local environment configuration, and then create your dotfiles from that environment.
@@ -31,7 +44,7 @@ In case you see something that's not right or something that you have issues wit
 
 With all the disclaimers out of the way, let us continue with the contents of the actual configurations.
 
-## What Does This Repository Have?
+## <a id="what-does-this-repository-have"></a> What Does This Repository Have?
 
 When it comes to tools, I think it's safe to group them based on their functionalities:
 
@@ -64,15 +77,18 @@ When it comes to tools, I think it's safe to group them based on their functiona
 
 There are also tools which are used solely during development. These tools are installed with `Neovim`. The detailed explanation for Neovim configuration will be added later on with all it's details.
 
-## Installation
+## <a id="installation"></a> Installation
 
 The installation is done through an `Ansible` playbook. Please refer [here](https://github.com/acikgozb/dotfiles/blob/main/setup/README.md) to see the details of the installation.
 
-## Usage
+## <a id="usage"></a> Usage
 
 The usage of the tools are the same, regardless of the installation method. Please refer to each tool's documentation to see their usage.
 
-## TODO
+## <a id="neovim"></a> Neovim
 
-- When the main limitations with the installation are resolved, I will explain the Neovim configuration in detail since it is the most complex and unique configuration in this repository.
+The most complex configuration in this repository belongs to Neovim. For detailed information about my Neovim plugins and how everything is set up, please refer to [here](neovim-readme-link).
+
+## <a id="todo"></a> TODO
+
 - Add Fedora to the supported list of distrubitions.
