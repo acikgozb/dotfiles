@@ -7,7 +7,10 @@
 <!--toc:start-->
 
 - [Installation](#installation)
-- [Configuration](#configuration) - [`.zshrc`](#zshrc) - [`.zshenv`](#zshenv) - [`Plugins`](#plugins)
+- [Configuration](#configuration)
+  - [`.zshrc`](#zshrc)
+  - [`.zshenv`](#zshenv)
+- [`Plugins`](#plugins)
 <!--toc:end-->
 
 ## <a id='installation'></a> Installation
