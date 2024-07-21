@@ -87,7 +87,7 @@ The usage of the tools are the same, regardless of the installation method. Plea
 
 ## <a id="neovim"></a> Neovim
 
-The most complex configuration in this repository belongs to Neovim. For detailed information about my Neovim plugins and how everything is set up, please refer to [here](neovim-readme-link).
+The most complex configuration in this repository belongs to Neovim. For detailed information about my Neovim plugins and how everything is set up, please refer to [here](https://github.com/acikgozb/dotfiles/blob/main/nvim/README.md).
 
 ## <a id="todo"></a> TODO
 

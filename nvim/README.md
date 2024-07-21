@@ -13,38 +13,38 @@ It is flexible in a way that allows each individual to have their unique editor,
 - [Plugin Structure](#plugin-structure)
 - [Plugin List](#plugin-list)
 - [Searching and Navigation](#searching-and-navigation)
-- [telescope.nvim](#telescopenvim)
-- [harpoon](#harpoon)
+  - [telescope.nvim](#telescopenvim)
+  - [harpoon](#harpoon)
 - [Text Manipulation](#text-manipulation)
-- [autoclose.nvim](#autoclosenvim)
-- [comments.nvim](#commentsnvim)
-- [todo-comments.nvim](#todo-commentsnvim)
-- [`undotree`](#undotree)
-- [Keymaps](#keymaps)
+  - [autoclose.nvim](#autoclosenvim)
+  - [comments.nvim](#commentsnvim)
+  - [todo-comments.nvim](#todo-commentsnvim)
+  - [undotree](#undotree)
+  - [Keymaps](#keymaps)
 - [Syntax Highlighting](#syntax-highlighting)
-- [treesitter.nvim](#treesitternvim)
+  - [treesitter.nvim](#treesitternvim)
 - [Language Servers](#language-servers)
-- [mason.nvim](#masonnvim)
-- [mason-lspconfig.nvim](#mason-lspconfignvim)
-- [nvim-lspconfig](#nvim-lspconfig)
-- [roslyn.nvim](#roslynnvim)
-- [`nvim-cmp`, `luasnip`, `cmp-nvim-lsp`](#nvim-cmp-luasnip-cmp-nvim-lsp)
+  - [mason.nvim](#masonnvim)
+  - [mason-lspconfig.nvim](#mason-lspconfignvim)
+  - [nvim-lspconfig](#nvim-lspconfig)
+  - [roslyn.nvim](#roslynnvim)
+  - [nvim-cmp, luasnip, cmp-nvim-lsp](#nvim-cmp-luasnip-cmp-nvim-lsp)
 - [Formatters](#formatters)
 - [Diagnosing and Debugging](#diagnosing-and-debugging)
-- [`trouble.nvim`](#troublenvim)
-- [`nvim-dap`](#nvim-dap)
+  - [trouble.nvim](#troublenvim)
+  - [nvim-dap](#nvim-dap)
 - [Databases](#databases)
 - [Gitflow](#gitflow)
-- [`lazygit.nvim`](#lazygitnvim)
-- [`advanced-git-search.nvim`](#advanced-git-searchnvim)
-- [`gitsigns.nvim`](#gitsignsnvim)
+  - [lazygit.nvim](#lazygitnvim)
+  - [advanced-git-search.nvim](#advanced-git-searchnvim)
+  - [gitsigns.nvim](#gitsignsnvim)
 - [Network Client](#network-client)
 - [Templating](#templating)
 - [Misc](#misc)
-- [`noice-nvim`](#noice-nvim)
-- [`rose-pine/neovim`](#rose-pineneovim)
-- [`vim-be-good`](#vim-be-good)
-<!--toc:end-->
+  - [noice-nvim](#noice-nvim)
+  - [rose-pine/neovim](#rose-pineneovim)
+  - [vim-be-good](#vim-be-good)
+  <!--toc:end-->
 
 ## <a id='motivation'></a> Motivation
 
@@ -257,7 +257,7 @@ Since the plugin is loaded in a lazy way, the coloring won't take effect until `
 
 For details, please check [comment.lua](https://github.com/acikgozb/dotfiles/blob/main/nvim/lua/acikgozb/plugins/comment.lua).
 
-#### <a id='undotree'></a> `undotree`
+#### <a id='undotree'></a> undotree
 
 `undotree` is a plugin I use to have a global history of text changes for a single buffer.
 Since I disabled swap files in Vim, I wanted another place to be able to revert stuff if something goes wrong.
@@ -355,7 +355,7 @@ Unfortunately, the main C# LSP supported by `mason.nvim` is really slow and prov
 
 Due to this fact, a separate plugin called [roslyn.nvim](https://github.com/jmederosalvarado/roslyn.nvim) is added specifically for C# for better performance, by trading some of the features that comes with default LSP `omnisharp`.
 
-#### <a id='nvim-cmp-luasnip-cmp-nvim-lsp'></a> `nvim-cmp`, `luasnip`, `cmp-nvim-lsp`
+#### <a id='nvim-cmp-luasnip-cmp-nvim-lsp'></a> nvim-cmp, luasnip, cmp-nvim-lsp
 
 These plugins are used to enable autocomplete while modifying a text.
 
@@ -388,12 +388,12 @@ In this section, I have 2 main plugins to tackle this issue:
 - `trouble.nvim`
 - `nvim-dap`
 
-#### <a id='troublenvim'></a> `trouble.nvim`
+#### <a id='troublenvim'></a> trouble.nvim
 
 This plugin allows me to see all the potential issues within a project.
 You can see the configuration in [trouble.lua](https://github.com/acikgozb/dotfiles/blob/main/nvim/lua/acikgozb/plugins/trouble.lua), it's pretty basic.
 
-#### <a id='nvim-dap'></a> `nvim-dap`
+#### <a id='nvim-dap'></a> nvim-dap
 
 Probably one of the best features of modern IDE's is the fact that they have superior debugging capabilities.
 
@@ -484,7 +484,7 @@ That is why for this topic, I'm using the plugins below:
 - [advanced-git-search](https://github.com/aaronhallaert/advanced-git-search.nvim)
 - [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)
 
-#### <a id='lazygitnvim'></a> `lazygit.nvim`
+#### <a id='lazygitnvim'></a> lazygit.nvim
 
 This is the main Git client I'm using within Neovim. It's actually a CLI tool called `lazygit`, and the plugin just enables it in a floating window on top of the current buffer.
 
@@ -502,7 +502,7 @@ I usually prefer CLI tools but somehow for Git I keep using GUI's, that is why I
 
 However, there are a couple more plugins which I use to have a complete experience.
 
-#### <a id='advanced-git-searchnvim'></a> `advanced-git-search.nvim`
+#### <a id='advanced-git-searchnvim'></a> advanced-git-search.nvim
 
 The one thing I keep using, especially when I work with a legacy project is the Git history.
 
@@ -523,7 +523,7 @@ There are several commands that it provides, but the one I needed was `DiffCommi
 
 The configuration can be found under [gitsearch.lua](https://github.com/acikgozb/dotfiles/blob/main/nvim/lua/acikgozb/plugins/gitsearch.lua).
 
-#### <a id='gitsignsnvim'></a> `gitsigns.nvim`
+#### <a id='gitsignsnvim'></a> gitsigns.nvim
 
 This is the final plugin I use for my Gitflow, and this one is targeted to another problem I encountered as I used `lazygit.nvim` and `advanced-git-search.nvim`.
 
@@ -614,7 +614,7 @@ Here are the plugins I use for this category:
 - [rose-pine/neovim](https://github.com/rose-pine/neovim)
 - [vim-be-good](https://github.com/ThePrimeagen/vim-be-good)
 
-#### <a id='noicenvim'></a> `noice-nvim`
+#### <a id='noicenvim'></a> noice-nvim
 
 This plugin is a UI plugin which allows us to have different UI elements when it comes to messages, notifications, searching and command pallette.
 
@@ -624,14 +624,14 @@ So I only use the floating command line from this plugin, which puts the command
 
 The configuration can be found under [noice.lua](https://github.com/acikgozb/dotfiles/blob/main/nvim/lua/acikgozb/plugins/noice.lua).
 
-#### <a id='rose-pineneovim'></a> `rose-pine/neovim`
+#### <a id='rose-pineneovim'></a> rose-pine/neovim
 
 This is the main Neovim theme I use, and the colorscheme is also applied to my `tmux` configuration.
 Most people swear by `catppuccin`, but I dislike the vibrant pastel colors.
 
 There is no right or wrong when it comes to themes. It's just my personal preference. You can check the configuration under [theme.lua](https://github.com/acikgozb/dotfiles/blob/main/nvim/lua/acikgozb/plugins/theme.lua).
 
-#### <a id='vim-be-good'></a> `vim-be-good`
+#### <a id='vim-be-good'></a> vim-be-good
 
 This plugin is from one of my favourite content creator called ThePrimeagen.
 
