@@ -11,6 +11,7 @@ In order to use the configurations in this repository, there are couple steps th
 - [Required Tools](#required-tools)
 - [Clone the Repository](#clone-the-repository)
 - [`setup` Directory](#setup-directory)
+  - [List of Ansible Roles](#ansible-roles)
 - [Post Installation](#post-installation)
 <!--toc:end-->
 
@@ -64,7 +65,7 @@ The clone part is pretty standard, if the directory is empty it should work with
 
 The main installation and configuration of your host happens under `~/.config/setup` directory. This is the main place where our Ansible playbook lives, along with anything it needs.
 
-If you have had an experience working with Ansible, this directory will feel familiar to you. You can check the roles and variables in detail to see how everything works.
+If you have had an experience working with Ansible, this directory will feel familiar to you.
 
 To start the setup process, simply cd into setup directory and run `make setup`:
 
@@ -74,6 +75,20 @@ make setup
 ```
 
 Some tasks need to be run via elevated privileges, therefore Ansible will ask the password of the `$USER`. Enter your password and then the installation starts.
+
+### <a id="ansible-roles"></a> List of Ansible Roles
+
+If you wish to check out each role to understand how the installation work, here is a list of the roles used in Ansible setup playbook:
+
+- [acikgozb.arch](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.arch)
+- [acikgozb.aws](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.aws)
+- [acikgozb.docker](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.docker)
+- [acikgozb.git](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.git)
+- [acikgozb.hashicorp](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.hashicorp)
+- [acikgozb.kitty](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.kitty)
+- [acikgozb.nvim](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.nvim)
+- [acikgozb.tmux](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.tmux)
+- [acikgozb.zsh](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.zsh)
 
 ## <a id="post-installation"></a> Post Installation
 
