@@ -1,2 +1,7 @@
-- name: "[OS Specific] Install Kitty."
-  ansible.builtin.include_tasks: ./setup-{{ ansible_os_family }}.yml
+- name: "[OS Specific] Install Kitty for Darwin."
+  ansible.builtin.include_tasks: ./setup-Darwin.yml
+  when: ansible_os_family == "Darwin"
+
+- name: "[OS Specific] Install Kitty for Linux."
+  ansible.builtin.include_tasks: ./setup-Linux.yml
+  when: ansible_os_family != "Darwin"
