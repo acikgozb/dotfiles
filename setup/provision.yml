@@ -3,6 +3,11 @@
   become: true
   gather_facts: true
   tasks:
+    - name: Ensure that Git exists on host.
+      ansible.builtin.package:
+        name: git
+        state: present
+
     - name: Clone the dotfiles repo.
       become_user: "{{ lookup('env', 'USER') }}"
       ansible.builtin.git:
