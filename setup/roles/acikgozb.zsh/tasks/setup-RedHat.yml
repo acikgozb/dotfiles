@@ -1,0 +1,4 @@
+- name: Install zsh via dnf.
+  ansible.builtin.dnf:
+    name: zsh
+    state: present
