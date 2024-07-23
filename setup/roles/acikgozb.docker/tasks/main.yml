@@ -1,7 +1,0 @@
-- name: "[OS Specific] Install Docker on Debian."
-  ansible.builtin.include_tasks: ./setup-Debian.yml
-  when: ansible_os_family == "Debian"
-
-- name: "[OS Specific] Install Docker on Darwin."
-  ansible.builtin.include_tasks: ./setup-Darwin.yml
-  when: ansible_os_family == "Darwin"

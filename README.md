@@ -70,7 +70,7 @@ When it comes to tools, I think it's safe to group them based on their functiona
   - [typescript](https://www.typescriptlang.org/)
   - [yamlfmt](https://github.com/google/yamlfmt)
   - [dlv](https://github.com/go-delve/delve)
-- Containerization: [Docker](https://www.docker.com/)
+- Containerization: [Podman](https://podman.io/)
 - Virtualization: [Vagrant](https://www.vagrantup.com/)
 - Cloud provider: [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 - Infrastructure as Code: [AWS CDK](https://aws.amazon.com/cdk/), [Terraform](https://www.terraform.io/)
