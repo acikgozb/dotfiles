@@ -13,5 +13,5 @@
     - acikgozb.tmux
     - acikgozb.nvim
     - acikgozb.aws
-    - acikgozb.docker
+    - acikgozb.podman
     - acikgozb.hashicorp
