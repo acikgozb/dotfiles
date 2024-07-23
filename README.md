@@ -75,7 +75,7 @@ When it comes to tools, I think it's safe to group them based on their functiona
 - Cloud provider: [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html)
 - Infrastructure as Code: [AWS CDK](https://aws.amazon.com/cdk/), [Terraform](https://www.terraform.io/)
 
-There are also tools which are used solely during development. These tools are installed with `Neovim`. The detailed explanation for Neovim configuration will be added later on with all it's details.
+There are also tools which are used solely during development. These tools are installed with `Neovim`.
 
 ## <a id="installation"></a> Installation
 
@@ -91,4 +91,5 @@ The most complex configuration in this repository belongs to Neovim. For detaile
 
 ## <a id="todo"></a> TODO
 
-- Add Fedora to the supported list of distrubitions.
+- Improve the testing experience, instead of using `Vagrant` which limits the `arch` to the underlying host, use various EC2 instances on AWS to test for all platforms.
+- Add workflows for CI/CD, test the installation changes on AWS before merging to main.
