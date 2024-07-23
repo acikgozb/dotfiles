@@ -35,14 +35,14 @@
         - /tmp/UbuntuMono
         - /tmp/UbuntuMono.tar.xz
 
-    - name: Ensure fc-cache exists in the system.
-      ansible.builtin.apt:
-        name: fontconfig
+    - name: "[OS Specific] Install fc-cache."
+      ansible.builtin.package:
+        name: "{{ fc_cache[ansible_os_family] }}"
         state: present
 
     - name: Reload the system fonts, to enable the installed font.
       ansible.builtin.shell:
-        cmd: "fc-cache -f -v \n"
+        cmd: "fc-cache -f -v"
       changed_when: false
 
 - name: Ensure the current user has a .local folder under $HOME.

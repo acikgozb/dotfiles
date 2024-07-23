@@ -82,7 +82,7 @@ If you wish to check out each role to understand how the installation work, here
 
 - [acikgozb.arch](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.arch)
 - [acikgozb.aws](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.aws)
-- [acikgozb.docker](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.docker)
+- [acikgozb.podman](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.podman)
 - [acikgozb.git](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.git)
 - [acikgozb.hashicorp](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.hashicorp)
 - [acikgozb.kitty](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.kitty)

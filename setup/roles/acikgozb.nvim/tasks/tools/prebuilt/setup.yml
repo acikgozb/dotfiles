@@ -67,3 +67,15 @@
     owner: "{{ lookup('env', 'USER') }}"
     group: "{{ lookup('env', 'USER') }}"
     mode: "0755"
+
+- name: Remove temporary directories.
+  ansible.builtin.file:
+    path: /tmp/{{ item.name }}
+    state: absent
+  with_items: "{{ tools.prebuilt }}"
+
+- name: Remove downloaded files.
+  ansible.builtin.file:
+    path: /tmp/{{ item.name }}-binary
+    state: absent
+  with_items: "{{ tools.prebuilt }}"
