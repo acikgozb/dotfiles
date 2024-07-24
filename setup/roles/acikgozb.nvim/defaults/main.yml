@@ -4,6 +4,12 @@ neovim:
     url: https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
   darwin:
     url: https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz
+# GCC package lists
+gcc_packages:
+  Debian:
+    - "build-essential"
+  Fedora:
+    - "@C Development Tools and Libraries"
 # Languages
 # Go
 go_version: 1.22.4
