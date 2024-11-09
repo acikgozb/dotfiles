@@ -125,6 +125,16 @@ return {
 				on_attach = onAttach,
 			})
 
+			lspconfig.terraformls.setup({
+				capabilities = capabilities,
+				on_attach = onAttach,
+				experimentalFeatures = {
+					validateOnSave = true,
+					prefillRequiredFields = true,
+				},
+				ignoreSingleFileWarning = true,
+			})
+
 			lspconfig.docker_compose_language_service.setup({
 				capabilities = capabilities,
 				on_attach = onAttach,

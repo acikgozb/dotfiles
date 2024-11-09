@@ -26,6 +26,7 @@ return {
 				"markdown",
 				"bash",
 				"ruby",
+				"terraform",
 			},
 			sync_install = false,
 			highlight = { enable = true },
