@@ -13,10 +13,11 @@ return {
 				markdown = { { "prettier" } },
 				go = { "gofumpt", "goimports" },
 				csharp = { "csharpier" },
-				sh = { "beautysh" },
+				bash = { "beautysh" },
 				yaml = { "yamlfmt" },
 				["yaml.ansible"] = { "yamlfmt", "ansible-lint" },
 				sql = { "sqlfmt" },
+				tf = { "terraform_fmt" },
 			},
 			format_on_save = {
 				lsp_fallback = true,
