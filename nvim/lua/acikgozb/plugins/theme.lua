@@ -30,7 +30,7 @@ return {
 					nvim_cmp = true,
 					treesitter = true,
 					telescope = true,
-					lualine = true,
+					lualine = false,
 				},
 
 				-- gitsigns colors
