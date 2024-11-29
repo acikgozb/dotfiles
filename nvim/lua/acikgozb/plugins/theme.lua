@@ -10,7 +10,7 @@ return {
 				bg = "#1c1c1c",
 				cursor = "#bdfe58",
 				line_nr = "#404040",
-				visual = "#303030",
+				visual = "#444444",
 				comment = "#585858",
 				string = "#d1d1d1",
 				func = "#e1e1e1",
