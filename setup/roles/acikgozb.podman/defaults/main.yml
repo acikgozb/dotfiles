@@ -1,0 +1,2 @@
+podman_version: 5.1.2
+podman_macos_installer: https://github.com/containers/podman/releases/download/v{{ podman_version }}/podman-installer-macos-arm64.pkg

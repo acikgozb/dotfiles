@@ -1,0 +1,3 @@
+fc_cache:
+  RedHat: fontconfig
+  Debian: fontconfig

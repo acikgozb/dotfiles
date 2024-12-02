@@ -30,16 +30,15 @@ When it comes to tools, I think it's safe to group them based on their functiona
   - [Golang](https://go.dev/)
   - [.NET](https://dotnet.microsoft.com/en-us/)
   - [JavaScript](https://nodejs.org/en)
-  - [Bash]()
 - Language package managers:
   - [NPM](https://www.npmjs.com/)
   - [NVM](https://github.com/nvm-sh/nvm)
 - Formatters, transpilers, helper tools:
-  - [jq](https://github.com/jqlang/jq),
-  - [shellcheck](https://github.com/koalaman/shellcheck),
-  - [golangci-lint](https://github.com/golangci/golangci-lint),
-  - [prettier](https://github.com/prettier/prettier),
-  - [eslint_d](https://github.com/mantoni/eslint_d.js),
+  - [jq](https://github.com/jqlang/jq)
+  - [shellcheck](https://github.com/koalaman/shellcheck)
+  - [golangci-lint](https://github.com/golangci/golangci-lint)
+  - [prettier](https://github.com/prettier/prettier)
+  - [eslint_d](https://github.com/mantoni/eslint_d.js)
   - [typescript](https://www.typescriptlang.org/)
   - [yamlfmt](https://github.com/google/yamlfmt)
   - [dlv](https://github.com/go-delve/delve)

@@ -12,7 +12,7 @@ return {
 				ensure_installed = {
 					"gopls",
 					"lua_ls",
-					"tsserver",
+					"ts_ls",
 					"hydra_lsp",
 					"marksman",
 					"html",
@@ -37,6 +37,7 @@ return {
 				-- Buffer local mappings.
 				-- See `:help vim.lsp.*` for documentation on any of the below functions
 				local opts = { buffer = ev.buf }
+				vim.keymap.set("n", "<space>se", vim.diagnostic.open_float, opts)
 				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 				vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
 				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
@@ -71,7 +72,7 @@ return {
 				},
 			})
 
-			lspconfig.tsserver.setup({
+			lspconfig.ts_ls.setup({
 				capabilities = capabilities,
 				on_attach = onAttach,
 				settings = {
@@ -123,6 +124,16 @@ return {
 			lspconfig.bashls.setup({
 				capabilities = capabilities,
 				on_attach = onAttach,
+			})
+
+			lspconfig.terraformls.setup({
+				capabilities = capabilities,
+				on_attach = onAttach,
+				experimentalFeatures = {
+					validateOnSave = true,
+					prefillRequiredFields = true,
+				},
+				ignoreSingleFileWarning = true,
 			})
 
 			lspconfig.docker_compose_language_service.setup({

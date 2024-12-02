@@ -5,7 +5,7 @@ return {
 	{
 		"L3MON4D3/LuaSnip",
 		dependencies = {
-			"saadparwaiz/cmp_luasnip",
+			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets",
 		},
 	},

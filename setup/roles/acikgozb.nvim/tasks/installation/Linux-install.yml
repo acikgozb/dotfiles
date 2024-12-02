@@ -1,0 +1,36 @@
+- name: Download and install Neovim Nightly.
+  become_user: "{{ lookup('env', 'USER') }}"
+  block:
+    - name: Download Nightly binary.
+      ansible.builtin.get_url:
+        url: "{{ neovim.linux.url }}"
+        dest: "/tmp/nvim-linux"
+
+    - name: Ensure that $HOME/lib exists for lib code.
+      ansible.builtin.file:
+        path: ~/lib
+        state: directory
+
+    - name: Unarchive the binary under $HOME/lib.
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: "/tmp/nvim-linux"
+        dest: "~/lib"
+
+    - name: Ensure that a symlink exists for Neovim binary, under $HOME/bin.
+      ansible.builtin.file:
+        src: ~/lib/nvim-linux64/bin/nvim
+        dest: ~/bin/nvim
+        state: link
+
+    - name: Remove the installation file.
+      ansible.builtin.file:
+        path: /tmp/nvim-linux
+        state: absent
+
+- name: "[Distro Specific] Ensure that gcc and helper tools exist on the host."
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ gcc_packages[ansible_distribution] }}"
+

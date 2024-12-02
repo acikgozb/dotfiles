@@ -1,50 +1,58 @@
 return {
-	"rose-pine/neovim",
-	name = "rose-pine",
+	"aliqyan-21/darkvoid.nvim",
 	config = function()
-		require("rose-pine").setup({
-			variant = "main",
-			dark_variant = "main",
-			dim_inactive_windows = false,
-			extend_background_behind_borders = true,
-			enable = {
-				terminal = true,
-				legacy_highlights = true,
-				migrations = true,
-			},
-			styles = {
-				bold = true,
-				italic = false,
-				transparency = true,
-			},
-			groups = {
-				border = "muted",
-				link = "iris",
-				panel = "surface",
-				error = "love",
-				hint = "iris",
-				info = "foam",
-				note = "pine",
-				todo = "rose",
-				warn = "gold",
-				git_add = "foam",
-				git_change = "rose",
-				git_delete = "love",
-				git_dirty = "rose",
-				git_ignore = "muted",
-				git_merge = "iris",
-				git_rename = "pine",
-				git_stage = "iris",
-				git_text = "rose",
-				git_untracked = "subtle",
-				h1 = "iris",
-				h2 = "foam",
-				h3 = "rose",
-				h4 = "gold",
-				h5 = "pine",
-				h6 = "foam",
+		require("darkvoid").setup({
+			transparent = false,
+			glow = false,
+			show_end_of_buffer = true,
+			colors = {
+				fg = "#c0c0c0",
+				bg = "#1c1c1c",
+				cursor = "#bdfe58",
+				line_nr = "#404040",
+				visual = "#444444",
+				comment = "#585858",
+				string = "#d1d1d1",
+				func = "#e1e1e1",
+				kw = "#f1f1f1",
+				identifier = "#b1b1b1",
+				type = "#a1a1a1",
+				type_builtin = "#c5c5c5",
+				search_highlight = "#1bfd9c",
+				operator = "#1bfd9c",
+				bracket = "#e6e6e6",
+				preprocessor = "#4b8902",
+				bool = "#66b2b2",
+				constant = "#b2d8d8",
+
+				plugins = {
+					gitsigns = true,
+					nvim_cmp = true,
+					treesitter = true,
+					telescope = true,
+					lualine = false,
+				},
+
+				-- gitsigns colors
+				added = "#baffc9",
+				changed = "#ffffba",
+				removed = "#ffb3ba",
+
+				-- EndOfBuffer color
+				eob = "#3c3c3c",
+
+				-- Telescope specific colors
+				border = "#585858",
+				title = "#bdfe58",
+
+				-- LSP diagnostics colors
+				error = "#dea6a0",
+				warning = "#d6efd8",
+				hint = "#bedc74",
+				info = "#7fa1c3",
 			},
 		})
-		vim.cmd("colorscheme rose-pine")
+
+		vim.cmd("colorscheme darkvoid")
 	end,
 }

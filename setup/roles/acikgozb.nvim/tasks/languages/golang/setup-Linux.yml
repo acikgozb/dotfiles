@@ -1,4 +1,4 @@
-- name: Ensure that Go binary is not installed globally.
+- name: Ensure that Golang binary is not installed globally.
   ansible.builtin.file:
     path: /usr/local/go
     state: absent

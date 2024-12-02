@@ -58,21 +58,27 @@
     - {repo: 'https://github.com/zsh-users/zsh-autosuggestions.git', dest: "zsh-autosuggestions"}
     - {repo: 'https://github.com/jeffreytse/zsh-vi-mode.git', dest: "zsh-vi-mode",}
 
-- name: Check $PATH to see whether $HOME/bin/prebuilt exists.
+- name: Ensure that a local directory is created for pre-built binaries.
   become_user: "{{ lookup('env', 'USER') }}"
-  ansible.builtin.command:
-    cmd: grep '/bin/prebuilt' ~/.config/zsh/.zshrc
-  register: grep_out
-  ignore_errors: true
+  block:
+    - name: Check $PATH to see whether $HOME/bin/prebuilt exists.
+      ansible.builtin.command:
+        cmd: grep '/bin/prebuilt' ~/.config/zsh/.zshrc
+      register: grep_out
+      ignore_errors: true
 
-- name: Ensure that $HOME/bin/prebuilt exists on $PATH, if check fails.
-  become_user: "{{ lookup('env', 'USER') }}"
-  ansible.builtin.blockinfile:
-    path: ~/.config/zsh/.zshrc
-    insertafter: "export PATH="
-    marker_begin: "Prebuilt binary lookup -"
-    block: |
-      export PATH=$HOME/bin/prebuilt:$PATH
-    prepend_newline: true
-    append_newline: true
-  when: grep_out is failed
+    - name: Ensure that $HOME/bin/prebuilt directory exists on host.
+      ansible.builtin.file:
+        path: ~/bin/prebuilt
+        state: directory
+
+    - name: Ensure that $HOME/bin/prebuilt exists on $PATH, if check fails.
+      ansible.builtin.blockinfile:
+        path: ~/.config/zsh/.zshrc
+        insertafter: "export PATH="
+        marker_begin: "Prebuilt binary lookup -"
+        block: |
+          export PATH=$HOME/bin/prebuilt:$PATH
+        prepend_newline: true
+        append_newline: true
+      when: grep_out is failed

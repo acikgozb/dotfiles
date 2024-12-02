@@ -1,0 +1,4 @@
+- name: Install Podman globally via package manager.
+  ansible.builtin.package:
+    name: podman
+    state: present

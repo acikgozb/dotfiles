@@ -1,3 +1,11 @@
+- name: Get the installed Node version.
+  become_user: "{{ lookup('env', 'USER') }}"
+  ansible.builtin.shell:
+    cmd: source ~/.config/zsh/.zshrc && node --version
+    executable: /usr/bin/zsh
+  register: node_version_out
+  changed_when: true
+
 - name: Create a symlink for Node under /usr/bin.
   ansible.builtin.file:
     src: /home/{{ lookup('env', 'USER') }}/bin/nvm/versions/node/{{ node_version_out.stdout }}/bin/node
