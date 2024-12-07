@@ -8,7 +8,6 @@ It is flexible in a way that allows each individual to have their unique editor,
 
 <!--toc:start-->
 
-- [Motivation](#motivation)
 - [Plugin Manager](#plugin-manager)
 - [Plugin Structure](#plugin-structure)
 - [Plugin List](#plugin-list)
@@ -45,37 +44,6 @@ It is flexible in a way that allows each individual to have their unique editor,
   - [rose-pine/neovim](#rose-pineneovim)
   - [vim-be-good](#vim-be-good)
   <!--toc:end-->
-
-## <a id='motivation'></a> Motivation
-
-My first weapon of choice when I got in tech (2019) was VSCode, simply because I did not know anything and that was the most used text editor (and free).
-Later on, in my first job I got introduced to Jetbrains IDE's, and hadn't switched until the beginning of 2024.
-
-At the beginning of 2024, I was just trying to learn new technologies to improve myself further from what I do at work.
-While researching, I stumbled upon a random guy on Youtube, talking about generic software engineering topics.
-He was also writing code whilst talking, and he was doing it in Vim. I found myself amazed at how magical it looked.
-
-I'm a firm believer in having an open mind, especially in tech. So I found his videos about Vim and got intrigued even more.
-
-I liked the idea of having a unique editor, free from bloat, one that I completely understand and know it's capabilities, one that feels like an extension of the body, not the other way around.
-This is something that cannot happen with modern IDE's, those tools are opinionated and have many features which I do not need. VSCode is opinionated as well, although it is a lot less than Jetbrains IDE's.
-
-Realizing the points above, I decided to give a month to try it out, and then see whether it's a "grass is always greener on the other side" situation or not.
-
-So I installed Neovim and then researched about how to customize it. Then I found about plugins and pre-configured distributions (e.g NVChad).
-
-Most people say that at first, try a pre-configured distribution and later on branch out.
-However, the reason I started learning this was the idea of understanding the capabilities of my editor, so I decided to go all in and configure everything manually, whilst getting used to Vim motions.
-
-The result is what you see in this directory. I absolutely do not regret my decision, and I'm glad that I took the bullet and went for it.
-
-It's not about how faster you can become with Neovim, it's about:
-
-- Having a unique editor for your needs, which allows to enter the flow state a lot faster.
-- Having an understanding regarding how an IDE works, so that you know your tool's limits.
-- Making peace with your terminal, instead of fearing it you start to own it and enhance your workflow even more.
-
-So let's see how everything works in this directory.
 
 ## <a id='plugin-manager'></a> Plugin Manager
 
