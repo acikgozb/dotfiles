@@ -27,7 +27,6 @@ return {
 			})
 
 			telescope.load_extension("fzf")
-			telescope.load_extension("advanced_git_search")
 		end,
 	},
 	{
