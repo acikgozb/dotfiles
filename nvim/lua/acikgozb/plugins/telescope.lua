@@ -26,8 +26,36 @@ return {
 				},
 			})
 
+			-- Apply Telescope highlight groups.
+			local colors = require("noirbuddy.colors").all()
+
+			local telescope_highlight_groups = {
+				TelescopeNormal = { fg = colors.secondary, bg = "NONE" },
+				TelescopeBorder = { fg = colors.primary, bg = "NONE" },
+				TelescopePromptNormal = { fg = colors.none, bg = "NONE" },
+				TelescopePromptBorder = { fg = colors.primary, bg = "NONE" },
+				TelescopePromptCounter = { fg = colors.white, bg = "NONE" },
+				TelescopePromptTitle = { fg = colors.secondary, bg = "NONE", gui = "bold" },
+				TelescopeSelectionCaret = { fg = colors.primary, bg = colors.background },
+				TelescopeSelection = { fg = colors.secondary, bg = colors.background, gui = "bold" },
+				TelescopeMatching = { fg = colors.primary, bg = "NONE", gui = "bold" },
+			}
+
+			for group_name, config in pairs(telescope_highlight_groups) do
+				local cmd = "highlight " .. group_name
+				if config.fg then
+					cmd = cmd .. " guifg=" .. config.fg
+				end
+				if config.bg then
+					cmd = cmd .. " guibg=" .. config.bg
+				end
+				if config.gui then
+					cmd = cmd .. " gui=" .. config.gui
+				end
+				vim.cmd(cmd)
+			end
+
 			telescope.load_extension("fzf")
-			telescope.load_extension("advanced_git_search")
 		end,
 	},
 	{

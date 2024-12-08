@@ -31,6 +31,7 @@ return {
 			local lspconfig = require("lspconfig")
 			local util = require("lspconfig/util")
 			local csharpLsp = require("roslyn")
+			local telescope = require("telescope.builtin")
 
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local onAttach = function(ev)
@@ -46,7 +47,7 @@ return {
 				vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
 				vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
 				vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
-				vim.keymap.set("n", "gr", require("telescope.builtin").lsp_references, opts)
+				vim.keymap.set("n", "gr", telescope.lsp_references, opts)
 			end
 
 			lspconfig.lua_ls.setup({

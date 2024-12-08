@@ -1,0 +1,7 @@
+[log]
+    decorate = true
+    date = relative
+[format]
+    pretty = format:%h %ad %Cgreen%aN %d %s
+[color]
+    ui = true
