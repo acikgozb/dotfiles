@@ -1,18 +1,75 @@
+local DirectedPane = function(opts)
+	local win_key_sequence = { "k", "H" }
+
+	if opts.win_key_sequence ~= nil then
+		win_key_sequence = vim.tbl_deep_extend("force", win_key_sequence, opts.win_key_sequence)
+	end
+
+	vim.cmd(opts.command)
+
+	local c_w = vim.api.nvim_replace_termcodes("<c-w>", true, false, true)
+
+	for _, key in ipairs(win_key_sequence) do
+		vim.api.nvim_feedkeys(c_w .. key, "n", true)
+	end
+end
+
+local GitLogBranch = function()
+	DirectedPane({
+		command = ":Git log --graph --decorate",
+	})
+end
+
+local GitLogAll = function()
+	DirectedPane({
+		command = ":Git log --graph --decorate --all",
+	})
+end
+
+local GitLogSelection = function()
+	local start_pos = vim.fn.getpos("v")[2]
+	local end_pos = vim.fn.getpos(".")[2]
+	local command = string.format(":Git log -L %s,%s:%s", start_pos, end_pos, vim.fn.expand("%"))
+
+	DirectedPane({
+		command = command,
+	})
+end
+
+local GitStatus = function()
+	DirectedPane({
+		command = ":G",
+	})
+end
+
+local GitBlame = function()
+	vim.cmd(":Git blame")
+end
+
+local GitMergetool = function()
+	DirectedPane({
+		command = ":Git mergetool",
+		win_key_sequence = { "j", "H" },
+	})
+end
+
+local GitDiffBuffer = function()
+	DirectedPane({
+		command = ":Git diff %",
+	})
+end
+
 return {
 	{
 		"tpope/vim-fugitive",
 		config = function()
-			vim.api.nvim_set_keymap("n", "<leader>glb", ":Git log --graph --decorate --oneline<CR>", { noremap = true })
-			vim.api.nvim_set_keymap(
-				"n",
-				"<leader>gla",
-				":Git log --graph --decorate --oneline --all<CR>",
-				{ noremap = true }
-			)
-			vim.api.nvim_set_keymap("n", "<leader>gb", ":Git blame<CR>", { noremap = true })
-			vim.api.nvim_set_keymap("n", "<leader>gs", ":G<CR>", { noremap = true })
-		end,
-	},
+			vim.keymap.set("v", "<leader>gl", GitLogSelection, { noremap = true })
+			vim.keymap.set("n", "<leader>glb", GitLogBranch, { noremap = true })
+			vim.keymap.set("n", "<leader>gla", GitLogAll, { noremap = true })
+			vim.keymap.set("n", "<leader>gb", GitBlame, { noremap = true })
+			vim.keymap.set("n", "<leader>gs", GitStatus, { noremap = true })
+			vim.keymap.set("n", "<leader>gmc", GitMergetool, { noremap = true })
+			vim.keymap.set("n", "<leader>gdb", GitDiffBuffer, { noremap = true })
 		end,
 	},
 	{
