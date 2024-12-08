@@ -3,45 +3,38 @@ return {
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	config = function()
 		local lualine = require("lualine")
-
-		local colors = {
-			blue = "#66b2b2",
-			black = "#1c1c1c",
-			green = "#1bfd9c",
-			gray = "#404040",
-			white = "#d1d1d1",
-		}
+		local colors = require("noirbuddy.colors").all()
 
 		local theme = {
 			normal = {
-				a = { bg = colors.blue, fg = colors.black, gui = "bold" },
-				b = { bg = colors.black, fg = colors.blue },
-				c = { bg = colors.black },
+				a = { bg = colors.primary, fg = colors.black, gui = "bold" },
+				b = { bg = colors.background, fg = colors.white },
+				c = { bg = colors.background },
 			},
 			visual = {
-				a = { bg = colors.black, fg = colors.green, gui = "bold" },
-				b = { bg = colors.black, fg = colors.white },
-				c = { bg = colors.black },
+				a = { bg = colors.background, fg = colors.primary, gui = "bold" },
+				b = { bg = colors.background, fg = colors.white },
+				c = { bg = colors.background },
 			},
 			insert = {
-				a = { bg = colors.black, fg = colors.green, gui = "bold" },
-				b = { bg = colors.black, fg = colors.white },
-				c = { bg = colors.black },
+				a = { bg = colors.background, fg = colors.primary, gui = "bold" },
+				b = { bg = colors.background, fg = colors.white },
+				c = { bg = colors.background },
 			},
 			command = {
-				a = { bg = colors.black, fg = colors.green, gui = "bold" },
-				b = { bg = colors.black, fg = colors.white },
-				c = { bg = colors.black },
+				a = { bg = colors.background, fg = colors.primary, gui = "bold" },
+				b = { bg = colors.background, fg = colors.white },
+				c = { bg = colors.background },
 			},
 			inactive = {
-				a = { bg = colors.black, fg = colors.green, gui = "bold" },
-				b = { bg = colors.black, fg = colors.white },
-				c = { bg = colors.black },
+				a = { bg = colors.background, fg = colors.primary, gui = "bold" },
+				b = { bg = colors.background, fg = colors.white },
+				c = { bg = colors.background },
 			},
 			replace = {
-				a = { bg = colors.black, fg = colors.green, gui = "bold" },
-				b = { bg = colors.black, fg = colors.white },
-				c = { bg = colors.black },
+				a = { bg = colors.background, fg = colors.primary, gui = "bold" },
+				b = { bg = colors.background, fg = colors.white },
+				c = { bg = colors.background },
 			},
 		}
 
