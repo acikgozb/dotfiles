@@ -42,10 +42,6 @@ local GitStatus = function()
 	})
 end
 
-local GitBlame = function()
-	vim.cmd(":Git blame")
-end
-
 local GitMergetool = function()
 	DirectedPane({
 		command = ":Git mergetool",
@@ -59,6 +55,14 @@ local GitDiffBuffer = function()
 	})
 end
 
+local GitBlame = function()
+	vim.cmd(":Git blame")
+end
+
+local GitResolveConflict = function()
+	vim.cmd(":Gvdiffsplit!")
+end
+
 return {
 	{
 		"tpope/vim-fugitive",
@@ -69,6 +73,7 @@ return {
 			vim.keymap.set("n", "<leader>gb", GitBlame, { noremap = true })
 			vim.keymap.set("n", "<leader>gs", GitStatus, { noremap = true })
 			vim.keymap.set("n", "<leader>gmc", GitMergetool, { noremap = true })
+			vim.keymap.set("n", "<leader>grc", GitResolveConflict, { noremap = true })
 			vim.keymap.set("n", "<leader>gdb", GitDiffBuffer, { noremap = true })
 		end,
 	},
