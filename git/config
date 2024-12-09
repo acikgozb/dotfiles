@@ -5,3 +5,7 @@
     pretty = format:%h %ad %Cgreen%aN %d %s
 [color]
     ui = true
+[core]
+    hooksPath = /Users/acikgozb/.config/git/hooks
+[init]
+    defaultBranch = main
