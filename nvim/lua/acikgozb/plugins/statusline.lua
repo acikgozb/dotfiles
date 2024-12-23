@@ -8,33 +8,33 @@ return {
 		local theme = {
 			normal = {
 				a = { bg = colors.primary, fg = colors.black, gui = "bold" },
-				b = { bg = colors.background, fg = colors.white },
-				c = { bg = colors.background },
+				b = { bg = nil, fg = colors.white },
+				c = { bg = nil },
 			},
 			visual = {
 				a = { bg = colors.background, fg = colors.primary, gui = "bold" },
-				b = { bg = colors.background, fg = colors.white },
-				c = { bg = colors.background },
+				b = { bg = nil, fg = colors.white },
+				c = { bg = nil },
 			},
 			insert = {
 				a = { bg = colors.background, fg = colors.primary, gui = "bold" },
-				b = { bg = colors.background, fg = colors.white },
-				c = { bg = colors.background },
+				b = { bg = nil, fg = colors.white },
+				c = { bg = nil },
 			},
 			command = {
 				a = { bg = colors.background, fg = colors.primary, gui = "bold" },
-				b = { bg = colors.background, fg = colors.white },
-				c = { bg = colors.background },
+				b = { bg = nil, fg = colors.white },
+				c = { bg = nil },
 			},
 			inactive = {
 				a = { bg = colors.background, fg = colors.primary, gui = "bold" },
-				b = { bg = colors.background, fg = colors.white },
-				c = { bg = colors.background },
+				b = { bg = nil, fg = colors.white },
+				c = { bg = nil },
 			},
 			replace = {
 				a = { bg = colors.background, fg = colors.primary, gui = "bold" },
-				b = { bg = colors.background, fg = colors.white },
-				c = { bg = colors.background },
+				b = { bg = nil, fg = colors.white },
+				c = { bg = nil },
 			},
 		}
 
@@ -47,10 +47,18 @@ return {
 			},
 			sections = {
 				lualine_a = { "mode" },
-				lualine_b = { "filename" },
+				lualine_b = { { "filename", path = 1 } },
 				lualine_c = {},
 				lualine_x = {},
 				lualine_y = { "encoding", "filetype" },
+				lualine_z = { "branch" },
+			},
+			inactive_sections = {
+				lualine_a = {},
+				lualine_b = { { "filename", path = 1 } },
+				lualine_c = {},
+				lualine_x = {},
+				lualine_y = {},
 				lualine_z = { "branch" },
 			},
 		})
