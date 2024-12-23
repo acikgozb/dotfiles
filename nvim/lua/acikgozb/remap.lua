@@ -51,6 +51,9 @@ vim.opt.swapfile = false
 -- sync nvim shell with system shell
 vim.opt.shell = os.getenv("SHELL")
 
+-- populate cmd with set ft because I am too lazy to write this
+vim.keymap.set("n", "<leader>0ft", ":set ft=")
+
 -- override certain filetypes explicitly
 vim.filetype.add({
 	extension = {
