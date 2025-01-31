@@ -49,7 +49,7 @@ local GitMergetool = function()
 	})
 end
 
-local GitDiffBuffer = function()
+local GitBufferDiff = function()
 	DirectedPane({
 		command = ":Git diff %",
 	})
@@ -70,11 +70,11 @@ return {
 			vim.keymap.set("v", "<leader>gl", GitLogSelection, { noremap = true })
 			vim.keymap.set("n", "<leader>glb", GitLogBranch, { noremap = true })
 			vim.keymap.set("n", "<leader>gla", GitLogAll, { noremap = true })
-			vim.keymap.set("n", "<leader>gb", GitBlame, { noremap = true })
+			vim.keymap.set("n", "<leader>gtb", GitBlame, { noremap = true })
 			vim.keymap.set("n", "<leader>gs", GitStatus, { noremap = true })
 			vim.keymap.set("n", "<leader>gmc", GitMergetool, { noremap = true })
 			vim.keymap.set("n", "<leader>grc", GitResolveConflict, { noremap = true })
-			vim.keymap.set("n", "<leader>gdb", GitDiffBuffer, { noremap = true })
+			vim.keymap.set("n", "<leader>gbd", GitBufferDiff, { noremap = true })
 		end,
 	},
 	{

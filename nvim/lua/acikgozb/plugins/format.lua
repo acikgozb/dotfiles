@@ -9,11 +9,10 @@ return {
 				javascript = { "eslint_d" },
 				typescript = { "eslint_d" },
 				json = { "fixjson", "jq" },
-				html = { "eslint_d" },
 				markdown = { "prettier" },
 				go = { "gofumpt", "goimports" },
 				csharp = { "csharpier" },
-				bash = { "beautysh" },
+				sh = { "beautysh" },
 				yaml = { "yamlfmt" },
 				sql = { "sqlfmt" },
 				tf = { "terraform_fmt" },
@@ -40,7 +39,7 @@ return {
 		vim.keymap.set("n", "<Leader>gf", function()
 			conform.format({
 				lsp_fallback = true,
-				timeout_ms = 500,
+				async = true,
 			})
 		end, {})
 	end,
