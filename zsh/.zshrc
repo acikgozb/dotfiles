@@ -1,5 +1,6 @@
 export PATH=$HOME/bin:/usr/local/bin:$HOME/go/bin:$PATH
 export PATH=/opt/homebrew/bin:$PATH # For Darwin
+export PATH=$HOME/.cargo/bin:$PATH # TODO: acikgozb: configure this in dotfiles.
 
 export TERM=xterm-256color
 

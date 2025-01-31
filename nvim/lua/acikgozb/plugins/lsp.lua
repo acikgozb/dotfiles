@@ -1,3 +1,13 @@
+local show_lsp_document_symbols = function(builtin)
+	return function()
+		local opts = {
+			show_line = true,
+		}
+
+		builtin.lsp_document_symbols(opts)
+	end
+end
+
 return {
 	{
 		"williamboman/mason.nvim",
@@ -11,6 +21,7 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"gopls",
+					"rust_analyzer",
 					"lua_ls",
 					"ts_ls",
 					"hydra_lsp",
@@ -31,28 +42,34 @@ return {
 			local lspconfig = require("lspconfig")
 			local util = require("lspconfig/util")
 			local csharpLsp = require("roslyn")
-			local telescope = require("telescope.builtin")
+			local builtin = require("telescope.builtin")
 
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local onAttach = function(ev)
 				-- Buffer local mappings.
 				-- See `:help vim.lsp.*` for documentation on any of the below functions
 				local opts = { buffer = ev.buf }
-				vim.keymap.set("n", "<space>se", vim.diagnostic.open_float, opts)
-				vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-				vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+				vim.keymap.set("n", "gR", builtin.lsp_references, opts)
+
+				vim.keymap.set("n", "gD", builtin.lsp_definitions, opts)
+				vim.keymap.set("n", "gI", builtin.lsp_implementations, opts)
+				vim.keymap.set("n", "gS", show_lsp_document_symbols(builtin), opts)
 				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-				vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
 				vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-				vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
-				vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
-				vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
-				vim.keymap.set("n", "gr", telescope.lsp_references, opts)
+				vim.keymap.set("n", "<leader>se", vim.diagnostic.open_float, opts)
+				vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+				vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
 			end
 
 			lspconfig.lua_ls.setup({
 				capabilities = capabilities,
 				on_attach = onAttach,
+			})
+
+			lspconfig.rust_analyzer.setup({
+				capabilities = capabilities,
+				on_attach = onAttach,
+				filetypes = { "rust" },
 			})
 
 			lspconfig.gopls.setup({
