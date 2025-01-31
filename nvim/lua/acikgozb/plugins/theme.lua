@@ -1,3 +1,11 @@
+local enable_transparent_background = function()
+	local highlight_keys = { "Normal", "NonText", "StatusLine", "LineNr", "SignColumn" }
+
+	for _, highlight_key in ipairs(highlight_keys) do
+		vim.api.nvim_set_hl(0, highlight_key, { bg = "NONE" })
+	end
+end
+
 return {
 	"jesseleite/nvim-noirbuddy",
 	dependencies = {
@@ -10,10 +18,6 @@ return {
 			preset = "oxide",
 		})
 
-		vim.cmd("hi Normal guibg=NONE ctermbg=NONE")
-		vim.cmd("hi NonText guibg=NONE ctermbg=NONE")
-		vim.cmd("hi StatusLine guibg=NONE ctermbg=NONE")
-		vim.cmd("hi LineNr guibg=NONE ctermbg=NONE")
-		vim.cmd("hi SignColumn guibg=NONE ctermbg=NONE")
+		enable_transparent_background()
 	end,
 }
