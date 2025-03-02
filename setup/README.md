@@ -35,42 +35,43 @@ Unfortunately, there are some limitations regarding the supported operating syst
 
 As a last point, currently the operating systems below are supported:
 
-- amd64 Ubuntu 24.04
-- arm64 MacOS
+- amd64 Arch Linux
+- amd64 Fedora
+- amd64 Debian (and any flavors)
+- arm64 Darwin (MacOS)
 
-The closest support will be for Fedora, but the rest have to wait due to the current needs.
-
-If you pass all these limitations, feel free to continue reading.
+Currently, only amd64 Arch Linux is fully supported out of the box due to the changes made to the installation process.
+Other operating systems will be fixed in the next stable version, which will be `v0.3.0`.
 
 ## <a id="required-tools"></a> Required Tools
 
-The setup of this dotfiles are written in `Ansible`, and tested on a `Ubuntu 24.04 Vagrant VM`. Therefore, you absolutely need to [install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) before starting.
+The setup of this dotfiles are written in `Ansible`. 
+Therefore, you absolutely need to [install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) before starting.
 
 If you want to dive deep in to the main playbook and test it, you need to [install Vagrant](https://developer.hashicorp.com/vagrant/tutorials/getting-started/getting-started-install?product_intent=vagrant) as well.
 
 ## <a id="clone-the-repository"></a> Clone the Repository
 
 With the tools installed and ready to go, it's time to clone the repository.
-
-This repository is designed to be under `$HOME/.config`, so ensure that the directory exists and clone the repository there:
+Since the installation is done through symlinking, you can clone the repository wherever you want.
 
 ```bash
-mkdir ~/.config
-git clone git@github.com:acikgozb/dotfiles.git ~/.config
+git clone git@github.com:acikgozb/dotfiles.git ~/dotfiles
 ```
 
 The clone part is pretty standard, if the directory is empty it should work without any issues.
 
 ## <a id="setup-directory"></a> `setup` Directory
 
-The main installation and configuration of your host happens under `~/.config/setup` directory. This is the main place where our Ansible playbook lives, along with anything it needs.
+The main installation and configuration of your host happens under `<repo-root-path>/setup` directory. This is the main place where our Ansible playbook lives, along with anything it needs.
 
 If you have had an experience working with Ansible, this directory will feel familiar to you.
 
 To start the setup process, simply cd into setup directory and run `make setup`:
 
 ```bash
-cd ~/.config/setup
+# Assume that the repository lives under ~/dotfiles.
+cd ~/dotfiles/setup
 make setup
 ```
 
@@ -88,7 +89,8 @@ If you wish to check out each role to understand how the installation work, here
 - [acikgozb.kitty](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.kitty)
 - [acikgozb.nvim](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.nvim)
 - [acikgozb.tmux](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.tmux)
-- [acikgozb.zsh](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.zsh)
+- [acikgozb.shell](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.shell)
+- [acikgozb.net](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.net)
 
 ## <a id="post-installation"></a> Post Installation
 
