@@ -1,6 +1,6 @@
 # acikgozb.nvim
 
-This role is mainly responsible from installing Neovim to the host.
+This role is mainly responsible from installing Neovim to a given host.
 Along with it, it also installs the languages used within Neovim and enables the tools used inside Neovim for the shell as well.
 
 The languages and the tools are installed locally for each user.
@@ -10,7 +10,7 @@ This role is based on this fact and takes it to extreme, by grouping tools and l
 
 - Binaries are installed under `$HOME/bin`, with the exception of having groups. For example, for tools which are installed via `Golang`, there is a path called `go-packages`. This is the same for `Javascript` (`NPM`) and prebuilt 3rd party binaries.
 - Languages are installed under `$HOME/bin/[language]`.
-- With any installed tool, their directory is added to `$PATH` automatically and the idempotency is delegated to Ansible as usual. In `.zshrc`, these parts are identified with markers such as `ANSIBLE MANAGED BLOCK`.
+- With any installed tool, their directory is added to `$PATH` automatically and the idempotency is delegated to Ansible as usual. In `.bashrc|.zshrc`, these parts are identified with markers such as `ANSIBLE MANAGED BLOCK`.
 
 There are a couple of reasons why this decision was made:
 
@@ -23,7 +23,10 @@ There are a couple of reasons why this decision was made:
 
 This role only supports either `ARM64` Darwin or `AMD64` Linux hosts. Due to the fact that Neovim does not support `ARM64` Linux, it limits the overall supported platforms.
 
-Also, due to the fact that user shell `zsh` configuration file is updated in this role, a `.zshrc` file under `$HOME/.config/zsh` is required.
+Also, due to the fact that user shell configuration file is updated in this role, the file needs to exist under `$HOME/.config`, such as:
+
+- A `.zshrc` file under `$HOME/.config/zsh`,
+- A `.bashrc` file under `$HOME/.config/bash`.
 
 ## Role Variables
 
@@ -36,6 +39,7 @@ Here is a list of variables and their explanations:
 | -------------------------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `neovim.linux.url`               | `amd64` Neovim Linux binary url                                                     | Points to Neovim binary location for Linux distributions.                                                                                                   |
 | `neovim.darwin.url`              | `arm64` Neovim Darwin binary url                                                    | Points to Neovim binary location for Darwin distributions.                                                                                                  |
+| `gcc_packages`                   | `gcc` for Arch Linux                                                                |  The required gcc packages for each host OS/distribution.                                                                                                   |
 | `go_version`                     | `1.22.4`                                                                            | The Golang version that will be installed.                                                                                                                  |
 | `go.linux.arm64`                 | `arm64` Golang Linux binary url                                                     | Points to Golang binary location for `arm64` Linux distributions.                                                                                           |
 | `go.linux.amd64`                 | `amd64` Golang Linux binary url                                                     | Points to Golang binary location for `amd64` Linux distributions.                                                                                           |
@@ -67,9 +71,14 @@ Here is the recommended way of adding this role:
 - hosts: servers
   roles:
     - acikgozb.arch
-    - acikgozb.zsh
+    - acikgozb.shell
     - acikgozb.nvim
 ```
+
+A couple of notes to explain each role's responsibility:
+
+- `acikgozb.arch` is used to decide to set the playbook fact `{{ arch }}` accordingly (`arm64` or `amd64`).
+- `acikgozb.shell` is used to configure the shell of the host - `zsh` or `bash`, and also to set the playbook fact `{{ shell }}` accordingly.
 
 ## License
 

@@ -4,7 +4,7 @@ This role is responsible for setting the `arch` variable based on whether the OS
 
 The main usage for this role is to let other roles know which binary to use, since most (if not all) tools support multiple architectures.
 
-Unfortunately, some tools do not support all the possible "combinations" (e.g `nvim` does not support ARM64 Linux).
+Unfortunately, some tools do not support all the possible "combinations" (e.g `nvim` did not support ARM64 for a long time).
 Therefore to keep things simple, all Darwin hosts are assumed **ARM64**, and all Linux hosts are assumed **AMD64**.
 
 While this brings in quite a lot of simplicity, it limits overall cross platform support of the main playbook.

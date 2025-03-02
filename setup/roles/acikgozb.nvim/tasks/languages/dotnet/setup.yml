@@ -10,18 +10,21 @@
     - name: Install .NET via dotnet-tools.
       ansible.builtin.shell:
         cmd: /tmp/dotnet-install.sh --channel {{ dotnet_sdk_version }} --install-dir ~/bin/.net
-        executable: /usr/bin/zsh
+        executable: /usr/bin/{{ shell }}
       register: dotnet_install_out
       changed_when: not dotnet_install_out.stderr is defined
 
     - name: Ensure that .NET binary is added to $PATH.
       ansible.builtin.blockinfile:
-        path: ~/.config/zsh/.zshrc
-        marker_begin: .NET binary lookup -
-        insertafter: "# END ANSIBLE MANAGED BLOCK"
+        path: ~/.config/{{ shell }}/.{{ shell }}rc
+        marker_begin: .NET binary -
+        insertafter: EOF
         block: |
-          export PATH=$HOME/bin/.net:$PATH
+          if ! grep -q ".net" <<< "$PATH"; then
+            export PATH=$HOME/bin/.net:$PATH
+          fi
         prepend_newline: true
+        append_newline: true
 
 - name: Remove the temporary files.
   ansible.builtin.file:

@@ -1,0 +1,104 @@
+#- name: Download Starship installation.
+#  ansible.builtin.get_url:
+#    url: https://starship.rs/install.sh
+#    dest: /tmp
+#    mode: "0755"
+#
+#- name: Install Starship.
+#  become_user: "{{ lookup('env', 'USER') }}"
+#  ansible.builtin.shell:
+#    cmd: /tmp/install.sh --yes
+#    executable: /bin/sh
+#  changed_when: true
+#
+#- name: Remove the temporary files.
+#  ansible.builtin.file:
+#    path: /tmp/install.sh
+#    state: absent
+#
+#- name: Ensure that the configuration files exist under $XDG_CONFIG_HOME.
+#  become_user: "{{ lookup('env', 'USER') }}"
+#  block:
+#    - name: Ensure that the directory $XDG_CONFIG_HOME/bash exists.
+#      ansible.builtin.file:
+#        path: ~/.config/bash
+#        state: directory
+#
+#    - name: Ensure that the configuration files are symlinked under $XDG_CONFIG_HOME/bash.
+#      ansible.builtin.file:
+#        src: "{{ role_path }}/files/{{ item }}"
+#        dest: ~/.config/bash/{{ item }}
+#        state: link
+#        force: true
+#      with_items:
+#        - .bashrc
+#
+#- name: Ensure that .bashrc is updated for Starship.
+#  become_user: "{{ lookup('env', 'USER') }}"
+#  block:
+#    - name: Add bootstrap script.
+#      ansible.builtin.blockinfile:
+#        path: ~/.config/bash/.bashrc
+#        insertafter: EOF
+#        marker_begin: "Bootstrap Starship -"
+#        block: |
+#          eval "$(starship init bash)" 
+#        prepend_newline: true
+#        append_newline: true
+#
+#    - name: Set base directory to $XDG_CONFIG_HOME/starship.
+#      ansible.builtin.blockinfile:
+#        path: ~/.config/bash/.bashrc
+#        insertafter: EOF
+#        marker_begin: "Starship XDG Base Directory -"
+#        block: |
+#          export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/config.toml"
+#          export STARSHIP_CACHE="$XDG_CACHE_HOME/starship"
+#        prepend_newline: true
+#        append_newline: true
+#
+#- name: Ensure that $XDG_CONFIG_HOME is updated for Starship.
+#  become_user: "{{ lookup('env', 'USER') }}"
+#  block:
+#    - name: Ensure that the configuration directory exists.
+#      ansible.builtin.file:
+#        path: ~/.config/starship
+#        state: directory
+#    - name: Ensure that the Starship configuration exists.
+#      ansible.builtin.file:
+#        src: "{{ role_path }}/files/starship.toml"
+#        dest: ~/.config/starship/config.toml
+#        state: link
+#        force: true
+#
+#- name: Ensure that a local directory is created for pre-built binaries.
+#  become_user: "{{ lookup('env', 'USER') }}"
+#  block:
+#    - name: Check $PATH to see whether $HOME/bin/prebuilt exists.
+#      ansible.builtin.command:
+#        cmd: grep '/bin/prebuilt' ~/.config/bash/.bashrc
+#      register: grep_out
+#      ignore_errors: true
+#
+#    - name: Ensure that $HOME/bin/prebuilt directory exists on host.
+#      ansible.builtin.file:
+#        path: ~/bin/prebuilt
+#        state: directory
+#
+#    - name: Ensure that $HOME/bin/prebuilt exists on $PATH, if check fails.
+#      ansible.builtin.blockinfile:
+#        path: ~/.config/bash/.bashrc
+#        insertafter: EOF
+#        marker_begin: "Prebuilt binaries -"
+#        block: |
+#          if ! grep -q "/bin/prebuilt" <<< "$PATH"; then
+#            export PATH=$HOME/bin/prebuilt:$PATH
+#          fi
+#        prepend_newline: true
+#        append_newline: true
+#      when: grep_out is failed
+
+# TODO: Uncomment this file after the installation is completed.
+- name: Set installed shell as a fact.
+  ansible.builtin.set_fact:
+    shell: "bash"

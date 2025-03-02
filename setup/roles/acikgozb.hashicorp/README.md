@@ -1,7 +1,8 @@
 # acikgozb.hashicorp
 
 This role is responsible from installing the tools that belong to Hashicorp.
-Currently only Vagrant and Terraform are installed.
+For Linux, only Terraform is installed.
+For Darwin, Vagrant is installed along with Terraform.
 
 ## Requirements
 

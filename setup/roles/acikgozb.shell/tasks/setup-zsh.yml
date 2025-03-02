@@ -82,3 +82,7 @@
         prepend_newline: true
         append_newline: true
       when: grep_out is failed
+
+- name: Set installed shell as a fact.
+  ansible.builtin.set_fact:
+    shell: "zsh"

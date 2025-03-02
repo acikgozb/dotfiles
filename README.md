@@ -22,10 +22,6 @@ When it comes to tools, I think it's safe to group them based on their functiona
 - Terminal multiplexer: [tmux](https://github.com/tmux/tmux/wiki)
 - Shell: [zsh](https://zsh.sourceforge.io/)
 - Editor: [Neovim](https://neovim.io/)
-- Gitflow:
-  - [Lazygit](https://github.com/jesseduffield/lazygit)
-  - [Github CLI](https://cli.github.com/)
-  - [git-delta](https://github.com/dandavison/delta)
 - Languages:
   - [Golang](https://go.dev/)
   - [.NET](https://dotnet.microsoft.com/en-us/)
@@ -64,4 +60,4 @@ The most complex configuration in this repository belongs to Neovim. For detaile
 
 ## <a id="todo"></a> TODO
 
-- Add Fedora to the supported list of distrubitions.
+- Adjust all Ansible roles to apply configurations via symlinking instead of assuming the repository files are under `$XDG_CONFIG_HOME`.

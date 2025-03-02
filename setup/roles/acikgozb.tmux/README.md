@@ -1,10 +1,17 @@
 # acikgozb.tmux
 
-This role is responsible from instaliing tmux on the host instance.
+This role is responsible from instaliing tmux on a given host.
 
 ## Requirements
 
-Currently, only Debian and Darwin (MacOS) operating systems are supported.
+This role supports the distributions below:
+
+- Arch
+- Fedora
+- Debian
+- Darwin
+
+Versions of the distributions don't matter.
 
 ## Role Variables
 

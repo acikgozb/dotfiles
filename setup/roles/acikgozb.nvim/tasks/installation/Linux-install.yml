@@ -6,7 +6,7 @@
         url: "{{ neovim.linux.url }}"
         dest: "/tmp/nvim-linux"
 
-    - name: Ensure that $HOME/lib exists for lib code.
+    - name: Ensure that $HOME/lib exists.
       ansible.builtin.file:
         path: ~/lib
         state: directory
@@ -17,11 +17,12 @@
         src: "/tmp/nvim-linux"
         dest: "~/lib"
 
-    - name: Ensure that a symlink exists for Neovim binary, under $HOME/bin.
+    - name: Ensure that a symlink exists for Neovim binary, under $HOME/bin/prebuilt.
       ansible.builtin.file:
-        src: ~/lib/nvim-linux64/bin/nvim
-        dest: ~/bin/nvim
+        src: ~/lib/nvim-linux-x86_64/bin/nvim
+        dest: ~/bin/prebuilt/nvim
         state: link
+        force: true
 
     - name: Remove the installation file.
       ansible.builtin.file:
@@ -34,3 +35,42 @@
     state: present
   with_items: "{{ gcc_packages[ansible_distribution] }}"
 
+- name: Ensure that the configuration files are under $XDG_CONFIG_HOME.
+  become_user: "{{ lookup('env', 'USER') }}"
+  block:
+    - name: Ensure that $XDG_CONFIG_HOME/nvim exists.
+      ansible.builtin.file:
+        path: ~/.config/nvim
+        state: directory
+
+    - name: Ensure that the entire Neovim configuration is symlinked.
+      ansible.builtin.file:
+        src: "{{ role_path }}/files/nvim/{{ item }}"
+        dest: ~/.config/nvim/{{ item }}
+        state: link
+        force: true
+      with_items:
+        - lua
+        - init.lua
+        - lazy-lock.json
+
+- name: Ensure that the configuration files for certain Neovim plugins are under $XDG_CONFIG_HOME.
+  become_user: "{{ lookup('env', 'USER') }}"
+  block:
+    - name: Ensure that $XDG_CONFIG_HOME/<plugindir> exists.
+      ansible.builtin.file:
+        path: ~/.config/{{ item }}
+        state: directory
+      with_items:
+        - yamlfmt
+        - templates
+
+    - name: Ensure that the plugin configuration files are symlinked.
+      ansible.builtin.file:
+        src: "{{ role_path }}/files/{{ item }}"
+        dest: ~/.config/{{ item }}
+        state: link
+        force: true
+      with_items:
+        - yamlfmt
+        - templates

@@ -1,2 +1,27 @@
 - name: "[OS Specific] Install tmux."
   ansible.builtin.include_tasks: ./setup-{{ ansible_os_family }}.yml
+
+- name: "Ensure that tmux configuration is symlinked to $XDG_CONFIG_HOME."
+  become_user: "{{ lookup('env', 'USER') }}"
+  block:
+    - name: "Ensure that the tmux directory exists under $XDG_CONFIG_HOME."
+      ansible.builtin.file:
+        path: ~/.config/tmux
+        state: directory
+
+    - name: "Ensure that the tmux configuration exists under $XDG_CONFIG_HOME/tmux."
+      ansible.builtin.file:
+        src: "{{ role_path }}/files/tmux.conf"
+        path: ~/.config/tmux/tmux.conf 
+        state: link
+        force: true
+
+    - name: "Ensure that the tmux plugin directory exists under $XDG_CONFIG_HOME."
+      ansible.builtin.file:
+        path: ~/.config/tmux/plugins
+        state: directory
+
+    - name: "Ensure that Tmux Plugin Manager exists under $XDG_CONFIG_HOME/plugins/tpm."
+      ansible.builtin.git:
+        repo: https://github.com/tmux-plugins/tpm
+        dest: ~/.config/tmux/plugins/tpm

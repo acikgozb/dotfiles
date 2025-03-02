@@ -44,11 +44,11 @@ If you wish to install it locally like intended, the example below is more compl
 - hosts: servers
   roles:
     - acikgozb.arch
-    - acikgozb.zsh
+    - acikgozb.shell
     - acikgozb.aws
 ```
 
-If you are comfortable with setting up `$PATH` and navigating your shell configuration files, `acikgozb.zsh` becomes optional.
+If you are comfortable with setting up `$PATH` and navigating your shell configuration files, `acikgozb.shell` becomes optional.
 
 ## License
 

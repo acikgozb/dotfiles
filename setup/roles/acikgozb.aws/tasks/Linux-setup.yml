@@ -1,3 +1,15 @@
+- name: Ensure that AWS CLI follows XDG Base Directory spec.
+  become_user: "{{ lookup('env', 'USER') }}"
+  ansible.builtin.blockinfile:
+    path: ~/.config/{{ shell }}/.{{ shell }}rc
+    insertafter: EOF
+    marker_begin: "AWS CLI XDG Base Directory -"
+    block: |
+      export AWS_SHARED_CREDENTIALS_FILE="$XDG_CONFIG_HOME"/aws/credentials
+      export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
+    prepend_newline: true
+    append_newline: true
+
 - name: Download AWS CLI archive.
   ansible.builtin.get_url:
     url: "{{ aws_archive_url[arch] }}"
@@ -26,6 +38,19 @@
   ansible.builtin.command:
     cmd: /tmp/awscli/aws/install --bin-dir {{ aws_bin_dir }} --install-dir {{ aws_install_dir }}
   changed_when: true
+
+- name: Ensure that aws_bin_dir exists in $PATH.
+  become_user: "{{ lookup('env', 'USER' ) }}"
+  ansible.builtin.blockinfile:
+    path: ~/.config/{{ shell }}/.{{ shell }}rc
+    insertafter: EOF
+    marker_begin: "AWS CLI lookup -"
+    block: |
+      if ! grep -q "{{ aws_bin_dir }}:" <<< "$PATH"; then
+        export PATH="{{ aws_bin_dir }}:$PATH"
+      fi
+    prepend_newline: true
+    append_newline: true
 
 - name: Remove temporary files.
   ansible.builtin.file:

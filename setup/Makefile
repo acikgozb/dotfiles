@@ -1,7 +1,8 @@
+.PHONY: setup init-test run-test ssh-test
 setup:
+	ansible-galaxy collection install -r requirements.yml;
 	ansible-playbook playbook.yml -i inventory.ini --connection=local --ask-become-pass
 
-.PHONY: run-test
 init-test:
 	cd ./test;USER=vagrant vagrant up; cd -
 

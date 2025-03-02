@@ -7,11 +7,11 @@
       ansible.builtin.import_tasks: ./pre-tasks/main.yml
   roles:
     - acikgozb.arch
-    - acikgozb.zsh
-    - acikgozb.kitty
-    - acikgozb.git
-    - acikgozb.tmux
-    - acikgozb.nvim
-    - acikgozb.aws
-    - acikgozb.podman
+    - acikgozb.shell
+    # - acikgozb.kitty
+    # - acikgozb.git
+    # - acikgozb.tmux
+    # - acikgozb.nvim
+    # - acikgozb.aws
+    # - acikgozb.podman
     - acikgozb.hashicorp
