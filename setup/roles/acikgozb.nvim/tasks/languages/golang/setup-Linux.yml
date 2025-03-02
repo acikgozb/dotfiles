@@ -28,12 +28,14 @@
 
     - name: Ensure that Go binary is added to $PATH, along with $GOPATH.
       ansible.builtin.blockinfile:
-        path: ~/.config/zsh/.zshrc
-        marker_begin: Go binary lookup -
-        insertafter: "# END ANSIBLE MANAGED BLOCK"
+        path: ~/.config/{{ shell }}/.{{ shell }}rc
+        marker_begin: Go binary -
+        insertafter: EOF
         block: |
-          export GOPATH=$HOME/bin/go-packages
-          export PATH=$HOME/bin/go/bin:$HOME/bin/go-packages/bin:$PATH
+          if ! grep -q "go-packages" <<< "$PATH"; then
+            export GOPATH=$HOME/bin/go-packages
+            export PATH=$HOME/bin/go/bin:$HOME/bin/go-packages/bin:$PATH
+          fi
         prepend_newline: true
 
 - name: Remove the temporary files.

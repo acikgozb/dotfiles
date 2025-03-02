@@ -6,6 +6,10 @@
 [color]
     ui = true
 [core]
-    hooksPath = /Users/acikgozb/.config/git/hooks
+    hooksPath = /home/acikgozb/.config/git/hooks
+    sshCommand = "ssh -i /home/acikgozb/.ssh/git"
 [init]
     defaultBranch = main
+[user]
+	email = acikgozb@proton.me
+	name = acikgozb

@@ -5,5 +5,5 @@
 
 - name: Set arch to arm64 for Darwin.
   ansible.builtin.set_fact:
-    arch: "amd64"
+    arch: "arm64"
   when: ansible_os_family == "Darwin"

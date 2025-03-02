@@ -1,6 +1,6 @@
 # Versions
-vagrant_version: 2.4.1
-terraform_version: 1.9.2
+vagrant_version: 2.4.3
+terraform_version: 1.11.0
 # Metadata
 hashicorp_tools:
   Darwin:
@@ -16,7 +16,5 @@ hashicorp_tools:
       url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_darwin_arm64.zip
       type: archive
   Linux:
-    - name: vagrant
-      url: https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_linux_amd64.zip
     - name: terraform
       url: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip

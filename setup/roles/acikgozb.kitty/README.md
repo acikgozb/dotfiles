@@ -1,16 +1,23 @@
 # acikgozb.kitty
 
-This role installs and configures Kitty for both Debian and Darwin based instances.
+This role installs and configures Kitty for a given host.
 
 ## Requirements
 
-The target instance must be either Debian based, or Darwin based. For now, the other distributions are not supported.
+This role supports the OS/distributions below:
+
+- Arch
+- Fedora
+- Debian
+- Darwin
+
+The OS/distribution versions do not matter.
 
 ## Role Variables
 
 Currently there are no variables defined, but this may lead to a corrupted installation in the future, mainly due to GLIBC version differences between the host instance and the latest Kitty binary.
 
-This techincal debt will be addressed in the future.
+This issue will be addressed in the future.
 
 ## Dependencies
 

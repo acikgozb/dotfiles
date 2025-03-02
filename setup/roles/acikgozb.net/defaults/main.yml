@@ -1,0 +1,8 @@
+packages:
+  Archlinux:
+    - traceroute
+    - lsof
+    - nmap # contains ncat as well.
+    - drill
+    - dnsmasq
+    - inetutils # for telnet.

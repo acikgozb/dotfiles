@@ -9,3 +9,6 @@
 
 - name: Install JavaScript.
   ansible.builtin.include_tasks: ./javascript/setup.yml
+
+- name: Install Rust.
+  ansible.builtin.include_tasks: ./rust/setup.yml

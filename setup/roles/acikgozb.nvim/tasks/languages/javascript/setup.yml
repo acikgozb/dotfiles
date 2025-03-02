@@ -12,22 +12,23 @@
         path: ~/bin/nvm
         state: directory
 
-    - name: Install NVM (without modifying .zshrc).
+    - name: Install NVM (without modifying shell).
       ansible.builtin.shell:
         cmd: PROFILE=/dev/null NVM_DIR=~/bin/nvm /tmp/install.sh
-        executable: /usr/bin/zsh
+        executable: /usr/bin/{{ shell }}
       changed_when: true
 
-    - name: Modify .zshrc to include NVM_DIR and nvm.sh.
+    - name: Modify shell configuration to include NVM_DIR and nvm.sh.
       ansible.builtin.blockinfile:
-        path: ~/.config/zsh/.zshrc
+        path: ~/.config/{{ shell }}/.{{ shell }}rc
         marker_begin: NVM binary lookup -
-        insertafter: "# END ANSIBLE MANAGED BLOCK"
+        insertafter: EOF
         block: |
           export NVM_DIR="$HOME"/bin/nvm
           [ -s "$NVM_DIR"/nvm.sh ] && source "$NVM_DIR"/nvm.sh
 
         prepend_newline: true
+        append_newline: true
 
 - name: Remove the temporary files.
   ansible.builtin.file:
@@ -37,6 +38,6 @@
 - name: Install Node and NPM.
   become_user: "{{ lookup('env', 'USER') }}"
   ansible.builtin.shell:
-    cmd: source ~/.config/zsh/.zshrc && nvm install {{ node_version }}
-    executable: /usr/bin/zsh
+    cmd: source ~/.config/{{ shell }}/.{{ shell }}rc; nvm install {{ node_version }}
+    executable: /usr/bin/{{ shell }}
   changed_when: true

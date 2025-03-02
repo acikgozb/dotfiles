@@ -1,8 +1,8 @@
 - name: Get the installed Node version.
   become_user: "{{ lookup('env', 'USER') }}"
   ansible.builtin.shell:
-    cmd: source ~/.config/zsh/.zshrc && node --version
-    executable: /usr/bin/zsh
+    cmd: source ~/.config/{{ shell }}/.{{ shell }}rc && node --version
+    executable: /usr/bin/{{ shell }}
   register: node_version_out
   changed_when: true
 
@@ -49,13 +49,16 @@
 
     - name: Ensure that binaries installed with NPM exists on $PATH.
       ansible.builtin.blockinfile:
-        path: ~/.config/zsh/.zshrc
-        marker_begin: JS binary lookup -
-        insertafter: "# END ANSIBLE MANAGED BLOCK"
+        path: ~/.config/{{ shell}}/.{{ shell }}rc
+        marker_begin: JS binaries -
+        insertafter: EOF
         block: |
-          export PATH=$HOME/bin/npm-packages/bin:$PATH
+          if ! grep -q "npm-packages" <<< "$PATH"; then
+            export PATH=$HOME/bin/npm-packages/bin:$PATH
+          fi
 
         prepend_newline: true
+        append_newline: true
 
 - name: Remove Node symlink after installation.
   ansible.builtin.file:

@@ -1,0 +1,4 @@
+- name: Update package cache before installation (for Archlinux).
+  community.general.pacman:
+    update_cache: true
+  become: true

@@ -1,6 +1,8 @@
 - name: Install Neovim.
   ansible.builtin.include_tasks: ./installation/main.yml
+
 - name: Install the programming languages.
   ansible.builtin.include_tasks: ./languages/main.yml
+
 - name: Install tools.
   ansible.builtin.include_tasks: ./tools/main.yml

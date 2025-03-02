@@ -1,0 +1,17 @@
+- name: Install Rust.
+  become_user: "{{ lookup('env', 'USER') }}"
+  block:
+    - name: Ensure that Rustup and Cargo paths are set correctly before installation.
+      ansible.builtin.blockinfile:
+        path: ~/.config/{{ shell }}/.{{ shell }}rc
+        marker_begin: Rust tooling -
+        insertafter: EOF
+        block: |
+          export CARGO_HOME="$HOME/bin/cargo"
+          export RUSTUP_HOME="$HOME/bin/rustup"
+        prepend_newline: true
+        append_newline: true
+
+    - name: Download and run Rustup.
+      ansible.builtin.shell:
+        cmd: source ~/.config/{{ shell }}/.{{ shell }}rc && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y

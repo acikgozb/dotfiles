@@ -20,9 +20,9 @@
         dest: /tmp/{{ item.name }}
       with_items: "{{ hashicorp_tools.Linux }}"
 
-    - name: Move the unarchived binaries under $HOME/bin.
+    - name: Move the unarchived binaries under $HOME/bin/prebuilt.
       ansible.builtin.command:
-        cmd: mv /tmp/{{ item.name }}/{{ item.name }} ~/bin
+        cmd: mv /tmp/{{ item.name }}/{{ item.name }} ~/bin/prebuilt
         removes: /tmp/{{ item.name }}/{{ item.name }}
         creates: ~/bin/{{ item.name }}
       with_items: "{{ hashicorp_tools.Linux }}"
