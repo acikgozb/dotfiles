@@ -10,7 +10,7 @@ export ANSIBLE_HOME="${XDG_CONFIG_HOME}/ansible"
 export ANSIBLE_CONFIG="${XDG_CONFIG_HOME}/ansible/ansible.cfg"
 export ANSIBLE_GALAXY_CACHE_DIR="${XDG_CACHE_HOME}/ansible/galaxy_cache"
 
-export EDITOR="vim"
+export EDITOR="nvim"
 
 # Aliases.
 alias ls='ls --color=auto -lA'
