@@ -1,0 +1,5 @@
+- name: "[OS Specific] Ensure that given network utilities exist on the host"
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ packages[ansible_os_family] }}"
