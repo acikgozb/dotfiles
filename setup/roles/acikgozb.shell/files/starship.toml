@@ -4,4 +4,10 @@
 disabled = true
 
 [golang]
-symbol=" "
+symbol = " "
+
+[os]
+disabled = false
+
+[os.symbols]
+Arch = " "

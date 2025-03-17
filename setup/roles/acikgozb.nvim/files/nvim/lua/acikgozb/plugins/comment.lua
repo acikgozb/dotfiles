@@ -16,16 +16,15 @@ return {
 			keywords = {
 				FIX = {
 					icon = " ", -- icon used for the sign, and in search results
-					color = "error", -- can be a hex color, or a named color (see below)
+					color = "#eb6f92", -- rose pine theme, color: love.
 					alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
-					-- signs = false, -- configure signs for some keywords individually
 				},
-				TODO = { icon = " ", color = "info" },
-				HACK = { icon = " ", color = "warning" },
-				WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
-				PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-				NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
-				TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } },
+				TODO = { icon = " ", color = "#9ccfd8" }, -- rose pine theme, color: foam.
+				HACK = { icon = " ", color = "#f6c177" }, -- rose pine theme, color: gold.
+				WARN = { icon = " ", color = "#f6c177", alt = { "WARNING", "XXX" } }, -- rose pine theme, color: gold.
+				PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } }, --- no colors, black and white.
+				NOTE = { icon = " ", color = "#9ccfd8", alt = { "INFO" } }, -- rose pine theme, color: foam.
+				TEST = { icon = "⏲ ", color = "test", alt = { "TESTING", "PASSED", "FAILED" } }, -- no colors, black and white.
 			},
 			gui_style = {
 				fg = "NONE", -- The gui style to use for the fg highlight group.
@@ -63,7 +62,6 @@ return {
 					"--column",
 				},
 				pattern = [[\b(KEYWORDS):]], -- ripgrep regex
-				-- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
 			},
 		},
 		keys = {

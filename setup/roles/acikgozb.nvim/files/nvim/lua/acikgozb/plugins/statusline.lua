@@ -12,27 +12,27 @@ return {
 				c = { bg = nil },
 			},
 			visual = {
-				a = { bg = colors.background, fg = colors.primary, gui = "bold" },
+				a = { bg = colors.none, fg = colors.primary, gui = "bold" },
 				b = { bg = nil, fg = colors.white },
 				c = { bg = nil },
 			},
 			insert = {
-				a = { bg = colors.background, fg = colors.primary, gui = "bold" },
+				a = { bg = colors.none, fg = colors.primary, gui = "bold" },
 				b = { bg = nil, fg = colors.white },
 				c = { bg = nil },
 			},
 			command = {
-				a = { bg = colors.background, fg = colors.primary, gui = "bold" },
+				a = { bg = colors.none, fg = colors.primary, gui = "bold" },
 				b = { bg = nil, fg = colors.white },
 				c = { bg = nil },
 			},
 			inactive = {
-				a = { bg = colors.background, fg = colors.primary, gui = "bold" },
+				a = { bg = colors.none, fg = colors.primary, gui = "bold" },
 				b = { bg = nil, fg = colors.white },
 				c = { bg = nil },
 			},
 			replace = {
-				a = { bg = colors.background, fg = colors.primary, gui = "bold" },
+				a = { bg = colors.none, fg = colors.primary, gui = "bold" },
 				b = { bg = nil, fg = colors.white },
 				c = { bg = nil },
 			},
