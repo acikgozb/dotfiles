@@ -1,11 +1,3 @@
-nvim/db_ui
 nvim/lua/acikgozb/secrets.lua
 tmux/plugins
-karabiner/automatic_backups
-karabiner/karabiner.json
-lazygit/state.yml
-zsh/secrets
-zsh/.zsh_history
-zsh/.zsh_sessions
-.vagrant
-containers
+installation/vars/user_vars.yml

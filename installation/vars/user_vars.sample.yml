@@ -1,0 +1,6 @@
+# INFO: This file represents the variables that should be defined by the user before the installation.
+# If it is not used, then the default variables in roles are used for configuration files.
+
+# Role: acikgozb.git.
+git_config_user_name: "git_username"
+git_config_user_email: "git_username@email.com"
