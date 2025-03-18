@@ -1,4 +1,4 @@
-- name: Configure hosts to enable dotfiles.
+- name: Install dotfiles.
   hosts: all
   become: true
   gather_facts: true
