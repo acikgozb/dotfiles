@@ -1,4 +1,26 @@
-- name: Update package cache before installation (for Arch Linux).
-  become: true
-  community.general.pacman:
-    update_cache: true
+- name: "Get the group of the $USER."
+  block:
+    - name: "Read $USER from /etc/passwd"
+      ansible.builtin.getent:
+        database: passwd
+        key: "{{ lookup('env', 'USER') }}"
+        #
+    - name: "Get the group via $USER's GID."
+      ansible.builtin.getent:
+        database: group
+        key: "{{ ansible_facts.getent_passwd[lookup('env', 'USER')][2] }}"
+
+- name: "Ensured that the host facts are set for the user and their group."
+  ansible.builtin.set_fact:
+    dotfiles_user: "{{ lookup('env', 'USER') }}"
+    dotfiles_user_group: "{{ ansible_facts.getent_group.keys() | first }}"
+    dotfiles_arch: "amd64"
+
+- name: "Notify the user before proceeding the installation."
+  ansible.builtin.debug:
+    msg:
+      - "The given user is: '{{ dotfiles_user }}'."
+      - "The given user's group is: '{{ dotfiles_user_group }}'."
+      - "The target architecture is set to be '{{ dotfiles_arch }}' by default."
+      - "dotfiles will create user specific configuration files by becoming this user and group (chmod)"
+      - "dotfiles will create system specific configuration files by becoming root."
