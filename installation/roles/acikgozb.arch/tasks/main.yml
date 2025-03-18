@@ -1,9 +1,0 @@
-- name: Set arch to amd64 for Linux.
-  ansible.builtin.set_fact:
-    arch: "amd64"
-  when: ansible_os_family != "Darwin"
-
-- name: Set arch to arm64 for Darwin.
-  ansible.builtin.set_fact:
-    arch: "arm64"
-  when: ansible_os_family == "Darwin"
