@@ -1,0 +1,20 @@
+- name: Install dotfiles.
+  hosts: all
+  become: true
+  gather_facts: true
+  # pre_tasks:
+  #   - name: Prepare the package managers before the installation.
+  #     ansible.builtin.import_tasks: ./pre-tasks/main.yml
+  roles:
+    - acikgozb.arch
+    # - acikgozb.net
+    # - acikgozb.shell
+    # - acikgozb.kitty
+    # - acikgozb.git
+    # - acikgozb.tmux
+    # - acikgozb.nvim
+    # - acikgozb.aws
+    # - acikgozb.podman
+    # - acikgozb.hashicorp
+
+# TODO: Update the commands in main README or installation README if there is one.
