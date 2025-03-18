@@ -15,12 +15,20 @@ Currently, this role only supports Arch Linux hosts that run `systemd` as their 
 
 Here is a list of the variables that are used:
 
-`nw_packages`: This variable is used to specify the packages that this role should install to the host.
+`nw_packages`
+
+This variable is used to specify the packages that this role should install to the host.
 The installation method depends on the supported operating system. For Arch Linux, `community.general.pacman` is used to install the packages.
 
-(Playbook specific) `dotfiles_user`: This variable is used set the ownership of the generated user specific configuration files accordingly.
+The variables below need to be defined externally:
 
-(Playbook specific) `dotfiles_user_group`: This variable is used set the group ownership of the generated user specific configuration files accordingly.
+`dotfiles_user`
+
+This variable is used set the ownership of the generated user specific configuration files accordingly.
+
+`dotfiles_user_group`
+
+This variable is used set the group ownership of the generated user specific configuration files accordingly.
 
 ## Dependencies
 

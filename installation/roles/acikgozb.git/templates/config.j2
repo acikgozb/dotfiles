@@ -1,0 +1,15 @@
+[log]
+    decorate = true
+    date = relative
+[format]
+    pretty = format:%h %ad %Cgreen%aN %d %s
+[color]
+    ui = true
+[core]
+    hooksPath = {{ xdg_config_home }}/git/hooks
+    sshCommand = "ssh -i {{ lookup('env', 'HOME') }}/.ssh/git"
+[init]
+    defaultBranch = main
+[user]
+	email = {{ git_config_user_email }}
+	name = {{ git_config_user_name }}

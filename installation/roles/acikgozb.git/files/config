@@ -1,0 +1,15 @@
+[log]
+    decorate = true
+    date = relative
+[format]
+    pretty = format:%h %ad %Cgreen%aN %d %s
+[color]
+    ui = true
+[core]
+    hooksPath = /home/acikgozb/.config/git/hooks
+    sshCommand = "ssh -i /home/acikgozb/.ssh/git"
+[init]
+    defaultBranch = main
+[user]
+	email = testuser@email.com
+	name = testuser

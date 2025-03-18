@@ -1,0 +1,46 @@
+- name: Configure Git.
+  block:
+    - name: Ensure that an ed25519 SSH key/pair is generated for remote Git access.
+      community.crypto.openssh_keypair:
+        path: "/home/{{ dotfiles_user }}/.ssh/git"
+        type: ed25519
+        force: false
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+
+    - name: "[Template] Ensure that the configuration file is created."
+      ansible.builtin.template:
+        src: "config.j2"
+        dest: "{{ role_path }}/files/config"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+
+    - name: "Ensure that `dotfiles/.config/git` directory exists."
+      ansible.builtin.file:
+        path: "{{ dotfiles_repo_path }}/.config/git"
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+
+    - name: "Ensure that the configuration file is copied under `dotfiles/.config/git`."
+      ansible.builtin.copy:
+        remote_src: true
+        force: true
+        src: "{{ role_path }}/files/config"
+        dest: "{{ dotfiles_repo_path }}/.config/git/config"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+
+    - name: "Ensure that $XDG_CONFIG_HOME/git is symlinked with `dotfiles/.config/git."
+      ansible.builtin.file:
+        src: "{{ dotfiles_repo_path }}/.config/git"
+        dest: "{{ xdg_config_home }}/git"
+        state: link
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        follow: false
+        force: true
+
