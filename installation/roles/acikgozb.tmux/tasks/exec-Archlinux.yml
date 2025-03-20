@@ -1,0 +1,41 @@
+- name: "Install and configure tmux."
+  block:
+    - name: "Install tmux via Pacman."
+      community.general.pacman:
+        name: tmux
+        state: present
+
+    - name: "[Template] Ensure that the tmux configuration file is created."
+      ansible.builtin.template:
+        src: "tmux.conf.j2"
+        dest: "{{ role_path }}/files/tmux.conf"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+
+    - name: "Ensure that `dotfiles/.config/tmux` directory exists."
+      ansible.builtin.file:
+        path: "{{ dotfiles_repo_path }}/.config/tmux"
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+
+    - name: "Ensure that the tmux configuration file is copied under `dotfiles/.config/tmux`."
+      ansible.builtin.copy:
+        remote_src: true
+        src: "{{ role_path }}/files/tmux.conf"
+        dest: "{{ dotfiles_repo_path }}/.config/tmux/tmux.conf"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+
+    - name: "Ensure that $XDG_CONFIG_HOME/tmux is symlinked with `dotfiles/.config/tmux`."
+      ansible.builtin.file:
+        src: "{{ dotfiles_repo_path }}/.config/tmux"
+        dest: "{{ xdg_config_home }}/tmux"
+        state: link
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        force: true
+        follow: false
