@@ -1,0 +1,78 @@
+- name: Configure shell prompt.
+  block:
+    - name: "Download Starship."
+      ansible.builtin.get_url:
+        url: https://starship.rs/install.sh
+        dest: /tmp
+        mode: "0755"
+    - name: Install Starship.
+      become_user: "{{ dotfiles_user }}"
+      ansible.builtin.shell:
+        cmd: /tmp/install.sh --yes
+        executable: /bin/sh
+      changed_when: true
+    - name: Remove the temporary files.
+      ansible.builtin.file:
+        path: /tmp/install.sh
+        state: absent
+
+- name: "Ensure that XDG_* directories and custom directories under $PATH exist."
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ dotfiles_user }}"
+    group: "{{ dotfiles_user_group }}"
+    mode: "0755"
+  with_items:
+    - "{{ xdg_dirs }}"
+    - "{{ dirs_in_path }}"
+
+- name: "[Template] Ensure that shell configuration files are created."
+  ansible.builtin.template:
+    src: "{{ item.template }}"
+    dest: "{{ role_path }}/files/{{ item.output }}"
+    owner: "{{ dotfiles_user }}"
+    group: "{{ dotfiles_user_group }}"
+    mode: "0644"
+  with_items:
+    - {template: ".bashrc.j2", output: ".bashrc"}
+    - {template: ".bash_profile.j2", output: ".bash_profile"}
+    - {template: "starship.toml.j2", output: "starship.toml",}
+
+- name: "Ensure that necessary subdirectories under `dotfiles/.config` is created for configuration files."
+  ansible.builtin.file:
+    path: "{{ dotfiles_repo_path }}/.config/{{ item }}"
+    state: directory
+    owner: "{{ dotfiles_user }}"
+    group: "{{ dotfiles_user_group }}"
+    mode: "0755"
+  with_items:
+    - bash
+    - starship
+
+- name: "Ensure that the configuration files are copied under `dotfiles/.config`."
+  ansible.builtin.copy:
+    remote_src: true
+    force: true
+    src: "{{ role_path }}/files/{{ item.name }}"
+    dest: "{{ dotfiles_repo_path }}/.config/{{ item.path }}/{{ item.name }}"
+    owner: "{{ dotfiles_user }}"
+    group: "{{ dotfiles_user_group }}"
+    mode: "0644"
+  with_items:
+    - {name: ".bashrc", path: "bash"}
+    - {name: ".bash_profile", path: "bash"}
+    - {name: "starship.toml", path: "starship",}
+
+- name: "Ensure that $XDG_CONFIG_HOME/bash is symlinked with `dotfiles/.config`."
+  ansible.builtin.file:
+    src: "{{ dotfiles_repo_path }}/.config/{{ item }}"
+    dest: "{{ xdg_config_home }}/{{ item }}"
+    state: link
+    owner: "{{ dotfiles_user }}"
+    group: "{{ dotfiles_user_group }}"
+    follow: false
+    force: true
+  with_items:
+    - bash
+    - starship

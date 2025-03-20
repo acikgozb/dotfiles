@@ -1,8 +1,0 @@
-- name: "[OS Specific] Install and configure zsh."
-  ansible.builtin.include_tasks: ./setup-zsh.yml
-  when: ansible_os_family != "Archlinux"
-
-- name: "[OS Specific] Configure bash."
-  ansible.builtin.include_tasks: ./setup-bash.yml
-  when: ansible_os_family == "Archlinux"
-

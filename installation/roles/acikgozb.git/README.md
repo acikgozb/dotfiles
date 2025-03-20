@@ -30,7 +30,7 @@ There is a placeholder value that is set in this role's defaults, but it's recom
 This variable is used to configure the `user.email` field of Git config.
 There is a placeholder value that is set in this role's defaults, but it's recommended for the users to override this value with a proper email instead.
 
-The variables below need to be defined externally:
+Here is a list of variables below that need to be defined externally:
 
 `dotfiles_user`
 
@@ -39,6 +39,12 @@ This variable is used set the ownership of the generated user specific configura
 `dotfiles_user_group`
 
 This variable is used set the group ownership of the generated user specific configuration files accordingly.
+
+`dotfiles_repo_path`
+
+This variable is used to determine where to copy the configuration files after they are created from their respective templates.
+
+This is the root path that is used to symlink the shell configurations under `$XDG_CONFIG_HOME`.
 
 `xdg_config_home`
 
@@ -60,6 +66,7 @@ This collection needs to be added to the environment that this role is executed 
   vars:
     - dotfiles_user
     - dotfiles_user_group
+    - dotfiles_repo_path
     - xdg_config_home
     - git_config_user_name
     - git_config_user_email
