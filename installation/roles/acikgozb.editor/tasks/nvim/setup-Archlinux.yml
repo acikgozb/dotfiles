@@ -1,0 +1,69 @@
+- name: "Install and configure Neovim (nightly)."
+  become_user: "{{ lookup('env', 'USER') }}"
+  block:
+    - name: "Download Nightly binary."
+      ansible.builtin.get_url:
+        url: "{{ neovim.linux.url }}"
+        dest: "/tmp/nvim-linux"
+
+    - name: "Ensure that Neovim unarchive path exists."
+      ansible.builtin.file:
+        path: "{{ neovim_unarchive_path }}"
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+
+    - name: "Unarchive the binary under defined unarchive path."
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: "/tmp/nvim-linux"
+        dest: "{{ neovim_unarchive_path }}"
+
+    - name: "Ensure that a symlink exists for Neovim binary, under $XDG_BIN_HOME/prebuilt."
+      ansible.builtin.file:
+        src: "{{ neovim_unarchive_path }}/nvim-linux-x86_64/bin/nvim"
+        dest: "{{ xdg_bin_home }}/prebuilt/nvim"
+        state: link
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        force: true
+        follow: false
+        mode: "0755"
+
+    - name: "Remove the installation file."
+      ansible.builtin.file:
+        path: /tmp/nvim-linux
+        state: absent
+
+- name: "[Distro Specific] Ensure that gcc and helper tools exist on the host."
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ gcc_packages[ansible_distribution] }}"
+
+- name: "Ensure that the configuration files are copied under `dotfiles/.config`."
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ role_path }}/files/{{ item }}"
+    dest: "{{ dotfiles_repo_path }}/.config/"
+    owner: "{{ dotfiles_user }}"
+    group: "{{ dotfiles_user_group }}"
+  with_items:
+    - nvim
+    - yamlfmt
+    - templates
+
+- name: "Ensure that $XDG_CONFIG_HOME is symlinked with `dotfiles/.config`."
+  ansible.builtin.file:
+    src: "{{ dotfiles_repo_path }}/.config/{{ item }}"
+    dest: "{{ xdg_config_home }}/{{ item }}"
+    state: link
+    owner: "{{ dotfiles_user }}"
+    group: "{{ dotfiles_user_group }}"
+    follow: false
+    force: true
+  with_items:
+    - nvim
+    - yamlfmt
+    - templates

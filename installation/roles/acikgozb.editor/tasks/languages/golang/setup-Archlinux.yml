@@ -1,0 +1,37 @@
+- name: "Ensure that Golang binary is not installed globally."
+  ansible.builtin.file:
+    path: /usr/local/go
+    state: absent
+
+- name: "Download Golang binary based on given arch."
+  ansible.builtin.get_url:
+    url: "{{ go.linux[dotfiles_arch] }}"
+    dest: /tmp/go-linux.tar.gz
+    owner: "{{ dotfiles_user }}"
+    group: "{{ dotfiles_user_group }}"
+    mode: "0755"
+
+- name: "Install Golang."
+  block:
+    - name: "Ensure that Golang installation directories exist."
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+      with_items:
+        - "{{ go_lang_path }}"
+
+    - name: "Install by unarchiving the download."
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: /tmp/go-linux.tar.gz
+        dest: "{{ go_lang_path }}"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+
+- name: "Remove the temporary files."
+  ansible.builtin.file:
+    path: /tmp/go-linux.tar.gz
+    state: absent

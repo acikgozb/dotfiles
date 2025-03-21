@@ -1,0 +1,9 @@
+- name: "Install programs."
+  ansible.builtin.include_tasks: ./{{ source }}/main.yml
+  with_items:
+    - golang
+    - npm
+    - prebuilt
+  loop_control:
+    loop_var: source
+

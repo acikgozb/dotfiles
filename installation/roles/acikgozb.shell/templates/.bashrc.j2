@@ -15,24 +15,27 @@ export XDG_CACHE_HOME="{{ xdg_cache_home }}"
 export HISTFILE="$XDG_STATE_HOME/bash/history"
 
 # $PATH.
-if ! grep -q "$XDG_BIN_HOME/custom" <<< "$PATH"; then
-    export PATH="$XDG_BIN_HOME:$PATH"
-fi
-if ! grep -q "{{ xdg_bin_home}}/prebuilt" <<< "$PATH"; then
-    export PATH="$XDG_BIN_HOME/prebuilt:$PATH"
-fi
-if ! grep -q "$XDG_BIN_HOME/npm-packages" <<< "$PATH"; then
-    export PATH="$XDG_BIN_HOME/npm-packages:$PATH"
-fi
 if ! grep -q "$XDG_BIN_HOME:" <<< "$PATH"; then
     export PATH="$XDG_BIN_HOME:$PATH"
 fi
-if ! grep -q "$XDG_BIN_HOME/go-packages" <<< "$PATH"; then
-    export GOPATH="$XDG_BIN_HOME/go-packages"
-    export PATH="$XDG_BIN_HOME/go/bin:$XDG_BIN_HOME/go-packages/bin:$PATH"
+if ! grep -q "{{ custom_pkg_path }}" <<< "$PATH"; then
+    export PATH="{{ custom_pkg_path }}:$PATH"
 fi
-if ! grep -q "$XDG_BIN_HOME/.net" <<< "$PATH"; then
-    export PATH="$XDG_BIN_HOME/.net:$PATH"
+if ! grep -q "{{ prebuilt_pkg_path }}" <<< "$PATH"; then
+    export PATH="{{ prebuilt_pkg_path }}:$PATH"
+fi
+if ! grep -q "{{ npm_pkg_path }}" <<< "$PATH"; then
+    export PATH="{{ npm_pkg_path }}:$PATH"
+fi
+if ! grep -q "{{ go_pkg_path }}" <<< "$PATH"; then
+    export GOPATH="{{ go_pkg_path }}"
+    export PATH="{{ go_lang_path }}/go/bin:{{ go_pkg_path }}/bin:$PATH"
+fi
+if ! grep -q "{{ dotnet_lang_path }}" <<< "$PATH"; then
+    export PATH="{{ dotnet_lang_path }}:$PATH"
+fi
+if ! grep -q "{{ rust_lang_path }}/bin" <<< "$PATH"; then
+    export PATH="{{ rust_lang_path }}/bin:$PATH"
 fi
 
 # inputrc.
@@ -51,11 +54,11 @@ export STARSHIP_CONFIG="$XDG_CONFIG_HOME/starship/config.toml"
 export STARSHIP_CACHE="$XDG_CACHE_HOME/starship"
 
 # Rust.
-export CARGO_HOME="$XDG_BIN_HOME/cargo"
+export CARGO_HOME="{{ rust_lang_path }}"
 export RUSTUP_HOME="$XDG_BIN_HOME/rustup"
 
 # NVM.
-export NVM_DIR="$XDG_BIN_HOME"/nvm
+export NVM_DIR="{{ js_lang_path }}"
 [ -s "$NVM_DIR"/nvm.sh ] && source "$NVM_DIR"/nvm.sh
 
 # AWS CLI.
@@ -66,5 +69,6 @@ export AWS_CONFIG_FILE="$XDG_CONFIG_HOME"/aws/config
 alias ls='ls --color=auto -lA'
 alias grep='grep --color=auto'
 alias clip='wl-copy'
-alias src='. $XDG_CONFIG_HOME/bash/.bashrc'
+alias src='. $XDG_CONFIG_HOME/{{ dotfiles_shell }}/.{{ dotfiles_shell }}rc'
 alias ftsys='fastfetch'
+alias tee='gtee'

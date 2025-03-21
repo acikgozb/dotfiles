@@ -1,0 +1,8 @@
+- name: "[OS Specific] Install and configure Neovim."
+  ansible.builtin.include_tasks: ./nvim/setup-{{ ansible_os_family }}.yml
+
+- name: "[OS Specific] Install the programming languages."
+  ansible.builtin.include_tasks: ./languages/main.yml
+
+- name: "[OS Specific] Install frequently used programs."
+  ansible.builtin.include_tasks: ./programs/main.yml

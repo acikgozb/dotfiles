@@ -1,16 +1,16 @@
 - name: "Get the group of the $USER."
   block:
-    - name: "Read $USER from /etc/passwd"
+    - name: "Read $USER from /etc/passwd."
       ansible.builtin.getent:
         database: passwd
         key: "{{ lookup('env', 'USER') }}"
-        #
+
     - name: "Get the group via $USER's GID."
       ansible.builtin.getent:
         database: group
         key: "{{ ansible_facts.getent_passwd[lookup('env', 'USER')][2] }}"
 
-- name: "Get the absolute path of the dotfiles repository"
+- name: "Get the absolute path of the dotfiles repository."
   ansible.builtin.shell:
     cmd: "echo $(cd ..; pwd)"
   register: dotfiles_repo_path
@@ -21,22 +21,17 @@
     dotfiles_user_group: "{{ ansible_facts.getent_group.keys() | first }}"
     dotfiles_arch: "amd64"
     dotfiles_repo_path: "{{ dotfiles_repo_path.stdout }}"
+    dotfiles_shell: "bash"
+    dotfiles_shell_executable_path: "{{ lookup('env', 'SHELL') }}"
 
-- name: "Ensure that XDG_* facts are set properly."
-  ansible.builtin.set_fact:
-    xdg_config_home: "/home/{{ lookup('env', 'USER') }}/.config"
-    xdg_state_home: "/home/{{ lookup('env', 'USER') }}/.local/state"
-    xdg_data_home: "/home/{{ lookup('env', 'USER') }}/.local/share"
-    xdg_bin_home: "/home/{{ lookup('env', 'USER') }}/.local/bin"
-    xdg_cache_home: "/home/{{ lookup('env', 'USER') }}/.cache"
-
-- name: "Ensure that the used environment values are shown to the user."
+- name: "Ensure that the environment values are shown to the user."
   ansible.builtin.debug:
     msg:
       - "The given user is: '{{ dotfiles_user }}'."
       - "The given user's group is: '{{ dotfiles_user_group }}'."
       - "The target architecture is set to be '{{ dotfiles_arch }}' by default."
       - "dotfiles is stored at: {{ dotfiles_repo_path }}."
+      - "dotfiles will use and configure '{{ dotfiles_shell }}' located at {{ dotfiles_shell_executable_path }}."
       - "dotfiles will create user specific configuration files by becoming this user and group."
       - "dotfiles will create system specific configuration files by becoming root."
       - "dotfiles will use and set the path {{ xdg_config_home }} as $XDG_CONFIG_HOME."

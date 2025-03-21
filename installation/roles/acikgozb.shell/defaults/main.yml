@@ -6,8 +6,8 @@ xdg_dirs:
 
 dirs_in_path:
   - "{{ xdg_bin_home }}"
-  - "{{ xdg_bin_home }}/custom"
-  - "{{ xdg_bin_home }}/prebuilt"
-  - "{{ xdg_bin_home }}/go-packages"
-  - "{{ xdg_bin_home }}/npm-packages"
+  - "{{ custom_pkg_path }}"
+  - "{{ prebuilt_pkg_path }}"
+  - "{{ go_pkg_path }}"
+  - "{{ npm_pkg_path }}"
   - "{{ xdg_bin_home }}/.net"

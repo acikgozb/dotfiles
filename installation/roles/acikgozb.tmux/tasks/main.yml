@@ -1,2 +1,2 @@
 - name: "[OS Specific] Install and configure tmux."
-  ansible.builtin.include_tasks: ./exec-{{ ansible_os_family }}.yml
+  ansible.builtin.include_tasks: ./setup-{{ ansible_os_family }}.yml

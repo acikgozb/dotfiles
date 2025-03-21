@@ -1,6 +1,6 @@
-- name: Configure Git.
+- name: "Configure Git."
   block:
-    - name: Ensure that an ed25519 SSH key/pair is generated for remote Git access.
+    - name: "Ensure that an ed25519 SSH key/pair is generated for remote Git access."
       community.crypto.openssh_keypair:
         path: "/home/{{ dotfiles_user }}/.ssh/git"
         type: ed25519

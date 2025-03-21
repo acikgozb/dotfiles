@@ -1,0 +1,11 @@
+- name: "Install Golang."
+  ansible.builtin.include_tasks: ./golang/setup-{{ ansible_os_family }}.yml
+
+- name: "Install .NET."
+  ansible.builtin.include_tasks: ./dotnet/setup-{{ ansible_os_family }}.yml
+
+- name: "Install JavaScript."
+  ansible.builtin.include_tasks: ./javascript/setup-{{ ansible_os_family }}.yml
+
+- name: "Install Rust."
+  ansible.builtin.include_tasks: ./rust/setup-{{ ansible_os_family }}.yml
