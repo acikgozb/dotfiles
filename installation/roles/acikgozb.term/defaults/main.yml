@@ -1,0 +1,12 @@
+alacritty_git_repo: https://github.com/alacritty/alacritty.git
+
+alacritty_deps:
+  Archlinux:
+    - cmake
+    - freetype2
+    - fontconfig
+    - pkg-config
+    - make
+    - libxcb
+    - libxkbcommon
+    - python
