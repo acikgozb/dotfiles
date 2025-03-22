@@ -1,0 +1,8 @@
+- name: "[OS Specific] Install and configure programs for cloud development."
+  ansible.builtin.include_tasks: ./{{ concept }}/setup-{{ ansible_os_family }}.yml
+  with_items:
+    - providers
+    - containerization
+    - iac
+  loop_control:
+    loop_var: concept

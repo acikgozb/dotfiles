@@ -1,0 +1,14 @@
+# Variables used for installing AWS CLI.
+aws_install_dir: "{{ lib_path }}/aws-cli"
+aws_bin_dir: "{{ xdg_bin_home }}"
+
+aws_archive_url:
+  amd64: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+
+update_aws: false
+
+# IaC
+terraform_version: 1.11.2
+terraform_archive:
+  name: terraform
+  amd64: https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip

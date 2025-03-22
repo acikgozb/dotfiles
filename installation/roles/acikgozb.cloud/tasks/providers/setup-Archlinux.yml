@@ -1,0 +1,57 @@
+- name: "Install AWS CLI."
+  block:
+    - name: "Download AWS CLI archive."
+      ansible.builtin.get_url:
+        url: "{{ aws_archive_url[dotfiles_arch] }}"
+        dest: /tmp
+        mode: "0755"
+
+    - name: "Ensure that unzip exists on the host."
+      community.general.pacman:
+        name: unzip
+        state: present
+
+    - name: "Ensure that the temporary folder exists to store the unarchived files."
+      ansible.builtin.file:
+        path: /tmp/awscli
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+
+    - name: "Unarchive AWS CLI download."
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: /tmp/{{ aws_archive_url[dotfiles_arch] | split('/') | last }}
+        dest: /tmp/awscli
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+
+    - name: "Fetch if AWS CLI is installed before."
+      ansible.builtin.stat:
+        path: "{{ aws_bin_dir }}/aws"
+      register: aws_bin
+
+    - name: "Ensure that AWS CLI is installed if it is not before."
+      become_user: "{{ dotfiles_user }}"
+      ansible.builtin.command:
+        cmd: /tmp/awscli/aws/install --bin-dir {{ aws_bin_dir }} --install-dir {{ aws_install_dir }}
+        creates: "{{ aws_bin_dir }}/aws"
+      when: not aws_bin.stat.exists
+
+    - name: "Ensure that AWS CLI is updated when update_aws is set by the user."
+      become_user: "{{ dotfiles_user }}"
+      ansible.builtin.command:
+        cmd: /tmp/awscli/aws/install --bin-dir {{ aws_bin_dir }} --install-dir {{ aws_install_dir }} --update
+      register: aws_cli_update_result
+      when: update_aws == "true"
+      changed_when: aws_cli_update_result.stderr is not defined
+
+    - name: "Ensure that temporary files are removed."
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      with_items:
+        - /tmp/awscli
+        - /tmp/{{ aws_archive_url[dotfiles_arch] | split('/') | last }}

@@ -1,0 +1,40 @@
+- name: "Install Terraform."
+  become_user: "{{ dotfiles_user }}"
+  block:
+    - name: "Download Terraform binary from Hashicorp."
+      ansible.builtin.get_url:
+        url: "{{ terraform_archive.amd64 }}"
+        dest: /tmp/{{ terraform_archive.name }}.zip
+
+    - name: "Ensure that the temporary directories exists for Terraform."
+      ansible.builtin.file:
+        path: /tmp/{{ terraform_archive.name }}
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+
+    - name: "Unarchive the download."
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: /tmp/{{ terraform_archive.name }}.zip
+        dest: /tmp/{{ terraform_archive.name }}
+
+    - name: "Ensure that the Terraform binary exists under prebuilt_pkg_path."
+      ansible.builtin.copy:
+        remote_src: true
+        src: /tmp/{{ terraform_archive.name }}/{{ terraform_archive.name }}
+        dest: "{{ prebuilt_pkg_path }}"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+
+    - name: Remove the temporary directories.
+      ansible.builtin.file:
+        path: /tmp/{{ terraform_archive.name }}
+        state: absent
+
+    - name: Remove the downloads.
+      ansible.builtin.file:
+        path: /tmp/{{ terraform_archive.name }}.zip
+        state: absent

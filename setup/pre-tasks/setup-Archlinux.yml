@@ -1,4 +1,0 @@
-- name: Update package cache before installation (for Arch Linux).
-  become: true
-  community.general.pacman:
-    update_cache: true

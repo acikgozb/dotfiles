@@ -27,7 +27,7 @@ This role also expects `bash` to be installed on the host, which is case if Arch
 
 ## Role Variables
 
-Here is a list of the variables that are used:
+Here is a list of the variables that are defined for this role:
 
 `xdg_dirs`
 
