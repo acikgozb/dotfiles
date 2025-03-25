@@ -1,0 +1,110 @@
+- name: "Ensure that the packages exist on the host."
+  community.general.pacman:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ nw_packages[ansible_os_family] }}"
+
+- name: "Ensure that NetworkManager uses 'iwd' as its WiFi backend."
+  block:
+    - name: "[Template] Ensure that NetworkManager WiFi configuration file is created."
+      ansible.builtin.template:
+        src: "nm.wifi_backend.conf.j2"
+        dest: "{{ role_path }}/files/wifi_backend.conf"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+
+    - name: "Ensure that /etc/NetworkManager/conf.d exists."
+      ansible.builtin.file:
+        path: "/etc/NetworkManager/conf.d"
+        state: directory
+        owner: "root"
+        group: "root"
+        mode: "0755"
+
+    - name: "Ensure that WiFi configuration file is copied under /etc/NetworkManager/conf.d."
+      ansible.builtin.copy:
+        remote_src: true
+        src: "{{ role_path }}/files/wifi_backend.conf"
+        dest: "/etc/NetworkManager/conf.d/wifi_backend.conf"
+        owner: "root"
+        group: "root"
+        mode: "0644"
+
+    - name: "Check system-connections exist under /etc/NetworkManager."
+      ansible.builtin.stat:
+        path: "/etc/NetworkManager/system-connections"
+      register: "system_connections"
+
+    - name: "Ensure that the backup is created for if system-connections exist."
+      ansible.builtin.copy:
+        remote_src: true
+        src: "/etc/NetworkManager/system-connections"
+        dest: "/etc/NetworkManager/system-connections.backup"
+        owner: "root"
+        group: "root"
+        mode: "0644"
+      when: system_connections.stat.exists == "true"
+
+    - name: "Ensure that there is no system-connections."
+      ansible.builtin.file:
+        path: "/etc/NetworkManager/system-connections"
+        state: absent
+
+    - name: "Ensure that wpa_supplicant is disabled so that iwd can be used on reboot."
+      ansible.builtin.service:
+        name: wpa_supplicant
+        enabled: false
+
+- name: "Ensure that systemd-resolved is used as the main DNS resolver."
+  block:
+    - name: "[Template] Ensure that NetworkManager DNS configuration file is created."
+      ansible.builtin.template:
+        src: "nm.dns.conf.j2"
+        dest: "{{ role_path }}/files/dns.conf"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+
+    - name: "Ensure that DNS configuration file is copied under /etc/NetworkManager/conf.d."
+      ansible.builtin.copy:
+        remote_src: true
+        src: "{{ role_path }}/files/dns.conf"
+        dest: "/etc/NetworkManager/conf.d/dns.conf"
+        owner: "root"
+        group: "root"
+        mode: "0644"
+
+    - name: "Ensure that systemd-resolved is started and default configuration files are created."
+      ansible.builtin.service:
+        name: systemd-resolved
+        state: started
+
+    - name: "Ensure that stub-resolv.conf is symlinked to /etc/resolv.conf."
+      ansible.builtin.file:
+        src: "/run/systemd/resolve/stub-resolv.conf"
+        dest: "/etc/resolv.conf"
+        state: link
+        force: true
+
+    - name: "[Template] Ensure that systemd-resolved DNS configuration file is created."
+      ansible.builtin.template:
+        src: "systemd-resolved.dns_servers.conf.j2"
+        dest: "{{ role_path }}/files/dns_servers.conf"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+
+    - name: "Ensure that systemd-resolved DNS configuration file is copied under /etc/systemd/resolved.conf.d."
+      ansible.builtin.copy:
+        remote_src: true
+        src: "{{ role_path }}/files/dns_servers.conf"
+        dest: "/etc/systemd/resolved.conf.d/dns_servers.conf"
+        owner: "root"
+        group: "root"
+        mode: "0644"
+
+    - name: "Ensure that systemd-resolved is enabled on boot."
+      ansible.builtin.service:
+        name: systemd-resolved
+        enabled: true

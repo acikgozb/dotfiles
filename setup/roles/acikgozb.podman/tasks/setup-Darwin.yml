@@ -1,9 +1,0 @@
-- name: Download Podman's installer binary.
-  become_user: "{{ lookup('env', 'USER') }}"
-  ansible.builtin.get_url:
-    url: "{{ podman_macos_installer }}"
-    dest: /tmp/installer.pkg
-
-- name: Install Podman globally.
-  ansible.builtin.command:
-    cmd: installer -pkg /tmp/installer.pkg -target /

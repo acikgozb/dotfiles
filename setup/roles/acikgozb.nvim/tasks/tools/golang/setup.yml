@@ -1,6 +1,0 @@
-- name: Install via 'go install'.
-  become_user: "{{ lookup('env', 'USER') }}"
-  ansible.builtin.shell:
-    cmd: source ~/.config/{{ shell }}/.{{ shell }}rc && go install {{ item }}
-    executable: /usr/bin/{{ shell }}
-  with_items: "{{ tools.go_install }}"

@@ -1,0 +1,8 @@
+nw_packages:
+  Archlinux:
+    - traceroute
+    - lsof
+    - nmap # contains ncat as well.
+    - dnsmasq # Great tool as a stub DNS & DHCP server.
+    - inetutils # mainly for telnet.
+    - iwd # NetworkManager WiFi backend.

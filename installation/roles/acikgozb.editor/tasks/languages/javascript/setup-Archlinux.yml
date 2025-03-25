@@ -1,0 +1,38 @@
+- name: "Install and configure NVM."
+  block:
+    - name: "Download NVM installation script."
+      ansible.builtin.get_url:
+        url: https://raw.githubusercontent.com/nvm-sh/nvm/v{{ nvm_version }}/install.sh
+        dest: /tmp
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+
+    - name: "Ensure that provided NVM installation directories exist."
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+      with_items:
+        - " {{ js_lang_path }}"
+
+    - name: "Install NVM (without modifying shell)."
+      become_user: "{{ dotfiles_user }}"
+      ansible.builtin.shell:
+        cmd: PROFILE=/dev/null NVM_DIR={{ js_lang_path }} /tmp/install.sh
+        executable: "{{ dotfiles_shell_executable_path }}"
+      changed_when: true
+
+- name: "Remove the temporary files."
+  ansible.builtin.file:
+    path: /tmp/install.sh
+    state: absent
+
+- name: "Install Node and NPM."
+  become_user: "{{ dotfiles_user }}"
+  ansible.builtin.shell:
+    cmd: source {{ xdg_config_home}}/{{ dotfiles_shell }}/.{{ dotfiles_shell}}rc; nvm install {{ node_version }}
+    executable: "{{ dotfiles_shell_executable_path }}"
+  changed_when: true

@@ -1,0 +1,99 @@
+- name: "Download and install binary releases of provided tools."
+  block:
+    - name: "[OS Specific] Download amd64 binaries (Linux)."
+      ansible.builtin.get_url:
+        url: "{{ item.url.amd64 }}"
+        dest: /tmp/{{ item.name }}-archive
+      with_items: "{{ programs.prebuilt }}"
+
+    - name: "Ensure that a temp directory is created to store the binaries."
+      ansible.builtin.file:
+        path: "/tmp/prebuilt"
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+
+    - name: "Ensure that directories exist to unarchive the downloaded files."
+      ansible.builtin.file:
+        path: /tmp/{{ item.name }}
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+      with_items: "{{ programs.prebuilt }}"
+      when: item.extract == "true"
+
+    - name: "Unarchive the downloads if needed."
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: /tmp/{{ item.name }}-archive
+        dest: /tmp/{{ item.name }}
+        extra_opts: "{{ (item.strip == 'true') | ternary('--strip-components=1', '') }}"
+      with_items: "{{ programs.prebuilt }}"
+      when: item.extract == "true"
+
+    - name: "For binaries that does not need unarchiving, ensure that they are under /tmp/prebuilt."
+      ansible.builtin.copy:
+        remote_src: true
+        force: true
+        src: /tmp/{{ item.name }}-archive
+        dest: /tmp/prebuilt/{{ item.name }}
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+      with_items: "{{ programs.prebuilt }}"
+      when: item.extract == "false"
+
+    - name: "Ensure that unarchived binaries are under /tmp/prebuilt."
+      ansible.builtin.copy:
+        remote_src: true
+        force: true
+        src: "/tmp/{{ item.name }}/{{ item.name }}"
+        dest: "/tmp/prebuilt/{{ item.name }}"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+      with_items: "{{ programs.prebuilt }}"
+      when: item.extract == "true"
+
+    - name: "Ensure that prebuilt_pkg_path exists."
+      become_user: "{{ dotfiles_user }}"
+      ansible.builtin.file:
+        path: "{{ prebuilt_pkg_path }}"
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+
+    - name: "Ensure that /tmp/prebuilt is copied to prebuilt_pkg_path."
+      ansible.builtin.copy:
+        remote_src: true
+        force: true
+        src: "/tmp/prebuilt/{{ item.name }}"
+        dest: "{{ prebuilt_pkg_path }}"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+      with_items: "{{ programs.prebuilt }}"
+
+- name: "Ensure that all binaries have correct permissions."
+  ansible.builtin.file:
+    path: "{{ prebuilt_pkg_path }}"
+    state: directory
+    recurse: true
+    owner: "{{ dotfiles_user }}"
+    group: "{{ dotfiles_user_group }}"
+    mode: "0755"
+
+- name: "Remove temporary directories."
+  ansible.builtin.file:
+    path: /tmp/{{ item.name }}
+    state: absent
+  with_items: "{{ programs.prebuilt }}"
+
+- name: "Remove downloaded files."
+  ansible.builtin.file:
+    path: /tmp/{{ item.name }}-archive
+    state: absent
+  with_items: "{{ programs.prebuilt }}"

@@ -1,0 +1,23 @@
+- name: "Install dotfiles."
+  hosts: all
+  become: true
+  gather_facts: true
+  pre_tasks:
+    - name: "[OS Specific] Ensure that the environment is set before the installation."
+      ansible.builtin.import_tasks: ./pre-tasks/main.yml
+  vars_files:
+    - ./vars/user_vars.yml
+  roles:
+    - acikgozb.net
+    - acikgozb.git
+    - acikgozb.shell
+    - acikgozb.tmux
+    - acikgozb.editor
+    - acikgozb.term
+    - acikgozb.cloud
+    - acikgozb.system
+
+  post_tasks:
+    - name: "Notify the user that the installation is completed successfully."
+      ansible.builtin.debug:
+        msg: "In order to apply the changes, please reboot the host."

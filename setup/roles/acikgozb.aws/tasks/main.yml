@@ -1,7 +1,0 @@
-- name: "[OS Specific] Install AWS CLI for Linux."
-  ansible.builtin.include_tasks: ./Linux-setup.yml
-  when: ansible_os_family != "Darwin"
-
-- name: "[OS Specific] Install AWS CLI for Darwin."
-  ansible.builtin.include_tasks: ./Darwin-setup.yml
-  when: ansible_os_family == "Darwin"

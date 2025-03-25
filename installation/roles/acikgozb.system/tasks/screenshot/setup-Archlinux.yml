@@ -1,0 +1,7 @@
+- name: "Install and configure screen utility programs."
+  block:
+    - name: "Ensure that screen utility programs exist on the host."
+      community.general.pacman:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ screen_utilities }}"

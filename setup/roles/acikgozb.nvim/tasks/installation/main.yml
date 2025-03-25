@@ -1,7 +1,0 @@
-- name: "[OS Specific] Install Neovim on Darwin."
-  ansible.builtin.include_tasks: ./Darwin-install.yml
-  when: ansible_os_family == "Darwin"
-
-- name: "[OS Specific] Install Neovim on Linux."
-  ansible.builtin.include_tasks: ./Linux-install.yml
-  when: ansible_os_family != "Darwin"

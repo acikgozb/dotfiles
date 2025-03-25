@@ -1,0 +1,6 @@
+- name: "Install via 'go install'."
+  become_user: "{{ dotfiles_user }}"
+  ansible.builtin.shell:
+    cmd: source {{ xdg_config_home }}/{{ dotfiles_shell }}/.{{ dotfiles_shell }}rc && go install {{ item }}
+    executable: "{{ dotfiles_shell_executable_path }}"
+  with_items: "{{ programs.go_install }}"

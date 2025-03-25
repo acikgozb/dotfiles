@@ -1,0 +1,76 @@
+- name: "[OS Specific] Install and configure Hyprland."
+  block:
+    - name: "Ensure that Wayland exists on the host."
+      community.general.pacman:
+        name: wayland
+        state: present
+
+    - name: "Install Hyprland, Hyprpaper and its dependencies."
+      community.general.pacman:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - hyprland
+        - hyprpaper
+        - xdg-desktop-portal-hyprland
+
+    - name: "[Template] Ensure that the configurations file are created."
+      ansible.builtin.template:
+        src: "{{ item }}.j2"
+        dest: "{{ role_path }}/files/{{ item }}"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+      with_items:
+        - "hyprland.conf"
+        - "hyprpaper.conf"
+
+    - name: "Ensure that `dotfiles/.config/hypr` exists to store the configuration files."
+      ansible.builtin.file:
+        path: "{{ dotfiles_repo_path }}/.config/hypr"
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+
+    - name: "Ensure that the configuration files are copied under `dotfiles/.config/hypr`."
+      ansible.builtin.copy:
+        remote_src: true
+        force: true
+        src: "{{ role_path }}/files/{{ item }}"
+        dest: "{{ dotfiles_repo_path }}/.config/hypr/{{ item }}"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+      with_items:
+        - hyprland.conf
+        - hyprpaper.conf
+
+    - name: "Ensure that Hyprpaper wallpaper directory exists."
+      ansible.builtin.file:
+        path: "{{ dotfiles_repo_path }}/.config/hypr/wallpapers"
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+
+    - name: "Ensure that the configured wallpaper exists under `dotfiles/.config/hypr/wallpaper`."
+      ansible.builtin.copy:
+        remote_src: true
+        force: true
+        src: "{{ role_path }}/files/ouroboros.jpg"
+        dest: "{{ dotfiles_repo_path }}/.config/hypr/wallpapers/ouroboros.jpg"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+
+    - name: "Ensure that `$XDG_CONFIG_HOME/hypr` is symlinked with `dotfiles/.config/hypr`."
+      ansible.builtin.file:
+        src: "{{ dotfiles_repo_path }}/.config/hypr"
+        dest: "{{ xdg_config_home }}/hypr"
+        state: link
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        force: true
+        follow: false
+

@@ -1,0 +1,13 @@
+xdg_dirs:
+  - "{{ xdg_state_home }}"
+  - "{{ xdg_data_home }}"
+  - "{{ xdg_bin_home }}"
+  - "{{ xdg_cache_home }}"
+
+dirs_in_path:
+  - "{{ xdg_bin_home }}"
+  - "{{ custom_pkg_path }}"
+  - "{{ prebuilt_pkg_path }}"
+  - "{{ go_pkg_path }}"
+  - "{{ npm_pkg_path }}"
+  - "{{ xdg_bin_home }}/.net"
