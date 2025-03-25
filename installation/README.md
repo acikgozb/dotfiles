@@ -1,8 +1,21 @@
 # Dotfiles Installation
 
-This document explains how to install and configure the tools used in `dotfiles`.
+<!--toc:start-->
 
 ## Table of Contents
+
+- [Disclaimer](#disclaimer)
+- [Required Tools](#required-tools)
+- [Clone the Repository](#clone-the-repository)
+- [`installation` Directory](#installation-directory)
+- [User Specific Variables](#user-specific-variables)
+- [`make install`](#make-install)
+  - [List of the Tools and Their Corresponding Ansible Roles](#list-of-the-tools-and-their-corresponding-ansible-roles)
+- [Post Installation](#post-installation)
+- [Customizing the Installation](#customizing-the-installation)
+<!--toc:end-->
+
+This document explains how to install and configure the tools used in `dotfiles`.
 
 ## <a id="disclaimer"></a> Disclaimer
 
@@ -35,7 +48,7 @@ The main installation and configuration of your host happens under `<repo-root-p
 
 If you have had an experience working with Ansible, this directory will feel familiar to you.
 
-## User Specific Variables
+## <a id="user-specific-variables"></a> User Specific Variables
 
 Before proceeding to the installation, users' need to provide some variables that will be used by `dotfiles`.
 This is required simply because some configuration files need user specific values (e.g. git email).
@@ -61,7 +74,7 @@ make install
 Some tasks need to be run via elevated privileges, therefore Ansible will ask the password of the `$USER`.
 Enter your password to start the installation.
 
-### List of the Tools and Their Corresponding Ansible Roles
+### <a id="list-of-the-tools-and-their-corresponding-ansible-roles"></a> List of the Tools and Their Corresponding Ansible Roles
 
 Here is the list of the tools that are installed via `dotfiles`.
 Please refer to linked configuration files and Ansible roles to see what is installed on a given host:
@@ -266,6 +279,6 @@ Templates:
 After the installation completes, it's strongly recommended to reboot the host to fully apply the changes.
 Some parts of the installation enables `systemd` services, which need a reboot to take effect.
 
-## Customizing the Installation
+## <a id="customizing-the-installation"></a> Customizing the Installation
 
 In order to customize the installation of a certain tool, please refer to the role that installs the tool and see which variables are exposed for customization.

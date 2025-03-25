@@ -39,6 +39,11 @@
     name: bluez-utils
     state: present
 
+- name: "Ensure that fastfetch exists on the host."
+  community.general.pacman:
+    name: fastfetch
+    state: present
+
 - name: "Ensure that devx scripts exist on the host."
   block:
     - name: "Clone the devx Git repository."

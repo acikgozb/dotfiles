@@ -2,22 +2,29 @@
 
 A collection of configuration files that forms a unique development environment.
 
+<image src="https://github.com/user-attachments/assets/830aad82-ae7f-48dd-8afe-b69adb8dc4f9"></image>
+
 ## Table of Contents
 
 <!--toc:start-->
 
+- [Showcase](#showcase)
+  - [Window Manager](#window-manager)
+  - [Terminal](#terminal)
+  - [Terminal Multiplexer](#terminal-multiplexer)
+  - [Editor](#editor)
 - [Description](#description)
+- [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Neovim](#neovim)
 - [TODO](#todo)
 <!--toc:end-->
 
-## Showcase
+## <a id='showcase'></a> Showcase
 
 Here are some visuals and details to see how this project configures a given host.
 
-### Window Manager
+### <a id='window-manager'></a> Window Manager
 
 `dotfiles` installs and configures `hyprland` as the main window manager.
 `dotfiles` does not touch existing window managers during the installation and configuration of `hyprland`.
@@ -79,7 +86,7 @@ Here is how an empty workspace looks like:
 
 Currently, there are no special workspaces configured for `hyprland`.
 
-### Terminal
+### <a id='terminal'></a> Terminal
 
 `dotfiles` installs and configures `alacritty` as the terminal on a given host.
 It also installs and configures `starship` as the shell prompt.
@@ -90,7 +97,7 @@ Here is how `alacritty` looks by default:
     <image src="https://github.com/user-attachments/assets/2bd8c3a7-d59d-4e90-8d72-63a1ca97aa71"></image>
 </details>
 
-### Terminal Multiplexer
+### <a id='terminal-multiplexer'></a> Terminal Multiplexer
 
 `dotfiles` installs and configures `tmux` to be used as the main terminal multiplexer.
 
@@ -100,7 +107,7 @@ A minimal status bar is used for `tmux`, like below:
     <image src="https://github.com/user-attachments/assets/f7ef2fff-b5cf-4317-876c-1d2338cb6f0e"></image>
 </details>
 
-### Editor
+### <a id='editor'></a> Editor
 
 `dotfiles` installs and configures Neovim as the editor on a given host.
 
@@ -122,7 +129,7 @@ A monochromatic theme is used for Neovim, with its primary color set to `rose-pi
 
 For the architecture, please refer to [ARCHITECTURE.md](./ARCHITECTURE.md).
 
-## Requirements
+## <a id='requirements'></a> Requirements
 
 As of version `0.3.0`, `dotfiles` is designed to support x86_64 Arch Linux hosts only.
 Due to time constraints, unfortunately I can only maintain the project for the main OS I use.
