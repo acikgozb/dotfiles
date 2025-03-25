@@ -1,7 +1,6 @@
 # dotfiles
 
-Dotfiles is a collection of configuration files that allows me to create my own local environment.
-By storing my local environment configuration in a version control system, it allows me to track and maintain my configuration via code.
+A collection of configuration files that forms a unique development environment.
 
 ## Table of Contents
 
@@ -14,41 +13,132 @@ By storing my local environment configuration in a version control system, it al
 - [TODO](#todo)
 <!--toc:end-->
 
+## Showcase
+
+Here are some visuals and details to see how this project configures a given host.
+
+### Window Manager
+
+`dotfiles` installs and configures `hyprland` as the main window manager.
+`dotfiles` does not touch existing window managers during the installation and configuration of `hyprland`.
+
+**Status Bar**
+
+There are no status bars (e.g. `waybar`) in this configuration.
+
+<!-- Here is the configuration file and its corresponding template: -->
+<!---->
+<!-- - [hyprland.conf](./.config/hypr/hyprland.conf) -->
+<!-- - [template](./installation/roles/acikgozb.system/templates/hyprland.conf.j2) -->
+
+**Workspace 1: `btop`**
+
+This workspace is mainly designed to monitor the system with `btop`.
+
+<details>
+    <image src="https://github.com/user-attachments/assets/27d5a0d0-729b-4bd2-bf0d-7988bc22e683"></image>
+</details>
+
+<!-- Here is the configuration file, the theme file, and the corresponding template for `btop`: -->
+<!---->
+<!-- - [config.conf](./.config/btop/config.conf) -->
+<!-- - [rose-pine.theme](./.config/btop/themes/rose-pine.theme) -->
+<!-- - [config template](./installation/roles/acikgozb.system/templates/btop.config.conf.j2) -->
+
+**Workspace 2: main terminal**
+
+This workspace is designed to hold the main terminal instance of the user.
+`fastfetch` is **only executed during the initial boot** to show the system information.
+
+<details>
+    <image src="https://github.com/user-attachments/assets/830aad82-ae7f-48dd-8afe-b69adb8dc4f9"></image>
+</details>
+
+**Workspace 3: `librewolf`**
+
+This workspace is designed to hold the main browser instance.
+`librewolf` is used as the browser.
+
+Note: User specific configurations for `librewolf` (e.g. extensions, themes, font, keymaps) should be done explicitly by the user.
+
+<details>
+    <image src="https://github.com/user-attachments/assets/46671f08-bb36-4a6d-9421-ef84628dab11"></image>
+</details>
+
+**Empty workspaces & `hyprpaper`**
+
+`dotfiles` installs `hyprpaper` to configure wallpapers on a given host.
+
+Here is how an empty workspace looks like:
+
+<details>
+    <image src="https://github.com/user-attachments/assets/665404b6-ffed-49ac-82b5-742353d76527"></image>
+</details>
+
+**Special Workspaces**
+
+Currently, there are no special workspaces configured for `hyprland`.
+
+### Terminal
+
+`dotfiles` installs and configures `alacritty` as the terminal on a given host.
+It also installs and configures `starship` as the shell prompt.
+
+Here is how `alacritty` looks by default:
+
+<details>
+    <image src="https://github.com/user-attachments/assets/2bd8c3a7-d59d-4e90-8d72-63a1ca97aa71"></image>
+</details>
+
+### Terminal Multiplexer
+
+`dotfiles` installs and configures `tmux` to be used as the main terminal multiplexer.
+
+A minimal status bar is used for `tmux`, like below:
+
+<details>
+    <image src="https://github.com/user-attachments/assets/f7ef2fff-b5cf-4317-876c-1d2338cb6f0e"></image>
+</details>
+
+### Editor
+
+`dotfiles` installs and configures Neovim as the editor on a given host.
+
+Here is how `nvim` looks like upon launching it in a directory:
+
+<details>
+    <image src="https://github.com/user-attachments/assets/25d7a4ba-8568-4646-974c-8ef91427f999"></image>
+</details>
+
+A monochromatic theme is used for Neovim, with its primary color set to `rose-pine`'s `rose` color, as shown below:
+
+<details>
+    <image src="https://github.com/user-attachments/assets/c256ed80-a0ff-4c43-ab35-717547562f4d"></image>
+</details>
+
 ## <a id="description"></a> Description
 
-This repository holds my main configuration for the given host OS/arch combination below:
+`dotfiles` is a configuration management project that allow users to easily replicate their local environment configuration.
 
-- Arch Linux / AMD64
-- Fedora / AMD64
-- Debian / AMD64
-- Darwin (MacOS) / ARM64
+For the architecture, please refer to [ARCHITECTURE.md](./ARCHITECTURE.md).
 
-Starting from the release `v0.3.0-alpha`, the development host and the installation method of dotfiles were changed drastically:
+## Requirements
 
-- The development is done on an Arch Linux host.
-- The installation method is changed to symlinking from cloning dotfiles under `~/.config`.
+As of version `0.3.0`, `dotfiles` is designed to support x86_64 Arch Linux hosts only.
+Due to time constraints, unfortunately I can only maintain the project for the main OS I use.
 
-For a more stable installation, you can clone the repository using the previous release, `v0.2.0`.
-
-The upstream will be stabilized for other OS/arch combinations in time.
+However, most of the installation steps can be applied to other Linux distributions easily thanks to Ansible.
 
 ## <a id="installation"></a> Installation
 
-The installation is done through an `Ansible` playbook. Please refer [here](https://github.com/acikgozb/dotfiles/blob/main/setup/README.md) to see the details of the installation.
+The installation is done through an `Ansible` playbook. Please refer [here](https://github.com/acikgozb/dotfiles/blob/main/installation/README.md) to see the tools and installation steps.
 
 ## <a id="usage"></a> Usage
 
-The usage of the tools are the same, regardless of the installation method. Please refer to each tool's documentation to see their usage.
-
-## <a id="neovim"></a> Neovim
-
-The most complex configuration in this repository belongs to Neovim. 
-For detailed information about my Neovim plugins and how everything is set up, please refer to [here](https://github.com/acikgozb/dotfiles/blob/main/setup/roles/acikgozb.nvim/files/nvim/README.md).
+The usage of the tools are the same, regardless of the installation method.
+Please refer to each tool's documentation to see their usage.
 
 ## <a id="todo"></a> TODO
 
-- (P0) Fix the installation for Debian, Fedora and Darwin so that every supported combination utilizes symlinking to install.
 - (P1) Add missing tools to the installation (recurring).
-- (P1) Separate storing `$SHELL` as a fact from `acikgozb.shell` role.
 - (P1) Create an interface to verify and list the installed tools, a different playbook maybe?
-- (P2) Remove redundant tools from the installation.

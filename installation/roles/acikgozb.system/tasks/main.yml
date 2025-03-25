@@ -1,0 +1,10 @@
+- name: "[OS Specific] Install and configure system wide programs."
+  ansible.builtin.include_tasks: ./{{ concept }}/setup-{{ ansible_os_family }}.yml
+  with_items:
+    - wm
+    - display-manager
+    - audio
+    - screenshot
+    - misc
+  loop_control:
+    loop_var: concept

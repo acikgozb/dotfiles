@@ -1,0 +1,244 @@
+- name: "Remap CapsLock key."
+  block:
+    - name: "Install caps2esc package."
+      community.general.pacman:
+        name: interception-caps2esc
+        state: present
+
+    - name: "Ensure that CapsLock configuration file is copied over the system."
+      ansible.builtin.copy:
+        remote_src: true
+        src: "{{ role_path }}/files/udevmon.yaml"
+        dest: /etc/interception/udevmon.yaml
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: "Ensure that udevmon.service is enabled."
+      ansible.builtin.service:
+        name: udevmon.service
+        enabled: true
+
+    - name: "Ensure that udevmon.service is restarted."
+      ansible.builtin.service:
+        name: udevmon.service
+        state: restarted
+
+- name: "Ensure that hyprpolkitagent exists on the host."
+  community.general.pacman:
+    name: hyprpolkitagent
+    state: present
+
+- name: "Ensure that ttf-font-awesome exists on the host."
+  community.general.pacman:
+    name: ttf-font-awesome
+    state: present
+
+- name: "Ensure that bluetoothctl exists on the host."
+  community.general.pacman:
+    name: bluez-utils
+    state: present
+
+- name: "Ensure that devx scripts exist on the host."
+  block:
+    - name: "Clone the devx Git repository."
+      become_user: "{{ dotfiles_user }}"
+      ansible.builtin.git:
+        repo: "git@github.com:acikgozb/devx-scripts.git"
+        dest: "{{ devx_clone_path }}"
+        key_file: "/home/{{ dotfiles_user }}/.ssh/git"
+        clone: true
+
+    - name: "Ensure that devx scripts have execute permissions."
+      ansible.builtin.file:
+        path: "{{ devx_clone_path }}/{{ item }}"
+        state: touch
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+        modification_time: preserve
+        access_time: preserve
+      with_items:
+        - de/power
+        - de/wifi
+        - de/bluetooth
+        - arch/aurora
+        - tmux/fzfw
+
+    - name: "Ensure that symlinks for devx-scripts are created under custom_pkg_path."
+      ansible.builtin.file:
+        src: "{{ devx_clone_path }}/{{ item.path }}"
+        dest: "{{ custom_pkg_path }}/{{ item.name }}"
+        state: link
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        force: true
+        follow: false
+      with_items:
+        - {name: "devx-power", path: "de/power"}
+        - {name: "devx-wifi", path: "de/wifi"}
+        - {name: "devx-bluetooth", path: "de/bluetooth"}
+        - {name: "aurora", path: "arch/aurora"}
+        - {name: "fzfw", path: "tmux/fzfw",}
+
+- name: "Install and configure rofi-wayland."
+  block:
+    - name: "Install rofi-wayland package."
+      community.general.pacman:
+        name: rofi-wayland
+        state: present
+
+    - name: "[Template] Ensure that the rofi configuration files are created."
+      ansible.builtin.template:
+        src: "{{ item.template }}"
+        dest: "{{ role_path }}/files/{{ item.file_name }}"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+      with_items:
+        - {template: "rofi.config.rasi.j2", file_name: "config.rasi"}
+        - {template: "rofi.minimal-dark.rasi.j2", file_name: "minimal-dark.rasi",}
+
+    - name: "Ensure that `dotfiles/.config/rofi` exists for the rofi configuration files."
+      ansible.builtin.file:
+        path: "{{ dotfiles_repo_path }}/.config/{{ item }}"
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+      with_items:
+        - rofi
+        - rofi/themes
+
+    - name: "Ensure that the rofi configuration files are copied under `dotfiles/.config/rofi`."
+      ansible.builtin.copy:
+        remote_src: true
+        src: "{{ role_path }}/files/{{ item.name }}"
+        dest: "{{ dotfiles_repo_path }}/.config/{{ item.path }}"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+      with_items:
+        - {name: "config.rasi", path: "rofi/config.rasi"}
+        - {name: "minimal-dark.rasi", path: "rofi/themes/minimal-dark.rasi",}
+
+    - name: "Ensure that $XDG_CONFIG_HOME is symlinked with `dotfiles/.config/rofi`."
+      ansible.builtin.file:
+        src: "{{ dotfiles_repo_path }}/.config/rofi"
+        dest: "{{ xdg_config_home }}/rofi"
+        state: link
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        force: true
+        follow: false
+
+- name: "Install and configure btop."
+  block:
+    - name: "Download btop source."
+      ansible.builtin.get_url:
+        url: "https://github.com/aristocratos/btop/releases/download/v{{ btop_version }}/btop-x86_64-linux-musl.tbz"
+        dest: "/tmp/btop.tbz"
+
+    - name: "Ensure that the source directory exists for btop."
+      ansible.builtin.file:
+        path: "{{ lib_path }}/btop"
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+
+    - name: "Ensure that btop source is unarchived under lib_path."
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: "/tmp/btop.tbz"
+        dest: "{{ lib_path }}/btop"
+        extra_opts:
+          - --strip-components=2
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+
+    - name: "Install btop from source."
+      community.general.make:
+        chdir: "{{ lib_path }}/btop"
+        target: install
+
+    - name: "[Template] Ensure that the btop configuration files are created."
+      ansible.builtin.template:
+        src: "{{ item }}.j2"
+        dest: "{{ role_path }}/files/{{ item }}"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+      with_items:
+        - "btop.config.conf"
+        - "btop.rose-pine.theme"
+
+    - name: "Ensure that `dotfiles/.config/btop` exists."
+      ansible.builtin.file:
+        path: "{{ dotfiles_repo_path }}/.config/{{ item }}"
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+      with_items:
+        - btop
+        - btop/themes
+
+    - name: "Ensure that the btop configuration files are copied under `dotfiles/.config/btop."
+      ansible.builtin.copy:
+        remote_src: true
+        src: "{{ role_path }}/files/{{ item.name }}"
+        dest: "{{ dotfiles_repo_path }}/.config/{{ item.path }}"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+      with_items:
+        - {name: "btop.config.conf", path: "btop/config.conf"}
+        - {name: "btop.rose-pine.theme", path: "btop/themes/rose-pine.theme",}
+
+    - name: "Ensure that $XDG_CONFIG_HOME is symlinked with `dotfiles/.config/btop`."
+      ansible.builtin.file:
+        src: "{{ dotfiles_repo_path }}/.config/btop"
+        dest: "{{ xdg_config_home }}/btop"
+        state: link
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        force: true
+        follow: false
+
+- name: "Configure readline."
+  block:
+    - name: "[Template] Ensure that the readline configuration file is created."
+      ansible.builtin.template:
+        src: "inputrc.j2"
+        dest: "{{ role_path }}/files/inputrc"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+
+    - name: "Ensure that `dotfiles/.config/readline` exists."
+      ansible.builtin.file:
+        path: "{{ dotfiles_repo_path }}/.config/readline"
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+
+    - name: "Ensure that the readline configuration file is copied under `dotfiles/.config/readline`."
+      ansible.builtin.copy:
+        remote_src: true
+        src: "{{ role_path }}/files/inputrc"
+        dest: "{{ dotfiles_repo_path }}/.config/readline/inputrc"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+
+    - name: "Ensure that $XDG_CONFIG_HOME is symlinked with `dotfiles/.config/readline`."
+      ansible.builtin.file:
+        src: "{{ dotfiles_repo_path }}/.config/readline"
+        dest: "{{ xdg_config_home }}/readline"
+        state: link
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        force: true
+        follow: false

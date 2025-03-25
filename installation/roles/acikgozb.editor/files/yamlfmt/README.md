@@ -14,7 +14,7 @@ For details, you can check it's [official documentation](https://github.com/goog
 
 ## <a id='installation'></a> Installation
 
-The installation is done automatically by the `Ansible` playbook under the `setup` directory.
+The installation is done automatically by the `Ansible` playbook under the `installation` directory.
 To see the exact place where `yamlfmt` is installed, you can check [acikgozb.nvim](https://github.com/acikgozb/dotfiles/tree/main/setup/roles/acikgozb.nvim) Ansible role.
 
 This formatter is installed along with other formatters and languages.

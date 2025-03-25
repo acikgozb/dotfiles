@@ -98,6 +98,8 @@ If the role is used as a standalone role or in a different place, then the exter
 
 ```yml
 - hosts: localhost
+  become: true
+  gather_facts: true
   vars:
     - dotfiles_user
     - dotfiles_user_group

@@ -49,6 +49,8 @@ Other than this, the variables explained in the previous section need to be defi
 
 ```yml
 - hosts: localhost
+  become: true
+  gather_facts: true
   vars:
     - dotfiles_user
     - dotfiles_user_group

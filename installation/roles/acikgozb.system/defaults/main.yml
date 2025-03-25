@@ -1,0 +1,36 @@
+wm_main_monitor_name: "eDP-1"
+
+wm_vars_terminal: "{{ custom_pkg_path }}/alacritty"
+wm_vars_browser: "librewolf"
+wm_vars_power: "{{ custom_pkg_path }}/devx-power"
+wm_vars_wifi: "{{ custom_pkg_path }}/devx-wifi"
+wm_vars_bluetooth: "{{ custom_pkg_path }}/devx-bluetooth"
+wm_vars_file_explorer: "nautilus"
+
+wm_wallpaper_cmd: hyprpaper
+wm_wallpaper: "{{ xdg_config_home }}/hypr/wallpapers/ouroboros-1.jpg"
+wm_main_terminal_cmd: "btop"
+wm_browser_args: "--new-tab https://duckduckgo.com"
+
+audio_packages:
+  - pavucontrol
+  - alsa-utils
+  - pipewire
+  - wireplumber
+  - sof-firmware
+
+screen_utilities:
+  - grim
+  - slurp
+  - wl-clipboard
+  - libnotify
+  - wf-recorder
+  - brightnessctl
+
+devx_clone_path: "{{ git_projects_path }}/devx-scripts"
+
+rofi_font_family: "{{ main_font_family }} Propo"
+rofi_font_size: "16"
+rofi_prompt_placeholder: "Search..."
+
+btop_version: 1.4.0

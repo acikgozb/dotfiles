@@ -206,6 +206,7 @@ This role depends on `community.general.npm` module only.
 
 ```yml
 - hosts: localhost
+  become: true
   gather_facts: true
   vars:
     - dotfiles_user

@@ -1,0 +1,37 @@
+- name: "[OS Specific] Install and enable ly."
+  block:
+    - name: "Install ly as the display manager."
+      community.general.pacman:
+        name: ly
+        state: present
+
+    - name: "[Template] Ensure that the ly configuration file is created."
+      ansible.builtin.template:
+        src: "ly.config.ini.j2"
+        dest: "{{ role_path }}/files/ly.config.ini"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+
+    - name: "Ensure that the ly configuration file is copied under the system."
+      ansible.builtin.copy:
+        remote_src: true
+        src: "{{ role_path }}/files/ly.config.ini"
+        dest: /etc/ly/config.ini
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: "Ensure that the existing display manager is disabled."
+      ansible.builtin.service:
+        name: display-manager
+        enabled: false
+      register: display_manager_systemctl_out
+      failed_when:
+        - "display_manager_systemctl_out.stderr is defined"
+        - '"Could not find the requested service" not in display_manager_systemctl_out.stderr'
+
+    - name: "Ensure that ly.service is enabled."
+      ansible.builtin.service:
+        name: ly
+        enabled: true

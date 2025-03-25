@@ -42,6 +42,11 @@ Including an example of how to use your role (for instance, with variables passe
 
 ```yml
 - hosts: localhost
+  become: true
+  gather_facts: true
+  vars:
+    - dotfiles_user
+    - dotfiles_user_group
   roles:
     - acikgozb.net
 ```

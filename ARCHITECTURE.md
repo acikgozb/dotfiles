@@ -96,9 +96,10 @@ Being an entrypoint, the playbook is designed to glue certain parts of the insta
   This is the main field that allows Ansible to be really extensible.
   Even though the installation is designed for Arch Linux hosts, this field is enabled to organize the roles based on the operating system information it gets from Ansible.
 
-- `pre_tasks`: This field is used to run tasks before the main work gets executed. It is used in this project to update the caches of the package managers to prepare the host before using them to install packages.
+- `pre_tasks`: This field is used to run tasks before the main work gets executed. It is used in this project to prepare the host environment before using them to install packages.
 
-- `roles`: This field is used to specify which Ansible roles are used in the playbook. An Ansible role is an abstraction that contains tasks that are related in terms of a given functionality (e.g. installing and configuring `$SHELL`). This field is basically what brings the whole installation together.
+- `roles`: This field is used to specify which Ansible roles are used in the playbook. An Ansible role is an abstraction that contains tasks that are related in terms of a given functionality (e.g. installing and configuring `$SHELL`).
+  This field is basically what brings the whole installation together.
 
 The playbook looks simple at first sight, because the actual work is done via the roles.
 They are the final piece of the puzzle that we need to discuss next.
@@ -161,7 +162,7 @@ This is done to maintain the same structure in all roles.
 2 - During the execution of a role, these templates are rendered and their outputs are stored inside the role.
 This step can be skipped but in terms of configuration files that are managed by multiple roles, it is beneficial to see how the individual parts of a file look like in each role.
 
-3 - The last step of a role copies the output under `dotfiles/.config` and then symlinks it with `$HOME/.config` to finish the installation.
+3 - The last step of a role copies the output under `dotfiles/.config` and then symlinks it with `$XDG_CONFIG_HOME` to finish the installation.
 
 So, here is another diagram to visualize this flow:
 
@@ -169,7 +170,7 @@ So, here is another diagram to visualize this flow:
 
 Role -> Files are created from templates inside role
      -> Files are moved to `dotfiles/.config`
-     -> `dotfiles/.config` is symlinked to `$HOME/.config`
+     -> `dotfiles/.config` is symlinked to `$XDG_CONFIG_HOME`
 
 ```
 
@@ -196,16 +197,16 @@ However, if there are too many changes or new programs, the installation needs t
 
 Here are some guidelines to follow:
 
-1 - If an existing configuration is changed under `$HOME/.config`, the change is reflected back to `dotfiles/.config` via symlinking.
+1 - If an existing configuration is changed under `$XDG_CONFIG_HOME`, the change is reflected back to `dotfiles/.config` via symlinking.
 However, the changes are _not_ reflected to the templates that exist under each Ansible role.
 Therefore, the user must update their templates accordingly when they decide to change an existing configuration file.
 Otherwise, `dotfiles` won't apply those changes to another host if a user decides to switch.
 To see the changes, the user can run a diff against the template and the updated configuration file to see what to add to the template.
 
-2 - If a new configuration or program is added under `$HOME/.config`, the user must update the installation accordingly.
+2 - If a new configuration or program is added under `$XDG_CONFIG_HOME`, the user must update the installation accordingly.
 At this point, existing roles might be a good place to reference from.
-To find out which configurations are new, symlinks can be followed under `$HOME/.config`.
-The ones that are new won't have any links to `dotfiles`.
+To find out which configurations are new, symlinks can be followed under `$XDG_CONFIG_HOME`.
+The ones that are new and are explicitly added won't have any links to `dotfiles`.
 
 To conclude, this document outlines the decisions made for `dotfiles` for users who want to understand how it works.
 It is also designed as a guideance of those who wish to change the project for their own needs.

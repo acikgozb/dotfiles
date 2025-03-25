@@ -13,14 +13,11 @@
     - acikgozb.shell
     - acikgozb.tmux
     - acikgozb.editor
-  # - acikgozb.term
-  # - acikgozb.aws
-  # - acikgozb.podman
-  # - acikgozb.hashicorp
+    - acikgozb.term
+    - acikgozb.cloud
+    - acikgozb.system
 
   post_tasks:
     - name: "Notify the user that the installation is completed successfully."
       ansible.builtin.debug:
         msg: "In order to apply the changes, please reboot the host."
-
-# TODO: Update the commands in main README or installation README if there is one.

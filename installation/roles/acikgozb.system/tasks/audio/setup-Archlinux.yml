@@ -1,0 +1,8 @@
+- name: "Install programs for host's audio driver."
+  block:
+    - name: "Ensure that necessary programs exist on the host to utilize the audio driver."
+      community.general.pacman:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ audio_packages }}"
+

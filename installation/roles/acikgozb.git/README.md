@@ -63,6 +63,8 @@ This collection needs to be added to the environment that this role is executed 
 
 ```yml
 - hosts: localhost
+  become: true
+  gather_facts: true
   vars:
     - dotfiles_user
     - dotfiles_user_group

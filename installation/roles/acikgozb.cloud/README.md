@@ -17,7 +17,8 @@ Before executing the role, read the next section to understand which variables a
 
 ## Role Variables
 
-Here is a list of variables that are defined for this role. All of them can be overridden by user defined playbook variables:
+Here is a list of variables that are defined for this role.
+All of them can be overridden by user defined playbook variables:
 
 `aws_install_dir`
 
@@ -103,6 +104,7 @@ Therefore, if this role is used as a standalone role, `community.general` collec
 
 ```yml
 - hosts: localhost
+  become: true
   gather_facts: true
   vars:
     - dotfiles_user
