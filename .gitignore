@@ -2,3 +2,4 @@ nvim/lua/acikgozb/secrets.lua
 tmux/plugins
 installation/vars/user_vars.yml
 .ansible
+**/files
