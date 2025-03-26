@@ -82,9 +82,9 @@ Here is how an empty workspace looks like:
     <image src="https://github.com/user-attachments/assets/665404b6-ffed-49ac-82b5-742353d76527"></image>
 </details>
 
-**Special Workspaces**
+**Special Workspaces aka scratchpads**
 
-Currently, there are no special workspaces configured for `hyprland`.
+There is one non-persistent special workspace called `terminal` which triggers `alacritty` on a floating (tiled) window to execute less frequent commands.
 
 ### <a id='terminal'></a> Terminal
 
