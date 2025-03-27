@@ -6,3 +6,4 @@ nw_packages:
     - dnsmasq # Great tool as a stub DNS & DHCP server.
     - inetutils # mainly for telnet.
     - iwd # NetworkManager WiFi backend.
+    - wget
