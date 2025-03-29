@@ -1,5 +1,10 @@
 - name: "[OS Specific] Install and configure Neovim."
   ansible.builtin.include_tasks: ./nvim/setup-{{ ansible_os_family }}.yml
+  when: "editor == 'nvim'"
+
+- name: "[OS Specific] Install and configure Helix."
+  ansible.builtin.include_tasks: ./helix/setup-{{ ansible_os_family }}.yml
+  when: "editor == 'helix'"
 
 - name: "[OS Specific] Install the programming languages."
   ansible.builtin.include_tasks: ./languages/main.yml

@@ -1,0 +1,47 @@
+theme = "rose_pine"
+
+[editor]
+line-number = "relative"
+mouse = false
+shell = ["/usr/bin/bash", "-c"]
+continue-comments = true
+true-color = true
+color-modes = true
+popup-border = "all"
+clipboard-provider = "wayland"
+auto-pairs = false
+jump-label-alphabet = "jfkdls;aurieowpqnvmcxz"
+completion-timeout = 5
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+
+[editor.file-picker]
+hidden = false
+follow-symlinks = true
+
+[editor.statusline]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+right = ["version-control", "diagnostics", "file-type"]
+
+[editor.soft-wrap]
+enable = true
+wrap-at-text-width = true
+
+[editor.inline-diagnostics]
+cursor-line = "disable"
+
+# Keymaps.
+[keys.normal]
+a = ["append_mode", "collapse_selection"]
+i = ["insert_mode", "collapse_selection"]
+ret = "goto_word"
+
+# NOTE: Experimental, I might stop using jumplist later on.
+C-h = "jump_backward"
+C-l = "jump_forward"
+[keys.normal.space]
+a = "save_selection"

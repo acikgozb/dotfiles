@@ -24,12 +24,12 @@
       with_items: "{{ programs.prebuilt }}"
       when: item.extract == "true"
 
-    - name: "Unarchive the downloads if needed."
+    - name: "Ensure that downloads are unarchived and stripped."
       ansible.builtin.unarchive:
         remote_src: true
         src: /tmp/{{ item.name }}-archive
         dest: /tmp/{{ item.name }}
-        extra_opts: "{{ (item.strip == 'true') | ternary('--strip-components=1', '') }}"
+        extra_opts: "{{ (item.strip == 'true') | ternary('--strip-components=1', []) }}"
       with_items: "{{ programs.prebuilt }}"
       when: item.extract == "true"
 

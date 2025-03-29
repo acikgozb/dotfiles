@@ -1,0 +1,54 @@
+- name: "Install and configure Helix."
+  block:
+    - name: "Install Helix via Pacman."
+      community.general.pacman:
+        name: "helix"
+        state: present
+
+    - name: "[Template] Ensure that the Helix configuration file is created."
+      ansible.builtin.template:
+        src: "{{ item }}.j2"
+        dest: "{{ role_path }}/files/{{ item }}"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+      with_items:
+        - helix.config.toml
+        - helix.language.toml
+        - helix.rose_pine.toml
+
+    - name: "Ensure that `dotfiles/.config/helix` exists on the host."
+      ansible.builtin.file:
+        path: "{{ dotfiles_repo_path }}/.config/{{ item }}"
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+      with_items:
+        - helix
+        - helix/themes
+
+    - name: "Ensure that the Helix configuration files are copied under `dotfiles/.config/helix`."
+      ansible.builtin.copy:
+        src: "{{ role_path }}/files/{{ item.src }}"
+        dest: "{{ dotfiles_repo_path }}/.config/helix/{{ item.dest }}"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+      with_items:
+        - { src: "helix.config.toml", dest: "config.toml" }
+        - { src: "helix.language.toml", dest: "language.toml" }
+        - { src: "helix.rose_pine.toml", dest: "themes/rose_pine.toml" }
+
+    - name: "Ensure that $XDG_CONFIG_HOME is symlinked with `dotfiles/.config/helix`."
+      ansible.builtin.file:
+        src: "{{ dotfiles_repo_path }}/.config/helix"
+        dest: "{{ xdg_config_home }}/helix"
+        state: link
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        force: true
+        follow: false
+        
+
+      
+    
