@@ -8,6 +8,9 @@ xdg_data_home: "/home/{{ lookup('env', 'USER') }}/.local/share"
 xdg_bin_home: "/home/{{ lookup('env', 'USER') }}/.local/bin"
 xdg_cache_home: "/home/{{ lookup('env', 'USER') }}/.cache"
 
+# The $EDITOR to install. Available values are 'helix' and 'nvim'.
+editor: "helix"
+
 # Path to store downloaded source files.
 lib_path: "/home/{{ lookup('env', 'USER' ) }}/.local/lib"
 

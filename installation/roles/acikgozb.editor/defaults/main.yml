@@ -31,9 +31,29 @@ programs:
   go_install:
     - "github.com/google/yamlfmt/cmd/yamlfmt@latest"
     - "github.com/go-delve/delve/cmd/dlv@latest"
+    - "golang.org/x/tools/gopls@v0.18.1"
   npm_install:
     - name: eslint_d
+
     - name: typescript
+
+    - name: typescript-language-server
+      path: "lib/cli.mjs"
+
+    - name: vscode-langservers-extracted
+
+    - name: yaml-language-server
+      version: next
+      path: "bin/yaml-language-server"
+
+    - name: bash-language-server
+      path: "out/cli.js"
+
+    - name: "@ansible/ansible-language-server"
+
+    - name: "dockerfile-language-server-nodejs"
+
+    - name: "@microsoft/compose-language-service"
   prebuilt:
     - name: jq
       url:
@@ -73,5 +93,22 @@ programs:
     - name: hugo
       url:
         amd64: 'https://github.com/gohugoio/hugo/releases/download/v0.145.0/hugo_0.145.0_linux-amd64.tar.gz'
+      extract: "true"
+      strip: "false"
+
+    - name: marksman
+      url:
+        amd64: 'https://github.com/artempyanykh/marksman/releases/download/2024-12-18/marksman-linux-x64'
+      extract: "false"
+
+    - name: lua-language-server
+      url:
+        amd64: 'https://github.com/LuaLS/lua-language-server/releases/download/3.13.9/lua-language-server-3.13.9-linux-x64.tar.gz'
+      extract: "true"
+      strip: "true"
+
+    - name: terraform-ls
+      url:
+        amd64: 'https://releases.hashicorp.com/terraform-ls/0.36.4/terraform-ls_0.36.4_linux_amd64.zip'
       extract: "true"
       strip: "false"

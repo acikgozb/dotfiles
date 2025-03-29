@@ -46,7 +46,7 @@ export ANSIBLE_HOME="${XDG_CONFIG_HOME}/ansible"
 export ANSIBLE_CONFIG="${XDG_CONFIG_HOME}/ansible/ansible.cfg"
 export ANSIBLE_GALAXY_CACHE_DIR="${XDG_CACHE_HOME}/ansible/galaxy_cache"
 
-export EDITOR="nvim"
+export EDITOR="helix"
 
 # Starship.
 eval "$(starship init bash)"
@@ -72,3 +72,4 @@ alias clip='wl-copy'
 alias src='. $XDG_CONFIG_HOME/bash/.bashrc'
 alias ftsys='fastfetch'
 alias tee='gtee'
+alias hx='helix'

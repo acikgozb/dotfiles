@@ -18,6 +18,7 @@
     - name: "Install packages via 'npm install'."
       community.general.npm:
         name: "{{ item.name }}"
+        version: "{{ (item.version is defined) | ternary(item.version, '') }}"
         state: present
         executable: "{{ js_lang_path }}/versions/node/{{ node_version_out.stdout }}/bin/npm"
         path: "{{ npm_pkg_path }}"
@@ -48,6 +49,19 @@
         force: true
         follow: false
       with_items: "{{ find_out.results | map(attribute='files') | flatten }}"
+
+    - name: "Ensure that the tools with custom paths have symlinks under npm_pkg_path."
+      ansible.builtin.file:
+        src: "{{ npm_pkg_path }}/node_modules/{{ item.name }}/{{ item.path }}"
+        dest: "{{ npm_pkg_path }}/{{ item.name }}"
+        state: link
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        force: true
+        follow: false
+      with_items: "{{ programs.npm_install }}"
+      when: "item.path is defined"
+               
 
 - name: "Remove Node symlink after installation."
   ansible.builtin.file:
