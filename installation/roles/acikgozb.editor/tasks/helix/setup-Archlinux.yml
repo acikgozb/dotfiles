@@ -14,7 +14,7 @@
         mode: "0644"
       with_items:
         - helix.config.toml
-        - helix.language.toml
+        - helix.languages.toml
         - helix.rose_pine.toml
 
     - name: "Ensure that `dotfiles/.config/helix` exists on the host."
@@ -36,7 +36,7 @@
         mode: "0644"
       with_items:
         - { src: "helix.config.toml", dest: "config.toml" }
-        - { src: "helix.language.toml", dest: "language.toml" }
+        - { src: "helix.languages.toml", dest: "languages.toml" }
         - { src: "helix.rose_pine.toml", dest: "themes/rose_pine.toml" }
 
     - name: "Ensure that $XDG_CONFIG_HOME is symlinked with `dotfiles/.config/helix`."

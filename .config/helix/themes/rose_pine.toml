@@ -27,7 +27,6 @@
 "ui.statusline.normal" = { fg = "rose" }
 "ui.statusline.insert" = { fg = "foam" }
 "ui.statusline.select" = { fg = "iris" }
-# "ui.statusline.separator" = {}
 
 "ui.popup" = { fg = "rose" }
 "ui.popup.info" = { fg = "rose" }
@@ -35,10 +34,10 @@
 "ui.picker.header" = { fg = "iris", modifiers = ["bold"] }
 
 "ui.window" = { fg = "overlay", bg = "base" }
-"ui.help" = { fg = "subtle", bg = "overlay" }
+"ui.help" = { fg = "rose" }
 
-"ui.menu" = { fg = "rose" }
-"ui.menu.selected" = { fg = "text" }
+"ui.menu" = { fg = "subtle" }
+"ui.menu.selected" = { fg = "rose" }
 "ui.menu.scroll" = { fg = "muted" }
 
 "ui.text" = { fg = "text" }
