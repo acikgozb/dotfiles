@@ -11,6 +11,9 @@ xdg_cache_home: "/home/{{ lookup('env', 'USER') }}/.cache"
 # The $EDITOR to install. Available values are 'helix' and 'nvim'.
 editor: "helix"
 
+# The terminal multiplexer to install. Available values are 'tmux' and 'zellij'.
+terminal_multiplexer: "zellij"
+
 # Path to store downloaded source files.
 lib_path: "/home/{{ lookup('env', 'USER' ) }}/.local/lib"
 

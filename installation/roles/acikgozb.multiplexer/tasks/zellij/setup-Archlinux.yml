@@ -1,0 +1,75 @@
+- name: "Install and configure Zellij."
+  block:
+    - name: "Download the Zellij binary."
+      ansible.builtin.get_url:
+        url: "{{ zellij_url[dotfiles_arch] }}"
+        dest: "/tmp/zellij-archive"
+
+    - name: "Ensure that the download is unarchived."
+      ansible.builtin.unarchive:
+        remote_src: true
+        src: "/tmp/zellij-archive"
+        dest: "/tmp/zellij"
+
+    - name: "Ensure that Zellij binary is copied under prebuilt_pkg_path."
+      ansible.builtin.copy:
+        remote_src: true
+        src: "/tmp/zellij/zellij"
+        dest: "{{ prebuilt_pkg_path }}/zellij"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+
+    - name: "Download zjstatus plugin as the custom status bar for Zellij."
+      become_user: "{{ dotfiles_user }}"
+      ansible.builtin.get_url:
+        url: "{{ zjstatus_url }}"
+        dest: "{{ prebuilt_pkg_path }}/zjstatus.wasm"
+
+    - name: "[Template] Ensure that the Zellij configuration files are created."
+      ansible.builtin.template:
+        src: "{{ item }}.j2"
+        dest: "{{ role_path }}/files/{{ item }}"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+      with_items:
+        - "zellij.config.kdl"
+        - "zellij.default.kdl"
+        - "zellij.init.kdl"
+        - "zellij.rose_pine.kdl"
+
+    - name: "Ensure that the necessary directories are created under `dotfiles/.config`."
+      ansible.builtin.file:
+        path: "{{ dotfiles_repo_path }}/.config/{{ item }}"
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+      with_items:
+        - "zellij"
+        - "zellij/layouts"
+        - "zellij/themes"
+
+    - name: "Ensure that the configuration files are copied under `dotfiles/.config`."
+      ansible.builtin.copy:
+        remote_src: true
+        src: "{{ role_path }}/files/{{ item.src }}"
+        dest: "{{ dotfiles_repo_path }}/.config/{{ item.dest }}"
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0644"
+      with_items:
+        - { src: "zellij.config.kdl", dest: "zellij/config.kdl" }        
+        - { src: "zellij.default.kdl", dest: "zellij/layouts/default.kdl" }        
+        - { src: "zellij.init.kdl", dest: "zellij/layouts/init.kdl" }        
+        - { src: "zellij.rose_pine.kdl", dest: "zellij/themes/rose_pine.kdl" }
+
+    - name: "Ensure that $XDG_CONFIG_HOME is symlinked with `dotfiles/.config`."
+      ansible.builtin.file:
+        src: "{{ dotfiles_repo_path }}/.config/zellij"
+        dest: "{{ xdg_config_home }}/zellij"
+        state: link
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        force: true
+        follow: false

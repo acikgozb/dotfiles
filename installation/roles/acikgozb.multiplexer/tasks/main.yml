@@ -1,0 +1,2 @@
+- name: "[OS Specific] Install and configure the terminal multiplexer."
+  ansible.builtin.include_tasks: ./{{ terminal_multiplexer }}/setup-{{ ansible_os_family }}.yml

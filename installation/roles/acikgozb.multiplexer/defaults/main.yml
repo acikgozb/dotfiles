@@ -1,0 +1,6 @@
+zellij_version: 0.42.1
+zellij_url:
+  amd64: "https://github.com/zellij-org/zellij/releases/download/v{{ zellij_version }}/zellij-x86_64-unknown-linux-musl.tar.gz"
+
+zjstatus_version: 0.20.2
+zjstatus_url: "https://github.com/dj95/zjstatus/releases/download/v{{ zjstatus_version }}/zjstatus.wasm"
