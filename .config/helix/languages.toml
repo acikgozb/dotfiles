@@ -1,69 +1,81 @@
+# Rust.
+[language-server.rust-analyzer.config.check]
+command = "clippy"
+
+[language-server.rust-analyzer.config.cargo]
+features = "all"
+
 # YAML.
-[[language-server.yaml-language-server.config.yaml]]
+[language-server.yaml-language-server.config.yaml]
 completion = true
 validate = true
 hover = true
 format = { enable = true, bracketSpacing = true }
 
-[[language-server.yaml-language-server.config.yaml.schemaStore]]
+[language-server.yaml-language-server.config.yaml.schemaStore]
 enable = true
 url = "https://www.schemastore.org/api/json/catalog.json"
 
 # Ansible.
-[[language-server.ansible-language-server.config.ansible]]
+[language-server.ansible-language-server.config.ansible]
 python = { interpreterPath = "python" }
 executionEnvironment = {enabled = false}
 ansible = { useFullyQualifiedCollectionNames = true }
 
-[[language-server.ansible-language-server.config.ansible.validation]]
+[language-server.ansible-language-server.config.ansible.validation]
 enabled = true
 lint = { enabled = true, path = "ansible-lint" }
 
 # Bash.
-[[language-server.bash-language-server.config.bashIde]]
+[language-server.bash-language-server.config.bashIde]
 globPattern = "*@(.sh|.inc|.bash|.command)"
 
 # Lua.
-[[language-server.lua-language-server.config.Lua]]
+[language-server.lua-language-server.config.Lua]
 version = "LuaJIT"
 
-[[language-server.lua-language-server.config.signatureHelp]]
+[language-server.lua-language-server.config.signatureHelp]
 enabled = true
 
 # Go.
-[[language-server.gopls.config.gopls]]
+[language-server.gopls.config.gopls]
 completeUnimported = true
 usePlaceholders = true
 staticcheck = true
 analyses = { unusedparams = true }
 
+[[language]]
+name = "go"
+auto-format = true
+formatter = { command = "goimports" }
+
 # JavaScript (TypeScript)
-[[language-server.typescript-language-server.config.typescript.format]]
+[language-server.typescript-language-server.config.typescript.format]
 enable = true
 insertSpaceAfterConstructor = true
 semicolons = true
 
-[[language-server.typescript-language-server.config.typescript.inlayHints]]
+[language-server.typescript-language-server.config.typescript.inlayHints]
 enumMemberValues = true
 functionLikeReturnTypes = true
 parameterNames = { enabled = "all", suppressWhenArgumentMatchesName = false }
 parameterTypes = { enabled = true }
 
-[[language-server.typescript-language-server.config.typescript.suggest]]
+[language-server.typescript-language-server.config.typescript.suggest]
 completeFunctionCalls = true
 
-[[language-server.typescript-language-server.config.javascript.format]]
+[language-server.typescript-language-server.config.javascript.format]
 enable = true
 insertSpaceAfterConstructor = true
 semicolons = true
 
-[[language-server.typescript-language-server.config.javascript.inlayHints]]
+[language-server.typescript-language-server.config.javascript.inlayints]
 enumMemberValues = true
 functionLikeReturnTypes = true
 parameterNames = { enabled = "all", suppressWhenArgumentMatchesName = false }
 parameterTypes = { enabled = true }
 
-[[language-server.typescript-language-server.config.javascript.suggest]]
+[language-server.typescript-language-server.config.javascript.suggest]
 completeFunctionCalls = true
 
 # Terraform (manual configuration is needed.)
@@ -80,3 +92,12 @@ language-id = "terraform-vars"
 [language-server.terraform-ls]
 command = "terraform-ls"
 args = ["serve"]
+
+# C#.
+[language-server.csharp]
+command = "csharp-language-server"
+
+[[language]]
+name = "c-sharp"
+language-servers = ["csharp"]
+
