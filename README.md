@@ -99,12 +99,18 @@ Here is how `alacritty` looks by default:
 
 ### <a id='terminal-multiplexer'></a> Terminal Multiplexer
 
-`dotfiles` installs and configures `tmux` to be used as the main terminal multiplexer.
+`dotfiles` installs and configures either `tmux` or `zellij` to be used as the main terminal multiplexer.
 
 A minimal status bar is used for `tmux`, like below:
 
 <details>
     <image src="https://github.com/user-attachments/assets/f7ef2fff-b5cf-4317-876c-1d2338cb6f0e"></image>
+</details>
+
+For `zellij`, a minimal UI is used similar to `tmux`:
+
+<details>
+    <image src="https://github.com/user-attachments/assets/b2951be2-282d-41c6-a85f-826543e36d84"></image>
 </details>
 
 ### <a id='editor'></a> Editor

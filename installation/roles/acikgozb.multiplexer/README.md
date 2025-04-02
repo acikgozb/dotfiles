@@ -1,7 +1,9 @@
-# `acikgozb.tmux`
+# `acikgozb.multiplexer`
 
-This role installs and configures `tmux` of a given host.
-Here are the main features:
+This role installs and configures the terminal multiplexer of a given host.
+Currently, Zellij and tmux are supported by this role.
+
+Here are the main features for `tmux`:
 
 - `minimal-tmux-status` plugin is used for tmux status bar.
 - `C-a` is set as the prefix key instead of the default `C-b`.
@@ -10,6 +12,14 @@ Here are the main features:
 - `vi` mode keys are enabled.
 - Pane navigation is set by using `C-a` + `h, j, k, l`.
 - `C-s` is used to sync keypresses across all panes.
+
+Here are the main features of `zellij`:
+
+- Default Zellij mode is set to `locked`. The prefix key (`C-g`) is not changed.
+- `zjstatus` is used as a custom status bar to replace the interface of the default Zellij bar with a minimal one.
+- 2 simple layouts are added, `init` for session creation and `default` that only shows the custom status bar (key suggestions are hidden).
+- Session manager plugin is removed.
+- The keymaps are mainly kept as default.
 
 ## Requirements
 
@@ -40,6 +50,11 @@ This variable is used to store the configuration file under the directory specif
 Normally, instead of defining a variable for `$XDG_CONFIG_HOME`, the environment variable can be referenced directly.
 However, this role is designed specifically for the `dotfiles` project, which expects users to have nothing but default configuration files for their shell. That is why, instead of expecting `$XDG_CONFIG_HOME`, it expects the value as an Ansible variable.
 
+`terminal_multiplexer`
+
+This variable is used to determine which multiplexer to install.
+Available values are `tmux` and `zellij`.
+
 ## Dependencies
 
 `community.general` collection needs to be installed for this role.
@@ -56,8 +71,9 @@ Other than this, the variables explained in the previous section need to be defi
     - dotfiles_user_group
     - dotfiles_repo_path
     - xdg_config_home
+    - terminal_multiplexer
   roles:
-    - acikgozb.tmux
+    - acikgozb.multiplexer
 ```
 
 ## License
