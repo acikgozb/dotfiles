@@ -29,7 +29,7 @@ right = ["version-control", "diagnostics", "file-type"]
 
 [editor.soft-wrap]
 enable = true
-wrap-at-text-width = true
+wrap-at-text-width = false
 
 [editor.inline-diagnostics]
 cursor-line = "disable"
