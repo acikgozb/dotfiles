@@ -2,7 +2,8 @@
     decorate = true
     date = relative
 [format]
-    pretty = format:%h %ad %Cgreen%aN %d %s
+    # abbr. commit - author - commit title - (date) - (ref)
+    pretty = format:%Cred%h%Creset %aN %C(yellow)%s %Cblue(%ad) %d
 [color]
     ui = true
 [core]
@@ -10,6 +11,13 @@
     sshCommand = "ssh -i /home/acikgozb/.ssh/git"
 [init]
     defaultBranch = main
+[merge]
+    tool = "nvimdiff2"
 [user]
 	email = acikgozb@proton.me
 	name = acikgozb
+[alias]
+    c = commit --signoff --verbose
+    s = status
+    l = log --graph
+    co = checkout
