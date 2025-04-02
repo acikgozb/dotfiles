@@ -2,7 +2,8 @@
     decorate = true
     date = relative
 [format]
-    pretty = format:%h %ad %Cgreen%aN %d %s
+    # abbr. commit - author - commit title - (date) - (ref)
+    pretty = format:%Cred%h%Creset %aN %C(yellow)%s %Cblue(%ad) %d
 [color]
     ui = true
 [core]
@@ -10,6 +11,13 @@
     sshCommand = "ssh -i {{ lookup('env', 'HOME') }}/.ssh/git"
 [init]
     defaultBranch = main
+[merge]
+    tool = "nvimdiff2"
 [user]
 	email = {{ git_config_user_email }}
 	name = {{ git_config_user_name }}
+[alias]
+    c = commit --signoff --verbose
+    s = status
+    l = log --graph
+    co = checkout
