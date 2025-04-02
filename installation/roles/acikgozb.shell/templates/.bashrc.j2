@@ -14,6 +14,9 @@ export XDG_CACHE_HOME="{{ xdg_cache_home }}"
 # .bash_history loc.
 export HISTFILE="$XDG_STATE_HOME/bash/history"
 
+# Aurora lib path (AUR).
+export AURORA_LIB_PATH="{{ lib_path }}"
+
 # $PATH.
 if ! grep -q "$XDG_BIN_HOME:" <<< "$PATH"; then
     export PATH="$XDG_BIN_HOME:$PATH"
