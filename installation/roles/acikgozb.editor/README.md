@@ -204,6 +204,8 @@ This role depends on `community.general.npm` module only.
 
 ## Example Playbook
 
+The example below executes `acikgozb.editor` with its default variables, and with the required playbook variables that should be defined by the user under `vars`.
+
 ```yml
 - hosts: localhost
   become: true

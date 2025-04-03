@@ -27,7 +27,23 @@ Currently, this role only supports Arch Linux hosts.
 
 ## Role Variables
 
-The variables required by this role need to be defined externally:
+`zellij_version`
+
+This variable is used to determine the version of Zellij to install.
+
+`zellij_url.amd64`
+
+This variable is used to download Zellij's binary on to the host.
+
+`zjstatus_version`
+
+This variable is used to determine the version of `zjstatus` to install.
+
+`zjstatus_url`
+
+This variable is used to download Zellij's binary on to the host.
+
+Along with these, here is a list of variables that need to be defined externally:
 
 `dotfiles_user`
 
@@ -61,6 +77,8 @@ Available values are `tmux` and `zellij`.
 Other than this, the variables explained in the previous section need to be defined before executing this role.
 
 ## Example Playbook
+
+The example below executes `acikgozb.multiplexer` with its default variables, and with the required playbook variables that should be defined by the user under `vars`.
 
 ```yml
 - hosts: localhost

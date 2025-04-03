@@ -140,19 +140,28 @@ Templates:
 
 <hr>
 
-Role: [acikgozb.tmux](./roles/acikgozb.tmux/README.md)
+Role: [acikgozb.multiplexer](./roles/acikgozb.multiplexer/README.md)
 
 Packages:
 
 - `tmux`
+- `zellij`
 
 Configurations:
 
-- [`tmux` configuration file](./roles/acikgozb.tmux/files/tmux.conf)
+- [`tmux` configuration file](./roles/acikgozb.multiplexer/files/tmux.conf)
+- [`zellij` configuration file](./roles/acikgozb.multiplexer/files/zellij.config.kdl)
+- [`zellij` initial layout file](./roles/acikgozb.multiplexer/files/zellij.init.kdl)
+- [`zellij` default layout file](./roles/acikgozb.multiplexer/files/zellij.default.kdl)
+- [`zellij` theme](./roles/acikgozb.multiplexer/files/zellij.rose_pine.kdl)
 
 Templates:
 
-- [`tmux` configuration file](./roles/acikgozb.tmux/templates/tmux.conf.j2)
+- [`tmux` configuration file](./roles/acikgozb.multiplexer/templates/tmux.conf.j2)
+- [`zellij` configuration file](./roles/acikgozb.multiplexer/templates/zellij.config.kdl.j2)
+- [`zellij` initial layout file](./roles/acikgozb.multiplexer/templates/zellij.init.kdl.j2)
+- [`zellij` default layout file](./roles/acikgozb.multiplexer/templates/zellij.default.kdl.j2)
+- [`zellij` theme](./roles/acikgozb.multiplexer/templates/zellij.rose_pine.kdl.j2)
 
 <hr>
 
@@ -160,7 +169,10 @@ Role: [acikgozb.editor](./roles/acikgozb.editor/README.md)
 
 Packages:
 
+<!--  TODO: Add LSPs to the list. -->
+
 - `nvim`
+- `helix`
 - `go`
 - `dotnet`
 - `rustc`, `cargo`
@@ -180,10 +192,17 @@ Configurations:
 
 - [Neovim configuration files](./roles/acikgozb.editor/files/nvim)
 - [`yamlfmt` configuration files](./roles/acikgozb.editor/files/yamlfmt/.yamlfmt.yml)
+- [Helix configuration file](./roles/acikgozb.editor/files/helix.config.toml)
+- [Helix LSP configuration file](./roles/acikgozb.editor/files/helix.languages.toml)
+- [Helix theme](./roles/acikgozb.editor/files/helix.rose_pine.toml)
 
 Templates:
 
-There are no templates for `nvim` simply because there are lot of configuration files and none of them contain user specific values in `nvim` configuration files.
+There are no templates for `nvim` simply because there are lot of configuration files and none of them contain user specific values.
+
+- [Helix configuration file](./roles/acikgozb.editor/templates/helix.config.toml.j2)
+- [Helix LSP configuration file](./roles/acikgozb.editor/templates/helix.languages.toml.j2)
+- [Helix theme](./roles/acikgozb.editor/templates/helix.rose_pine.toml.j2)
 
 <hr>
 

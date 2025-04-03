@@ -79,6 +79,8 @@ Therefore, this role depends on `community.general` collection.
 
 ## Example Playbook
 
+The example below executes `acikgozb.term` with its default variables, and with the required playbook variables that should be defined by the user under `vars`.
+
 ```yml
 - hosts: localhost
   gather_facts: true

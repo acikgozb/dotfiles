@@ -61,6 +61,8 @@ This collection needs to be added to the environment that this role is executed 
 
 ## Example Playbook
 
+The example below executes `acikgozb.git` with its default variables, and with the required playbook variables that should be defined by the user under `vars`.
+
 ```yml
 - hosts: localhost
   become: true

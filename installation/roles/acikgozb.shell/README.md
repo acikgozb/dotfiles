@@ -96,6 +96,8 @@ If the role is used as a standalone role or in a different place, then the exter
 
 ## Example Playbook
 
+The example below executes `acikgozb.shell` with its default variables, and with the required playbook variables that should be defined by the user under `vars`.
+
 ```yml
 - hosts: localhost
   become: true

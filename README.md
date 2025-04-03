@@ -33,24 +33,14 @@ Here are some visuals and details to see how this project configures a given hos
 
 There are no status bars (e.g. `waybar`) in this configuration.
 
-<!-- Here is the configuration file and its corresponding template: -->
-<!---->
-<!-- - [hyprland.conf](./.config/hypr/hyprland.conf) -->
-<!-- - [template](./installation/roles/acikgozb.system/templates/hyprland.conf.j2) -->
-
 **Workspace 1: `btop`**
 
 This workspace is mainly designed to monitor the system with `btop`.
 
 <details>
+    <summary>btop</summary>
     <image src="https://github.com/user-attachments/assets/27d5a0d0-729b-4bd2-bf0d-7988bc22e683"></image>
 </details>
-
-<!-- Here is the configuration file, the theme file, and the corresponding template for `btop`: -->
-<!---->
-<!-- - [config.conf](./.config/btop/config.conf) -->
-<!-- - [rose-pine.theme](./.config/btop/themes/rose-pine.theme) -->
-<!-- - [config template](./installation/roles/acikgozb.system/templates/btop.config.conf.j2) -->
 
 **Workspace 2: main terminal**
 
@@ -58,6 +48,7 @@ This workspace is designed to hold the main terminal instance of the user.
 `fastfetch` is **only executed during the initial boot** to show the system information.
 
 <details>
+    <summary>Main terminal</summary>
     <image src="https://github.com/user-attachments/assets/830aad82-ae7f-48dd-8afe-b69adb8dc4f9"></image>
 </details>
 
@@ -69,6 +60,7 @@ This workspace is designed to hold the main browser instance.
 Note: User specific configurations for `librewolf` (e.g. extensions, themes, font, keymaps) should be done explicitly by the user.
 
 <details>
+    <summary>librewolf</summary>
     <image src="https://github.com/user-attachments/assets/46671f08-bb36-4a6d-9421-ef84628dab11"></image>
 </details>
 
@@ -79,6 +71,7 @@ Note: User specific configurations for `librewolf` (e.g. extensions, themes, fon
 Here is how an empty workspace looks like:
 
 <details>
+    <summary>Empty workspace</summary>
     <image src="https://github.com/user-attachments/assets/665404b6-ffed-49ac-82b5-742353d76527"></image>
 </details>
 
@@ -94,6 +87,7 @@ It also installs and configures `starship` as the shell prompt.
 Here is how `alacritty` looks by default:
 
 <details>
+    <summary>Alacritty</summary>
     <image src="https://github.com/user-attachments/assets/2bd8c3a7-d59d-4e90-8d72-63a1ca97aa71"></image>
 </details>
 
@@ -104,12 +98,14 @@ Here is how `alacritty` looks by default:
 A minimal status bar is used for `tmux`, like below:
 
 <details>
+    <summary>tmux</summary>
     <image src="https://github.com/user-attachments/assets/f7ef2fff-b5cf-4317-876c-1d2338cb6f0e"></image>
 </details>
 
 For `zellij`, a minimal UI is used similar to `tmux`:
 
 <details>
+    <summary>zellij</summary>
     <image src="https://github.com/user-attachments/assets/b2951be2-282d-41c6-a85f-826543e36d84"></image>
 </details>
 
@@ -120,12 +116,14 @@ For `zellij`, a minimal UI is used similar to `tmux`:
 Here is how `nvim` looks like upon launching it in a directory:
 
 <details>
+    <summary>Neovim (Netrw)</summary>
     <image src="https://github.com/user-attachments/assets/25d7a4ba-8568-4646-974c-8ef91427f999"></image>
 </details>
 
 A monochromatic theme is used for Neovim, with its primary color set to `rose-pine`'s `rose` color, as shown below:
 
 <details>
+    <summary>Neovim (Buffer)</summary>
     <image src="https://github.com/user-attachments/assets/c256ed80-a0ff-4c43-ab35-717547562f4d"></image>
 </details>
 
