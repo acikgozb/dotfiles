@@ -18,6 +18,7 @@
 	name = acikgozb
 [alias]
     c = commit --signoff --verbose
+    ca = commit --signoff --verbose --all
     s = status
     l = log --graph
     co = checkout
