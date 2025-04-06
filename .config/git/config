@@ -21,3 +21,4 @@
     s = status
     l = log --graph
     co = checkout
+    alias = config get --all --show-names --regexp "^alias"
