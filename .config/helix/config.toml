@@ -25,7 +25,7 @@ follow-symlinks = true
 mode.normal = "NORMAL"
 mode.insert = "INSERT"
 mode.select = "SELECT"
-right = ["version-control", "diagnostics", "file-type"]
+right = ["diagnostics", "file-type", "version-control"]
 
 [editor.soft-wrap]
 enable = true
