@@ -40,10 +40,8 @@ a = ["append_mode", "collapse_selection"]
 i = ["insert_mode", "collapse_selection"]
 ret = "goto_word"
 
-# NOTE: Experimental, I might stop using jumplist later on.
-C-h = "jump_backward"
-C-l = "jump_forward"
-[keys.normal.space]
-a = "save_selection"
-# Hard wrap the selection based on text width, e.g Git commit messages.
+[keys.normal.g]
+e = ["goto_last_line", "align_view_center"]
+
+# Hard wrap the selection based on text width, e.g Git commit messages
 C-r = ":reflow"
