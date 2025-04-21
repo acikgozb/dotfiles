@@ -111,7 +111,7 @@ For `zellij`, a minimal UI is used similar to `tmux`:
 
 ### <a id='editor'></a> Editor
 
-`dotfiles` installs and configures Neovim as the editor on a given host.
+`dotfiles` installs and configures either Neovim or Helix as the editor on a given host.
 
 Here is how `nvim` looks like upon launching it in a directory:
 
@@ -126,6 +126,21 @@ A monochromatic theme is used for Neovim, with its primary color set to `rose-pi
     <summary>Neovim (Buffer)</summary>
     <image src="https://github.com/user-attachments/assets/c256ed80-a0ff-4c43-ab35-717547562f4d"></image>
 </details>
+
+Here is how `helix` looks like upon launching it in a directory:
+
+<details>
+    <summary>Helix (Scratch + File Picker)</summary>
+    <image src="https://github.com/user-attachments/assets/46559389-76ee-4166-993d-d32084dc1b9f"></image>
+</details>
+
+For Helix, `rose-pine` theme is used with a transparent background, instead of having a monochromatic theme.
+
+<details>
+    <summary>Helix (Buffer)</summary>
+    <image src="https://github.com/user-attachments/assets/f5a0ee91-b4a2-4529-92b8-b90ac8ded837"></image>
+</details>
+
 
 ## <a id="description"></a> Description
 
