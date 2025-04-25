@@ -60,6 +60,10 @@ programs:
         amd64: 'https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64'
       extract: "false"
 
+    - name: fcb
+      url:
+        amd64: 'https://github.com/acikgozb/fcb/releases/download/v0.1.0/fcb-x86_64-unknown-linux-gnu.tar.gz'
+
     - name: shellcheck
       url:
         amd64: 'https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz'

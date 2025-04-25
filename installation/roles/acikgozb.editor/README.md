@@ -39,6 +39,7 @@ Here is a list of the programs that are installed (the numbers indicate the inst
 - `eslint_d` (2)
 - `typescript` (2)
 - `jq` (3)
+- `fcb` (3)
 - `shellcheck` (3)
 - `golangci-lint` (3)
 - `fzf` (3)
