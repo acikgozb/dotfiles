@@ -43,7 +43,13 @@ ret = "goto_word"
 [keys.normal.g]
 e = ["goto_last_line", "align_view_center"]
 
+[keys.normal."'"]
+b = "@:pipe fcb -l"
+
 [keys.select]
 ret = "goto_word"
 # Hard wrap the selection based on text width, e.g Git commit messages
 C-r = ":reflow"
+
+[keys.select."'"]
+b = "@:pipe fcb -l"
