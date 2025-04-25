@@ -182,6 +182,7 @@ Packages:
 - `eslint_d`
 - `typescript`
 - `jq`
+- `fcb`
 - `shellcheck`
 - `golangci-lint`
 - `fzf`
