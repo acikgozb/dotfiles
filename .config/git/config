@@ -23,4 +23,5 @@
     l = log --graph
     co = checkout
     d = diff
+    b = branch
     alias = config get --all --show-names --regexp "^alias"
