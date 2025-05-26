@@ -268,6 +268,7 @@ Packages:
 - `libnotify`
 - `wf-recorder`
 - `brightnessctl`
+- `wl`
 
 Along with these packages, scripts from [devx-scripts](https://github.com/acikgozb/devx-scripts) are installed.
 

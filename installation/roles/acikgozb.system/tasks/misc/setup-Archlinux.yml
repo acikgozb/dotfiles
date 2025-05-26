@@ -247,3 +247,28 @@
         group: "{{ dotfiles_user_group }}"
         force: true
         follow: false
+
+- name: "Install wl through its source."
+  block:
+    - name: "Ensure that wl is cloned on the host."
+      ansible.builtin.git:
+        repo: "{{ wl_repo }}"
+        version: "{{ wl_version }}"
+        dest: "{{ wl_clone_path }}"
+
+    - name: "Ensure that wl is compiled via Cargo."
+      become_user: "{{ dotfiles_user }}"
+      ansible.builtin.shell:
+        cmd: "source {{ xdg_config_home }}/{{ dotfiles_shell }}/.{{ dotfiles_shell }}rc; cd {{ wl_clone_path }}; cargo build --release --locked"
+        executable: "{{ dotfiles_shell_executable_path }}"
+        creates: "{{ wl_clone_path }}/target/release/wl"
+
+    - name: "Ensure that wl binary exists in wl_bin_dir."
+      ansible.builtin.file:
+        src: "{{ wl_clone_path }}/target/release/wl"
+        dest: "{{ wl_bin_dir }}"
+        state: link
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        force: true
+        follow: false
