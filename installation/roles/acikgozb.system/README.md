@@ -71,7 +71,7 @@ Here are the provided functionalities:
 ### Developer Experience & Productivity
 
 `devx-scripts` repository is cloned to enhance developer experience and productivity.
-Along with these concepts, the repository contains opinionated PoC scripts that replaces several desktop environment functionality, such as _power, wifi, bluetooth control_ and also contains an experimental AUR helper called `aurora`.
+Along with these concepts, the repository contains opinionated PoC scripts that replace several desktop environment functionality, such as _power, wifi, bluetooth control_ and also contains an experimental AUR helper called `aurora`.
 
 Since this is an experimental repository, users who prefer fully fledged and stable utitilies should remove this step from the installation.
 
@@ -99,7 +99,7 @@ In `dotfiles`, `readline` is configured to:
 
 The robust versions of PoC scripts under [`devtools`](https://github.com/acikgozb/devtools) repository are also installed on the host as well.
 
-Here is a list of the installed modules.
+Here is a list of the installed modules:
 - [`wl`](https://github.com/acikgozb/wl)
 
 ## Requirements
