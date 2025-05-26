@@ -34,3 +34,8 @@ rofi_font_size: "16"
 rofi_prompt_placeholder: "Search..."
 
 btop_version: 1.4.0
+
+wl_repo: https://github.com/acikgozb/wl
+wl_version: v0.1.0
+wl_clone_path: "{{ git_projects_path }}/wl"
+wl_bin_dir: "{{ custom_pkg_path }}/wl"
