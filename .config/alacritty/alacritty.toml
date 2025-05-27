@@ -4,7 +4,7 @@ import = ["/home/acikgozb/.config/alacritty/themes/rose-pine.toml"]
 [window]
 padding = {x = 10, y = 10}
 decorations = "None"
-opacity = 0.7
+opacity = 0.8
 
 [font]
 normal = { family = "UbuntuMono Nerd Font Mono", style = "Regular" }
