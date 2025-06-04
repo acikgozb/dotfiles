@@ -24,4 +24,7 @@
     co = checkout
     d = diff
     b = branch
+    bcr = "!bcr() { git remote prune origin; branches=$(git b -r | rg -v -e "main" -e "master" | cut -d'/' -f2-); if [[ -n "$branches" ]]; then git push origin --delete $branches; fi; }; bcr"
+    bcl = "!bcl() { branches=$(git b -l | rg -v -e "main" -e "master"); if [[ -n "$branches" ]]; then git b -d $branches; fi; }; bcl"
+    bca = "!bca() { git bcr && git bcl; }; bca"
     alias = config get --all --show-names --regexp "^alias"
