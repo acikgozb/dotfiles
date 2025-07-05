@@ -7,3 +7,5 @@ nw_packages:
     - inetutils # mainly for telnet.
     - iwd # NetworkManager WiFi backend.
     - wget
+    - net-tools # for netstat
+
