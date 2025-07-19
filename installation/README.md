@@ -91,6 +91,8 @@ Packages:
 - `dnsmasq`
 - `inetutils`
 - `iwd`
+- `wget`
+- `net-tools`
 
 Configurations:
 
