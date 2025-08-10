@@ -13,12 +13,13 @@ Therefore, in order to fully install Neovim, users need to start `nvim` and wait
 
 ## Languages
 
-Along with the editor, the following languages are installed on the host:
+Along with the editor, the following languages are configured on the host:
 
 - Rust
 - Golang
 - .NET
 - JavaScript (Node.js)
+- C
 
 The important thing is that the binaries for these languages are scoped to the user that executes the `dotfiles` playbook by installing them under `$HOME` instead of system owned directories (e.g. `/usr/bin`).
 Whilst this increases the complexity of the role, it decreases the maintenance cost and increases the overall visibility of the installation.
@@ -70,6 +71,11 @@ NOTE: `lib_path` is defined externally to allow users to specify a common path t
 `gcc_packages`
 
 This variable is used to define the required gcc packages for Neovim.
+These packages are installed globally to the system.
+
+`c_tools`
+
+This variable is used to define the tools used for C projects.
 These packages are installed globally to the system.
 
 `go_version`
