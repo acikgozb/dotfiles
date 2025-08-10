@@ -1,3 +1,9 @@
+# C.
+[[language]]
+name = "c"
+auto-format = true
+formatter = { command = "clang-format" }
+
 # Rust.
 [language-server.rust-analyzer.config.check]
 command = "clippy"
