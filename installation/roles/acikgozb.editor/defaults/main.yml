@@ -26,6 +26,12 @@ dotnet_sdk_version: 9.0
 nvm_version: 0.39.7
 node_version: 20
 
+c_tools:
+  Archlinux:
+    - gdb
+    - valgrind
+    - clang
+
 # Programs.
 programs:
   go_install:
@@ -116,3 +122,4 @@ programs:
         amd64: 'https://releases.hashicorp.com/terraform-ls/0.36.4/terraform-ls_0.36.4_linux_amd64.zip'
       extract: "true"
       strip: "false"
+

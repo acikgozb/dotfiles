@@ -1,0 +1,5 @@
+- name: "[Distro Specific] Ensure that C tools exist on the host."
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ c_tools[ansible_distribution] }}"

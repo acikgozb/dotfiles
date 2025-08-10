@@ -171,13 +171,12 @@ Role: [acikgozb.editor](./roles/acikgozb.editor/README.md)
 
 Packages:
 
-<!--  TODO: Add LSPs to the list. -->
-
 - `nvim`
 - `helix`
 - `go`
 - `dotnet`
 - `rustc`, `cargo`
+- `gdb`, `valgrind`
 - `nvm`, `npm`, `node`
 - `yamlfmt`
 - `dlv`
@@ -190,6 +189,16 @@ Packages:
 - `fzf`
 - `rg`
 - `fd`
+- `clang`
+- `rust-analyzer`
+- `gopls`
+- `typescript-language-server`
+- `vscode-langservers-extracted`
+- `yaml-language-server`
+- `bash-language-server`
+- `ansible-language-server`
+- `dockerfile-language-server-nodejs`
+- `compose-language-service`
 
 Configurations:
 
