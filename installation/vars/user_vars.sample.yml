@@ -45,7 +45,12 @@ wm_browser_args: "--new-tab https://site1.com --new-tab https://site2.com"
 # The path that holds users Git projects.
 git_projects_path: "/home/{{ lookup('env', 'USER') }}/personal"
 
-# An existing user font.
-# For the terminal, "Mono" is appended to the specified font: e.g. UbuntuMono Nerd Font Mono
-# For UI programs such as rofi, "Propo" is appended to the specified font: e.g. UbuntuMono Nerd Font Propo
-main_font_family: "UbuntuMono Nerd Font"
+# Fonts.
+# The fonts specified below must exist on the host.
+# If they do not exist, users need to install them after the
+# dotfiles installation.
+terminal_font_family: "IosevkaSS14"
+teminal_font_style: "Regular"
+
+ui_font_family: "UbuntuMono Nerd Font"
+ui_font_style: "Propo"

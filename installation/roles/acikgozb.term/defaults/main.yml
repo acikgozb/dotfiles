@@ -11,4 +11,5 @@ alacritty_deps:
     - libxkbcommon
     - python
 
-terminal_font: "{{ main_font_family }} Mono"
+terminal_font_family: "{{ terminal_font_family }}"
+terminal_font_style: "{{ terminal_font_style }}"

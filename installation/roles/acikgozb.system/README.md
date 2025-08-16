@@ -192,11 +192,14 @@ The provided path should contain the whole path of the repository (e.g. `/path/t
 `rofi_font_family`
 
 This variable defines the font that will be used in `rofi-wayland`.
+By default, it is set to user provided UI font family + style  `ui_font_family ui_font_style`.
 By default, it is aimed to be in sync with the `main_font_family` provided by the user and the `Propo` variant is used.
 
-Example: By default, `UbuntuMono Nerd Font` is used as `main_font_family`, and `rofi_font_family` is set to `UbuntuMono Nerd Font Propo`.
+Example:
 
-If a provided `main_font_family` does not contain a `Propo` variant, then users' need to specify a value for `rofi_font_family` as well.
+- `ui_font_family`: `UbuntuMono Nerd Font`
+- `ui_font_style`: `Propo`
+- `rofi_font_family`: `UbuntuMono Nerd Font Propo`
 
 `rofi_font_size`
 
