@@ -4,6 +4,9 @@ name = "c"
 auto-format = true
 formatter = { command = "clang-format" }
 
+[language-server.clangd.config]
+fallbackFlags = ["-std=c99"]
+
 # Rust.
 [language-server.rust-analyzer.config.check]
 command = "clippy"
