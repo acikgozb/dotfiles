@@ -1,18 +1,15 @@
 [general]
-import = ["/home/acikgozb/.config/alacritty/themes/rose-pine.toml"]
+import = ["/home/acikgozb/.config/alacritty/themes/everforest-dark.toml"]
 
 [window]
-padding = {x = 10, y = 10}
+padding = {x = 8, y = 8}
 decorations = "None"
-opacity = 0.8
+opacity = 0.7
 
 [font]
 normal = { family = "IosevkaSS14", style = "Regular" }
 size = 16.0
 offset = { x = 0, y = 1 }
-
-[colors.primary]
-background = "#000000"
 
 [selection]
 save_to_clipboard = true

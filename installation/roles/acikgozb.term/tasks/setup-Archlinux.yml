@@ -70,6 +70,7 @@
       with_items:
         - alacritty.toml
         - rose-pine.toml
+        - everforest-dark.toml
 
     - name: "Ensure that a subdirectory exists under `dotfiles/.config/alacritty` for the themes."
       ansible.builtin.file:
@@ -90,6 +91,7 @@
       with_items:
         - {name: "alacritty.toml", path: "alacritty.toml"}
         - {name: "rose-pine.toml", path: "themes/rose-pine.toml",}
+        - {name: "everforest-dark.toml", path: "themes/everforest-dark.toml",}
 
     - name: "Ensure that $XDG_CONFIG_HOME/alacritty is symlinked with `dotfiles/.config/alacritty`."
       ansible.builtin.file:
