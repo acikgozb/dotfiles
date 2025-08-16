@@ -15,7 +15,7 @@
       with_items:
         - helix.config.toml
         - helix.languages.toml
-        - helix.rose_pine.toml
+        - helix.rose-pine.toml
 
     - name: "Ensure that `dotfiles/.config/helix` exists on the host."
       ansible.builtin.file:
@@ -37,7 +37,8 @@
       with_items:
         - { src: "helix.config.toml", dest: "config.toml" }
         - { src: "helix.languages.toml", dest: "languages.toml" }
-        - { src: "helix.rose_pine.toml", dest: "themes/rose_pine.toml" }
+        - { src: "helix.rose-pine.toml", dest: "themes/rose-pine.toml" }
+        - { src: "helix.everforest-dark.toml", dest: "themes/everforest-dark.toml" }
 
     - name: "Ensure that $XDG_CONFIG_HOME is symlinked with `dotfiles/.config/helix`."
       ansible.builtin.file:

@@ -229,8 +229,8 @@ plugins {
     strider location="zellij:strider"
     tab-bar location="zellij:tab-bar"
     zjstatus location="file:/home/acikgozb/.local/bin/prebuilt/zjstatus.wasm" {
-                color_text "#908caa"
-                color_primary "#ebbcba"
+                color_text "#d3c6aa"
+                color_primary "#a7c080"
 
                 hide_frame_for_single_pane       "false"
                 hide_frame_except_for_search     "false"
@@ -288,8 +288,7 @@ simplified_ui true
  
 // Choose the theme that is specified in the themes section.
 // Default: default
-// 
-theme "rose-pine"
+theme "everforest-dark"
  
 // Choose the base input mode of zellij.
 // Default: normal

@@ -229,8 +229,8 @@ plugins {
     strider location="zellij:strider"
     tab-bar location="zellij:tab-bar"
     zjstatus location="file:{{ prebuilt_pkg_path }}/zjstatus.wasm" {
-                color_text "#908caa"
-                color_primary "#ebbcba"
+                color_text "{{ zellij_status_bar_inactive_text_fg }}"
+                color_primary "{{ zellij_status_bar_active_text_fg }}"
 
                 hide_frame_for_single_pane       "false"
                 hide_frame_except_for_search     "false"
@@ -289,7 +289,7 @@ simplified_ui true
 // Choose the theme that is specified in the themes section.
 // Default: default
 // 
-theme "rose-pine"
+theme "{{ theme }}"
  
 // Choose the base input mode of zellij.
 // Default: normal

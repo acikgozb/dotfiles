@@ -45,7 +45,8 @@
         - "zellij.config.kdl"
         - "zellij.default.kdl"
         - "zellij.init.kdl"
-        - "zellij.rose_pine.kdl"
+        - "zellij.rose-pine.kdl"
+        - "zellij.everforest-dark.kdl"
 
     - name: "Ensure that the necessary directories are created under `dotfiles/.config`."
       ansible.builtin.file:
@@ -70,7 +71,8 @@
         - { src: "zellij.config.kdl", dest: "zellij/config.kdl" }        
         - { src: "zellij.default.kdl", dest: "zellij/layouts/default.kdl" }        
         - { src: "zellij.init.kdl", dest: "zellij/layouts/init.kdl" }        
-        - { src: "zellij.rose_pine.kdl", dest: "zellij/themes/rose_pine.kdl" }
+        - { src: "zellij.rose-pine.kdl", dest: "zellij/themes/rose-pine.kdl" }
+        - { src: "zellij.everforest-dark.kdl", dest: "zellij/themes/everforest-dark.kdl" }
 
     - name: "Ensure that $XDG_CONFIG_HOME is symlinked with `dotfiles/.config`."
       ansible.builtin.file:

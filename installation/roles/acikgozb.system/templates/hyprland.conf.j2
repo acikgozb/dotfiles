@@ -70,13 +70,13 @@ env = HYPRCURSOR_SIZE,24
 # https://wiki.hyprland.org/Configuring/Variables/#general
 general {
     gaps_in = 5
-    gaps_out = 15
+    gaps_out = 0
 
     border_size = 2
 
     # https://wiki.hyprland.org/Configuring/Variables/#variable-types for info about colors
-    col.active_border = rgba(f6c177ee) # rose-pine theme, color gold.
-    col.inactive_border = rgba(00000000)
+    col.active_border = rgba({{ hyprland_active_border_color }})
+    col.inactive_border = rgba({{ hyprland_inactive_border_color }})
 
     # Set to true enable resizing windows by clicking and dragging on borders and gaps
     resize_on_border = false
