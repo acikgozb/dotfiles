@@ -29,7 +29,7 @@ screen_utilities:
 
 devx_clone_path: "{{ git_projects_path }}/devx-scripts"
 
-rofi_font_family: "{{ main_font_family }} Propo"
+rofi_font_family: "{{ ui_font_family }} {{ ui_font_style }}"
 rofi_font_size: "16"
 rofi_prompt_placeholder: "Search..."
 
