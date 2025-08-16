@@ -5,6 +5,14 @@
         url: "{{ zellij_url[dotfiles_arch] }}"
         dest: "/tmp/zellij-archive"
 
+    - name: "Ensure that /tmp/zellij directory exists."
+      ansible.builtin.file:
+        path: "/tmp/zellij"
+        state: directory
+        owner: "{{ dotfiles_user }}"
+        group: "{{ dotfiles_user_group }}"
+        mode: "0755"
+
     - name: "Ensure that the download is unarchived."
       ansible.builtin.unarchive:
         remote_src: true
