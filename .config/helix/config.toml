@@ -9,9 +9,13 @@ true-color = true
 color-modes = true
 popup-border = "all"
 clipboard-provider = "wayland"
-auto-pairs = false
+auto-pairs = true
 jump-label-alphabet = "jfkdls;aurieowpqnvmcxz"
 completion-timeout = 5
+completion-replace = true
+
+[editor.smart-tab]
+enable = false
 
 [editor.cursor-shape]
 insert = "bar"
@@ -22,10 +26,12 @@ hidden = false
 follow-symlinks = true
 
 [editor.statusline]
-mode.normal = "NORMAL"
-mode.insert = "INSERT"
-mode.select = "SELECT"
-right = ["diagnostics", "file-type", "version-control"]
+left = ["mode", "spacer", "file-name", "read-only-indicator", "file-modification-indicator"]
+right = ["spinner", "spacer", "diagnostics", "spacer", "file-type", "spacer", "version-control"]
+
+[editor.lsp]
+display-progress-messages = true
+auto-signature-help = false
 
 [editor.soft-wrap]
 enable = true
@@ -48,8 +54,29 @@ b = "@:pipe fcb -l"
 
 [keys.select]
 ret = "goto_word"
-# Hard wrap the selection based on text width, e.g Git commit messages
+# Hard wrap the selection based on text width.
+# Useful for re-formatting Git commit messages.
 C-r = ":reflow"
 
 [keys.select."'"]
+# Requires fcb to be installed on the host.
+# Creates a fenced code block that wraps the selection.
+# The user can provide a lang `-l` to enable syntax highlighting.
 b = "@:pipe fcb -l"
+ 
+# Execute a selection.
+# 
+# The validity of the selection (as a shell command) is left to the caller.
+# The caller should validate that the selection is a valid shell command
+# and it does not open any programs upon execution.
+# Any command that opens a program hangs Helix.
+# Examples:
+#
+# - `git commit` opens $EDITOR, so it is not a valid command.
+# - `gcc -o ./bin ./main.c` does not open anything, so it is a valid command.
+x = ":! %{selection}"
+
+# Same with above, but inserts the output of the command
+# to the current buffer.
+# Useful for commands with outputs that can be used in other commands.
+X = ":insert-output %{selection}"
