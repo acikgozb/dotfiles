@@ -175,8 +175,9 @@
         group: "{{ dotfiles_user_group }}"
         mode: "0644"
       with_items:
-        - "btop.config.conf"
+        - "btop.conf"
         - "btop.rose-pine.theme"
+        - "btop.everforest-dark.theme"
 
     - name: "Ensure that `dotfiles/.config/btop` exists."
       ansible.builtin.file:
@@ -198,8 +199,9 @@
         group: "{{ dotfiles_user_group }}"
         mode: "0644"
       with_items:
-        - {name: "btop.config.conf", path: "btop/config.conf"}
+        - {name: "btop.conf", path: "btop/btop.conf"}
         - {name: "btop.rose-pine.theme", path: "btop/themes/rose-pine.theme",}
+        - {name: "btop.everforest-dark.theme", path: "btop/themes/everforest-dark.theme",}
 
     - name: "Ensure that $XDG_CONFIG_HOME is symlinked with `dotfiles/.config/btop`."
       ansible.builtin.file:
