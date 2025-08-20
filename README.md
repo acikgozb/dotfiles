@@ -2,27 +2,53 @@
 
 A collection of configuration files that forms a unique development environment.
 
-<image src="https://github.com/user-attachments/assets/830aad82-ae7f-48dd-8afe-b69adb8dc4f9"></image>
+UI wise, `dotfiles` is as minimal as one can go:
+
+- No status bar.
+- No notifications.
+- No wallpaper.
 
 ## Table of Contents
 
 <!--toc:start-->
 
+- [Description](#description)
 - [Showcase](#showcase)
   - [Window Manager](#window-manager)
   - [Terminal](#terminal)
   - [Terminal Multiplexer](#terminal-multiplexer)
   - [Editor](#editor)
-- [Description](#description)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
 - [TODO](#todo)
 <!--toc:end-->
 
+## <a id="description"></a> Description
+
+`dotfiles` is a configuration management project that allow users to easily replicate their local environment configuration.
+
+For the architecture, please refer to [ARCHITECTURE.md](./ARCHITECTURE.md).
+
 ## <a id='showcase'></a> Showcase
 
-Here are some visuals and details to see how this project configures a given host.
+| Workspace 1 (btop) | Workspace 2 (alacritty) |
+| -------------------|------------------------ |
+| ![image](https://github.com/user-attachments/assets/ac69e807-af09-413f-9d1f-c4abf0a7cc44) | ![image](https://github.com/user-attachments/assets/0b1e79fa-177e-4680-bdef-2ccdd07b2b28) |
+
+| Workspace 3 (librewolf) | Special workspace (alacritty) |
+| ------------------------|------------------------------ |
+| ![image](https://github.com/user-attachments/assets/cd9534c9-555a-4b84-ae9b-0cb9b324303b) | ![image](https://github.com/user-attachments/assets/99a539b1-26dd-47fc-97a8-52301df2af81) |
+
+| `helix` | `nvim` |
+| --------|------- |
+| ![image](https://github.com/user-attachments/assets/8a29a3b6-259f-4035-a5f0-ffe188e2b811) | ![image](https://github.com/user-attachments/assets/63ae400e-02d7-4292-a3ee-950946a42b50) |
+
+| `zellij` | `tmux` |
+| ---------|------- |
+| ![image](https://github.com/user-attachments/assets/1017ec29-4fe5-4a7b-986f-6637df73883f) | ![image](https://github.com/user-attachments/assets/c3fb5325-2d97-464e-81fa-cf8c973a93b8) |
+
+Here is a list of explanation about the main programs that are used in this development environment.
 
 ### <a id='window-manager'></a> Window Manager
 
@@ -33,120 +59,30 @@ Here are some visuals and details to see how this project configures a given hos
 
 There are no status bars (e.g. `waybar`) in this configuration.
 
-**Workspace 1: `btop`**
+During the initial boot, `hyprland` is configured to open three programs in three seperate workspaces:
 
-This workspace is mainly designed to monitor the system with `btop`.
-
-<details>
-    <summary>btop</summary>
-    <image src="https://github.com/user-attachments/assets/27d5a0d0-729b-4bd2-bf0d-7988bc22e683"></image>
-</details>
-
-**Workspace 2: main terminal**
-
-This workspace is designed to hold the main terminal instance of the user.
-`fastfetch` is **only executed during the initial boot** to show the system information.
-
-<details>
-    <summary>Main terminal</summary>
-    <image src="https://github.com/user-attachments/assets/830aad82-ae7f-48dd-8afe-b69adb8dc4f9"></image>
-</details>
-
-**Workspace 3: `librewolf`**
-
-This workspace is designed to hold the main browser instance.
-`librewolf` is used as the browser.
+- `btop` (1)
+- `alacritty` (2)
+- `librewolf` (3)
 
 Note: User specific configurations for `librewolf` (e.g. extensions, themes, font, keymaps) should be done explicitly by the user.
 
-<details>
-    <summary>librewolf</summary>
-    <image src="https://github.com/user-attachments/assets/46671f08-bb36-4a6d-9421-ef84628dab11"></image>
-</details>
-
-**Empty workspaces & `hyprpaper`**
-
-`dotfiles` installs `hyprpaper` to configure wallpapers on a given host.
-
-Here is how an empty workspace looks like:
-
-<details>
-    <summary>Empty workspace</summary>
-    <image src="https://github.com/user-attachments/assets/665404b6-ffed-49ac-82b5-742353d76527"></image>
-</details>
-
-**Special Workspaces aka scratchpads**
-
-There is one non-persistent special workspace called `terminal` which triggers `alacritty` on a floating (tiled) window to execute less frequent commands.
+`hyprland`'s special workspace (scratchpad) is also configured to open `alacritty`.
+This workspace can be used to execute less frequent commands (e.g connecting to wifi or a bluetooth device).
 
 ### <a id='terminal'></a> Terminal
 
 `dotfiles` installs and configures `alacritty` as the terminal on a given host.
 It also installs and configures `starship` as the shell prompt.
 
-Here is how `alacritty` looks by default:
-
-<details>
-    <summary>Alacritty</summary>
-    <image src="https://github.com/user-attachments/assets/2bd8c3a7-d59d-4e90-8d72-63a1ca97aa71"></image>
-</details>
-
 ### <a id='terminal-multiplexer'></a> Terminal Multiplexer
 
 `dotfiles` installs and configures either `tmux` or `zellij` to be used as the main terminal multiplexer.
-
-A minimal status bar is used for `tmux`, like below:
-
-<details>
-    <summary>tmux</summary>
-    <image src="https://github.com/user-attachments/assets/f7ef2fff-b5cf-4317-876c-1d2338cb6f0e"></image>
-</details>
-
-For `zellij`, a minimal UI is used similar to `tmux`:
-
-<details>
-    <summary>zellij</summary>
-    <image src="https://github.com/user-attachments/assets/b2951be2-282d-41c6-a85f-826543e36d84"></image>
-</details>
 
 ### <a id='editor'></a> Editor
 
 `dotfiles` installs and configures either Neovim or Helix as the editor on a given host.
 
-Here is how `nvim` looks like upon launching it in a directory:
-
-<details>
-    <summary>Neovim (Netrw)</summary>
-    <image src="https://github.com/user-attachments/assets/25d7a4ba-8568-4646-974c-8ef91427f999"></image>
-</details>
-
-A monochromatic theme is used for Neovim, with its primary color set to `rose-pine`'s `rose` color, as shown below:
-
-<details>
-    <summary>Neovim (Buffer)</summary>
-    <image src="https://github.com/user-attachments/assets/c256ed80-a0ff-4c43-ab35-717547562f4d"></image>
-</details>
-
-Here is how `helix` looks like upon launching it in a directory:
-
-<details>
-    <summary>Helix (Scratch + File Picker)</summary>
-    <image src="https://github.com/user-attachments/assets/46559389-76ee-4166-993d-d32084dc1b9f"></image>
-</details>
-
-For Helix, `rose-pine` theme is used with a transparent background, instead of having a monochromatic theme.
-
-<details>
-    <summary>Helix (Buffer)</summary>
-    <image src="https://github.com/user-attachments/assets/f5a0ee91-b4a2-4529-92b8-b90ac8ded837"></image>
-</details>
-
-
-## <a id="description"></a> Description
-
-`dotfiles` is a configuration management project that allow users to easily replicate their local environment configuration.
-
-For the architecture, please refer to [ARCHITECTURE.md](./ARCHITECTURE.md).
 
 ## <a id='requirements'></a> Requirements
 
